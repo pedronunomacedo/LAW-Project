@@ -63,6 +63,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        dd(printf(bcrypt("lbaw2284")));
         error_log("Entered create()!");
         $user = User::create([
             'name' => $data['name'],
