@@ -20,6 +20,7 @@ if [ "$(uname)" == "Darwin" ]; then
     docker buildx build --push --platform linux/amd64 -t $IMAGE_NAME .     
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
     # Do something under GNU/Linux platform
+    echo 'You are on Linux platform!'
     docker build -t $IMAGE_NAME .
     docker push $IMAGE_NAME
     echo 'You are on Linux platform!'
