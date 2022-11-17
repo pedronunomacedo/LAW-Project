@@ -1305,7 +1305,7 @@ insert into Address (street, postalCode, city, country) values ('7 Farwell Place
 insert into Address (street, postalCode, city, country) values ('3 Roxbury Park', 'BD23', 'Linton', 'United Kingdom');
 insert into Address (street, postalCode, city, country) values ('65 Fisk Crossing', '1196', 'Sydney', 'Australia');
 insert into Address (street, postalCode, city, country) values ('66031 Springs Hill', 'NG34', 'Newton', 'United Kingdom');
-insert into Address  values (1000'97878 Nobel Point', '1009', 'Sydney', 'Australia');
+insert into Address (street, postalCode, city, country) values ('97878 Nobel Point', '1009', 'Sydney', 'Australia');
 --end address
 --start user
 insert into users (name, email, phoneNumber, password) values ('kliddall0', 'tbamforth0@hubpages.com', '+351 587 845 8283', '$2y$10$Y6EfaoDg7TT./n2u60HdpuyhjdagdSV8EGxyOHK6DKD3vWycigdQ.');

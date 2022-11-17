@@ -28,11 +28,11 @@ class CardController extends Controller
      *
      * @return Response
      */
-    public function list()
+    public function list() // The error is here!
     {
       if (!Auth::check()) return redirect('/login');
       $this->authorize('list', Card::class);
-      $cards = Auth::user()->cards()->orderBy('id')->get();
+      //$cards = Auth::user()->cards()->orderBy('id')->get();
       return view('pages.cards', ['cards' => $cards]);
     }
 
