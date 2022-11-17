@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27959eb3fd9e714e56a1360bf9cf9451",
+    "content-hash": "749d38cf883b051d2f4b57d0baedb7f8",
     "packages": [
         {
             "name": "brick/math",
@@ -702,6 +702,59 @@
                 }
             ],
             "time": "2022-07-30T15:56:11+00:00"
+        },
+        {
+            "name": "j3j5/hmac-bcrypt-laravel",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/j3j5/hmac-bcrypt-laravel.git",
+                "reference": "fbc18e13cc095c896ec638b9bac4e61b79e3153c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/j3j5/hmac-bcrypt-laravel/zipball/fbc18e13cc095c896ec638b9bac4e61b79e3153c",
+                "reference": "fbc18e13cc095c896ec638b9bac4e61b79e3153c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/hashing": "^9.0",
+                "illuminate/support": "^9.0"
+            },
+            "require-dev": {
+                "nunomaduro/larastan": "^2.2",
+                "orchestra/testbench": "^7.7",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "j3j5\\HmacBcryptLaravel\\HashServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "j3j5\\HmacBcryptLaravel\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Julio Foulquie",
+                    "email": "the.j3j5@gmail.com"
+                }
+            ],
+            "description": "A laravel hasher for the HMAC-BCrypt implementation for password hashing",
+            "support": {
+                "issues": "https://github.com/j3j5/hmac-bcrypt-laravel/issues",
+                "source": "https://github.com/j3j5/hmac-bcrypt-laravel/tree/0.1.1"
+            },
+            "time": "2022-10-06T22:39:04+00:00"
         },
         {
             "name": "laravel/framework",
