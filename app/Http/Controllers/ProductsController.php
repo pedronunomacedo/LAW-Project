@@ -26,4 +26,11 @@ class ProductsController extends Controller {
 
     return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
   }
+
+  public static function destroy($id){  
+ 
+    $result = Product::where('id', $id)->delete();  
+ 
+    return redirect('adminManageProducts');
+  }
 }

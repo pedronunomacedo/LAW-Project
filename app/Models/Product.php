@@ -14,16 +14,4 @@ class Product extends Model {
 
     return $allProducts;
   }
-
-  public static function destroy($product){
-
-    $report = $product;      
- 
-    $rsltDelRec = Product::find($report->id);
- 
-    $rsltDelRec->delete();        
-    $request->session()->flash('alert-success', ' Report is deleted successfully.');
- 
-    return redirect()->route('/adminManageProducts');
- }
 }
