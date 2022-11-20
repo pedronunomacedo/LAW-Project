@@ -39,11 +39,11 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
                     <div class="dropdown-menu">
                       <a class="dropdown-item" href="#">Profile</a>
-                      <a class="dropdown-item" href="#">Manage Users</a>
-                      <a class="dropdown-item" href="#">Manage Products</a>
+                      <a class="dropdown-item" href="/">Manage Users</a>
+                      <a class="dropdown-item" href="/adminManageProducts">Manage Products</a>
                       <a class="dropdown-item" href="#">Manage Orders</a>
                       <a class="dropdown-item" href="#">Manage FAQs</a>
-                      <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
+                      <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>
                   </li>
                 @else
@@ -53,7 +53,7 @@
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
                     <div class="dropdown-menu dropdown-menu-end">
-                      <a class="dropdown-item" href="#">Profile</a>
+                      <a class="dropdown-item" href="{{route('profile', [Auth::id()])}}">Profile</a>
                       <a class="dropdown-item" href="#">Wishlist</a>
                       <a class="dropdown-item" href="#">Orders</a>
                       <a class="dropdown-item" href="{{route('logout')}}">Logout</a>

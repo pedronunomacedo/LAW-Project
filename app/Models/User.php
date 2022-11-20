@@ -31,7 +31,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function isAdmin(){
+    public function isAdmin() {
         $admin = DB::table('administrator')
                  ->where('id', '=', $this->id)
                  ->first();

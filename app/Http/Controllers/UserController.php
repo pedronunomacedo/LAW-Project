@@ -2,14 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\ModelNotFoundException; //find or fail error exception class (findOrFail())
 
-class ProductsController extends Controller {
+class UserController extends Controller
+{
+    public function showProfile($id) {
+        $user = User::findOrFail($id); // get the user
+
+        return view('pages.profile', ['user' => $user]);
+    }
+
+
+
   public function showHighlights(){
 
     $newProducts = Product::orderBy('launchdate', 'desc')->take(5)->get();
@@ -19,11 +28,4 @@ class ProductsController extends Controller {
     return view('pages.home', ['newProducts' => $newProducts, 'bestSmartphones' => $bestSmartphones, 'bestLaptops' => $bestLaptops]);
   }
   
-  public function showAllProducts() {
-    $allProducts = Product::all();
-    $allProducts = $allProducts->sortByDesc('launchdate');
-    $allCategories = ["Smartphones", "Components", "TVs", "Laptops", "Desktops", "Others"];
-
-    return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
-  }
 }

@@ -7,10 +7,9 @@
 <!-- MISSING DISPLAYING THE CATEGORIES -->
 
 <main>
-    <div>
-        <p> HELLO WORLD!</p>
-    </div>
-
+    <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="">Home</a></li>
+    </ol>
 </main>
 
 @endsection
