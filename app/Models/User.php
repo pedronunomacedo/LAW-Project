@@ -12,6 +12,7 @@ class User extends Authenticatable
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
+    protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +31,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function getUser($id) {
+        $user = DB::table('users')
+                ->where('id', '=', $id);
+        
+        return $user;
+    }
 
     public function isAdmin() {
         $admin = DB::table('administrator')

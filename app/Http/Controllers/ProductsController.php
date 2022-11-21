@@ -27,10 +27,14 @@ class ProductsController extends Controller {
     return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
   }
 
-  public static function destroy($id){  
+  public static function destroy($id) {  
  
-    $result = Product::where('id', $id)->delete();  
+    $result = Product::where('id', $id)->delete();
  
     return redirect('adminManageProducts');
+  }
+
+  public static function updateProduct($id, $parameter, $newValue) {
+    $result = Product::where('id', $id)->update([$parameter => $newValue]);
   }
 }

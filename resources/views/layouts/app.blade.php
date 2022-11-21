@@ -38,11 +38,11 @@
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Profile</a>
-                      <a class="dropdown-item" href="/">Manage Users</a>
+                      <a class="dropdown-item" href="/profile/{{ Auth::user()->id }}">Profile</a>
+                      <a class="dropdown-item" href="/adminManageUsers">Manage Users</a>
                       <a class="dropdown-item" href="/adminManageProducts">Manage Products</a>
-                      <a class="dropdown-item" href="#">Manage Orders</a>
-                      <a class="dropdown-item" href="#">Manage FAQs</a>
+                      <a class="dropdown-item" href="/adminManageOrders">Manage Orders</a>
+                      <a class="dropdown-item" href="/adminManageFAQs">Manage FAQs</a>
                       <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>
                   </li>

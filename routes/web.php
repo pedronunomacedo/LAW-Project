@@ -36,5 +36,9 @@ Route::get('profile', 'Auth\LoginController@login');
 Route::get('profile/{id}', 'UserController@showProfile')->name('profile')->where('id','[0-9]+');
 
 // Manage Users (admin)
+Route::get('adminManageUsers', 'UserController@showAllUsers');
+Route::get('/adminManageUsers/remove/{id}', 'UserController@destroy')->name('adminManageUsers')->where('id','[0-9]+');
 Route::get('adminManageProducts', 'ProductsController@showAllProducts');
 Route::get('/adminManageProducts/delete/{id}', 'ProductsController@destroy')->name('adminManageProducts')->where('id','[0-9]+');
+Route::get('adminManageOrders', 'AdminController@showAllOrders');
+Route::get('adminManageFAQs', 'AdminController@showAllFAQs');

@@ -7,8 +7,8 @@
 <!-- MISSING DISPLAYING THE CATEGORIES -->
 
 <main>
-    <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="">Home</a></li>
+    <ol class="breadcrumb" style="margin-left: 10px">
+        <li class="breadcrumb-item active"><a href="">Home</a></li>
     </ol>
 </main>
 
