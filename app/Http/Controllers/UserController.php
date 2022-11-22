@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException; //find or fail error exception class (findOrFail())
+use Illuminate\Support\Facades\Input;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
   public function showProfile($id) {
       $user = User::findOrFail($id); // get the user
 
@@ -34,10 +34,20 @@ class UserController extends Controller
   }
 
   public static function destroy($id) {  
- 
     $result = User::where('id', $id)->delete();
  
     return redirect('adminManageUsers');
+  }
+
+  public static function updateProfileData($id, Request $request) {
+    if ($request->phonenumber == "") {
+      User::where('id', $id)->update(['name'=> $request->username, 'password' => $request->password , 'email' => $request->email]);
+    }
+    else {
+      User::where('id', $id)->update(['name'=> $request->username, 'password' => $request->password , 'email' => $request->email, 'phonenumber' => $request->phonenumber]);
+    }
+
+    return redirect('profile/' . $id);
   }
   
 }

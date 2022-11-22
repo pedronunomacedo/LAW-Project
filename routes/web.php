@@ -34,11 +34,17 @@ Route::post('register', 'Auth\RegisterController@register');
 // Profile
 Route::get('profile', 'Auth\LoginController@login');
 Route::get('profile/{id}', 'UserController@showProfile')->name('profile')->where('id','[0-9]+');
+Route::post('adminUpdateUserProfile/saveChanges/{id}', 'UserController@updateProfileData')->name('saveUserProfile')->where('id','[0-9]+');
 
 // Manage Users (admin)
 Route::get('adminManageUsers', 'UserController@showAllUsers');
 Route::get('/adminManageUsers/remove/{id}', 'UserController@destroy')->name('adminManageUsers')->where('id','[0-9]+');
 Route::get('adminManageProducts', 'ProductsController@showAllProducts');
-Route::get('/adminManageProducts/delete/{id}', 'ProductsController@destroy')->name('adminManageProducts')->where('id','[0-9]+');
+//Route::get('adminManageProducts/delete/{id}', 'ProductsController@destroy')->name('adminManageProducts')->where('id','[0-9]+');
+Route::post('adminManageProducts/delete', 'ProductsController@destroy')->name('adminManageProducts');
+Route::post('adminManageProducts/saveChanges', 'ProductsController@updateProduct')->name('adminManageUpdateProducts');
 Route::get('adminManageOrders', 'AdminController@showAllOrders');
+Route::post('adminManageOrders/saveChanges/{id}', 'AdminController@saveOrderInfo')->name('adminManageUpdateOrders')->where('id','[0-9]+');
 Route::get('adminManageFAQs', 'AdminController@showAllFAQs');
+Route::post('adminManageFAQS/saveChanges/{id}', 'AdminController@updateFAQ')->name('adminManageUpdateFAQS')->where('id','[0-9]+');
+Route::get('adminManageFAQS/delete/{id}', 'AdminController@destroyFAQ')->name('adminDeleteFAQS')->where('id','[0-9]+');

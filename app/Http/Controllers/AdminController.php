@@ -23,6 +23,52 @@ class AdminController extends Controller {
   public function showAllFAQs() {
     $allFAQs = Faq::all();
 
+    $allFAQs = $allFAQs->sortBy('id');
+
+    return view('pages.adminManageFAQs', ['allFAQs' => $allFAQs]);
+  }
+
+  public function saveOrderInfo($id) {
+    $newState = $_POST['category_selector'];
+
+    $order = Order::findOrFail($id);
+
+    $order->orderstate = $newState;
+
+    $order->save();
+
+    $allOrderStates = ["In process", "Preparing", "Dispatched", "Delivered", "Cancelled"];
+
+    $allOrders = Order::all();
+
+    return view('pages.adminManageOrders', ['allOrders' => $allOrders, 'allOrderStates' => $allOrderStates]);
+  }
+
+  public function updateFAQ($id) {
+    $newQuestion = $_POST['faq_question'];
+    $newAnswer = $_POST['faq_answer'];
+
+    $faq = Faq::findOrFail($id);
+
+    $faq->question = $newQuestion;
+    $faq->answer = $newAnswer;
+
+    $faq->save();
+
+    $allFAQs = Faq::all();
+
+    $allFAQs = $allFAQs->sortBy('id');
+
+    return view('pages.adminManageFAQs', ['allFAQs' => $allFAQs]);
+  }
+
+  public static function destroyFAQ($id) {  
+    $result = Faq::where('id', $id)->delete();
+
+    $allFAQs = Faq::all();
+
+    $allFAQs = $allFAQs->sortBy('id');
+ 
     return view('pages.adminManageFAQs', ['allFAQs' => $allFAQs]);
   }
 }

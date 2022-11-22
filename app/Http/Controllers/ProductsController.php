@@ -27,14 +27,14 @@ class ProductsController extends Controller {
     return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
   }
 
-  public static function destroy($id) {  
+  public static function destroy(Request $request) {  
  
-    $result = Product::where('id', $id)->delete();
+    $result = Product::where('id', $request->id)->delete();
  
-    return redirect('adminManageProducts');
+    //return redirect('adminManageProducts');
   }
 
-  public static function updateProduct($id, $parameter, $newValue) {
-    $result = Product::where('id', $id)->update([$parameter => $newValue]);
+  public static function updateProduct(Request $request) {
+    Product::where('id', $request->product_id)->update(['prodname' => $request->product_name, 'price' => $request->product_price, 'proddescription' => $request->product_description, 'launchdate' => $request->product_launchdate, 'stock' => $request->product_stock, 'categoryname' => $request->product_category]);
   }
 }

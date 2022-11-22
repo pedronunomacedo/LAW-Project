@@ -178,3 +178,25 @@ function createItem(item) {
 }
 
 addEventListeners();
+
+
+
+
+
+
+function deleteProduct(id) {
+  sendAjaxRequest("POST", "adminManageProducts/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+
+  document.querySelector("#productForm" + id).remove();
+}
+
+function updateProduct(id) {
+  var newName = document.querySelector("#product_name" + id).value;
+  var newPrice = document.querySelector("#product_price" + id).value;
+  var newStock = document.querySelector("#product_stock" + id).value;
+  var newLaunchDate = document.querySelector("#product_launchDate" + id).value;
+  var newCategory = document.querySelector("#product_category" + id).value;
+  var newDescription = document.querySelector("#product_description" + id).value;
+
+  sendAjaxRequest("POST", "adminManageProducts/saveChanges", {product_id : id, product_name : newName, product_price : newPrice, product_description: newDescription, product_launchdate : newLaunchDate, product_stock : newStock, product_category : newCategory}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+}
