@@ -17,6 +17,8 @@ class AdminController extends Controller {
 
     $allOrders = Order::all();
 
+    $allOrders = $allOrders->sortBy('id');
+
     return view('pages.adminManageOrders', ['allOrders' => $allOrders, 'allOrderStates' => $allOrderStates]);
   }
 
@@ -28,47 +30,24 @@ class AdminController extends Controller {
     return view('pages.adminManageFAQs', ['allFAQs' => $allFAQs]);
   }
 
-  public function saveOrderInfo($id) {
-    $newState = $_POST['category_selector'];
+  public function saveOrderInfo(Request $request) {
+    $order = Order::findOrFail($request->id);
 
-    $order = Order::findOrFail($id);
-
-    $order->orderstate = $newState;
+    $order->orderstate = $request->new_order_state;
 
     $order->save();
-
-    $allOrderStates = ["In process", "Preparing", "Dispatched", "Delivered", "Cancelled"];
-
-    $allOrders = Order::all();
-
-    return view('pages.adminManageOrders', ['allOrders' => $allOrders, 'allOrderStates' => $allOrderStates]);
   }
 
-  public function updateFAQ($id) {
-    $newQuestion = $_POST['faq_question'];
-    $newAnswer = $_POST['faq_answer'];
+  public function updateFAQ(Request $request) {
+    $faq = Faq::findOrFail($request->id);
 
-    $faq = Faq::findOrFail($id);
-
-    $faq->question = $newQuestion;
-    $faq->answer = $newAnswer;
+    $faq->question = $request->new_faq_question;
+    $faq->answer = $request->new_faq_answer;
 
     $faq->save();
-
-    $allFAQs = Faq::all();
-
-    $allFAQs = $allFAQs->sortBy('id');
-
-    return view('pages.adminManageFAQs', ['allFAQs' => $allFAQs]);
   }
 
-  public static function destroyFAQ($id) {  
-    $result = Faq::where('id', $id)->delete();
-
-    $allFAQs = Faq::all();
-
-    $allFAQs = $allFAQs->sortBy('id');
- 
-    return view('pages.adminManageFAQs', ['allFAQs' => $allFAQs]);
+  public static function destroyFAQ(Request $request) {
+    Faq::where('id', $request->id)->delete();
   }
 }

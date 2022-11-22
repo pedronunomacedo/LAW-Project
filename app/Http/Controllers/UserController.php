@@ -33,10 +33,8 @@ class UserController extends Controller {
     return view('pages.adminManageUsers', ['allUsers' => $allUsers]);
   }
 
-  public static function destroy($id) {  
-    $result = User::where('id', $id)->delete();
- 
-    return redirect('adminManageUsers');
+  public static function destroy(Request $request) {  
+    User::where('id', $request->id)->delete();
   }
 
   public static function updateProfileData($id, Request $request) {
