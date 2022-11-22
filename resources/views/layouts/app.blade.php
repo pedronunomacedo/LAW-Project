@@ -15,22 +15,20 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-
-    <script type="text/javascript" src={{ asset('js/app.js') }} defer>
-  </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src={{ asset('js/app.js') }} defer></script>
   </head>
   <body>
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 5em">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{ url('/') }}">Tech4You</a>
+          <a class="navbar-brand" href="{{ url('/') }}"><h1 class="display-6">Tech4You</h1></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse position-absolute end-0" id="navbarColor02">
-            <form class="d-flex mx-2">
-              <input class="form-control sm-2" type="text" placeholder="Search">
-              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+              <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
             </form>
             <ul class="navbar-nav mx-2">
               @if (Auth::check())
@@ -47,15 +45,13 @@
                     </div>
                   </li>
                 @else
-                  <li class="nav-item">
-                  <a class="nav-link active" href="#"><i class="fas fa-shopping-bag"></i></a>
-                  </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
                     <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="{{route('profile', [Auth::id()])}}">Profile</a>
                       <a class="dropdown-item" href="#">Wishlist</a>
                       <a class="dropdown-item" href="#">Orders</a>
+                      <div><hr class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
                     </div>
                   </li>
@@ -70,8 +66,17 @@
         </div>
       </nav>
     </header>
-    <section id="content">
+    <section id="content" class="min-vh-100">
       @yield('content')
     </section>
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mx-5">
+      <p class="col-md-4 mb-0 text-muted">&copy; 2022 Tech4You</p>
+      <ul class="nav col-md-4 justify-content-end">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contacts</a></li>
+      </ul>
+    </footer>
   </body>
 </html>

@@ -47,4 +47,13 @@ class User extends Authenticatable
         if (empty($admin)) return false;
         else return true;
     }
+
+    public function wishlist() {
+        return $this->belongsToMany('App\Models\Product', 'wishlist');
+    }
+
+    public function shopcart(){
+        return $this->belongsToMany('App\Models\Product', 'shopcart')
+                    ->withPivot('quantity');
+    }
 }

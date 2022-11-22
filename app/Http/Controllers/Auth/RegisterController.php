@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/cards';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -63,14 +63,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        dd(printf(bcrypt("lbaw2284")));
-        error_log("Entered create()!");
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
-        error_log($user);
         return $user;
     }
 }
