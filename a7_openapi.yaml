@@ -343,7 +343,7 @@ paths:
 
   /api/product/filter:
     get:
-      operationId: 204
+      operationId: R204
       summary: "R204 : Return products according to certain filters"
       description: "Show filtered products by certain criteria. Access: PUB"
       tags:
