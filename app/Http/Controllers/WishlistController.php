@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use session;
 
 class WishlistController extends Controller
 {
@@ -28,21 +27,23 @@ class WishlistController extends Controller
 
     public function addWishlistProduct(Request $request)
     {
-
-        $product = Product::findOrFail($request->id);
-
-        if ($product != null) {
+        if (1) {
 
             if (Auth::check()) {
-
-                $user = Auth::user();
-                $this->authorize('edit', $user);
-                $user->wishlist()->attach($product);
+                error_log('0');
+                $wishlist = new Wishlist;
+                error_log('1');
+                $wishlist->idusers = Auth::user()->id;
+                error_log('2');
+                $wishlist->idproduct = $request->id;
+                //$wishlist = Wishlist::create(['idusers' => '1', 'idproduct' => '2']);
+                error_log($wishlist);
+                $wishlist->save();  //not working
+                return $wishlist;
 
             } else {
-                return route('login');
+                return route('login');  //not working
             }
         }
-        return response(json_encode("Product added to Wishlist"), 200);
     }
 }

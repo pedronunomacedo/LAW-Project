@@ -6,8 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Order extends Authenticatable {
-    use Notifiable;
+class Order extends Model {
     protected $table = 'orders';
 
     // Don't add create and update timestamps in database.

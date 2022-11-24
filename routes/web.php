@@ -47,3 +47,22 @@ Route::post('adminManageOrders/saveChanges', 'AdminController@saveOrderInfo')->n
 Route::get('adminManageFAQs', 'AdminController@showAllFAQs');
 Route::post('adminManageFAQS/saveChanges', 'AdminController@updateFAQ')->name('adminManageUpdateFAQS');
 Route::post('adminManageFAQS/delete', 'AdminController@destroyFAQ')->name('adminDeleteFAQS');
+Route::post('adminManageFAQS/addFAQ', 'AdminController@addFAQ')->name('adminAddFAQ');
+
+// Wislist
+Route::get('wishlist', 'WishlistController@showWishlist');
+Route::post('wishlist/addToWishlist', 'WishlistController@addWishlistProduct') -> name('addToWishlist');
+Route::post('wishlist/removeFromWishlist', 'WishlistController@removeWishlistProduct') -> name('removeFromWishlist');
+
+// ShopCart
+Route::get('shopcart', 'ShopCartController@showShopcart');
+Route::post('shopcart/addToShopCart', 'ShopCartController@addShopCartProduct') -> name('addToShopCart');
+Route::post('shopcart/removeFromShopCart', 'ShopCartController@removeShopCartProduct') -> name('removeFromShopCart');
+
+// Order
+Route::get('orders', 'OrdersController@showOrders');
+Route::post('orders/addToOrders', 'OrdersController@addOrdersProduct') -> name('addToOrders');
+Route::post('orders/removeFromOrders', 'OrdersController@removeOrdersProduct') -> name('removeFromOrders');
+
+// Product
+Route::get('product/{product_id}', 'ProductsController@showProduct') -> name('product');

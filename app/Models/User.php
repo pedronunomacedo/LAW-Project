@@ -49,11 +49,14 @@ class User extends Authenticatable
     }
 
     public function wishlist() {
-        return $this->belongsToMany('App\Models\Product', 'wishlist');
+        return $this->belongsToMany(Product::Class, 'wishlist', 'idusers', 'idproduct');
     }
 
     public function shopcart(){
-        return $this->belongsToMany('App\Models\Product', 'shopcart')
-                    ->withPivot('quantity');
+        return $this->belongsToMany(Product::Class, 'shopcart', 'idusers', 'idproduct')->withPivot('quantity');
+    }
+
+    public function orders(){
+        return $this->belongsToMany(Order::Class, 'order', 'idusers')->withPivot('id');//not working
     }
 }

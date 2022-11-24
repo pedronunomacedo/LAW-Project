@@ -50,4 +50,13 @@ class AdminController extends Controller {
   public static function destroyFAQ(Request $request) {
     Faq::where('id', $request->id)->delete();
   }
+
+  public function addFAQ(Request $request) {
+    $newFAQ = new Faq;
+
+    $newFAQ->question = $request->new_faq_question;
+    $newFAQ->answer = $request->new_faq_answer;
+
+    $newFAQ->save();
+  }
 }

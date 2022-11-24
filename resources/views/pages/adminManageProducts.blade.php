@@ -29,6 +29,44 @@
             </tr>
         </thead>
         <tbody>
+            <tr id="addNewProductForm">
+                <th colspan=8 style="text-align: center;">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <p>Product name: <input type="text" id="newProductName"></p>
+                                    <p>Product price: <input type="text" id="newProductPrice"></p>
+                                    <div>
+                                        <label for="newProdDescription">Product description: </label>
+                                        <textarea id="newProdDescription" name="productDescription" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <p>Product launch date: <input type="date" name="productLaunchdate" id="newProductLaunchdate"></p>
+                                    <p>Stock: <input type="text" name="productStock" id="newProductStock"></p>
+                                    <div>
+                                        <p>Product category: 
+                                            <select class="form-select" name="category_selector" id="newProductCategory">
+                                                <option style="text-align: center">Select a category</option>
+                                                <option style="text-align: center">Smartphones</option>
+                                                <option style="text-align: center">TVs</option>
+                                                <option style="text-align: center">Laptops</option>
+                                                <option style="text-align: center">Desktops</option>
+                                                <option style="text-align: center">Others</option>
+                                            </select>
+                                        </p>
+                                    </div>
+                                    <a onClick="addProduct()" type="submit" class="btn btn-success" value="Product create">Create Product</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+            </tr>
             @foreach($allProducts as $product)
                 <!-- @csrf -->
                 <tr id="productForm{{ $product->id }}">

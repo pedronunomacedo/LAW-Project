@@ -11,7 +11,7 @@
 
 <script src="extensions/editable/bootstrap-table-editable.js"></script>
 
-<h1 style="margin-left: 10px">All orders...</h1>
+<h1 style="margin-left: 10px">All FAQs...</h1>
 
 <div style="margin-left: 10px; margin: 20px;">
     
@@ -26,6 +26,36 @@
             </tr>
         </thead>
         <tbody>
+            <tr id="addNewProductForm">
+                <th colspan=8 style="text-align: center;">
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div id="rowAddFAQ">
+                                    <div>
+                                        <label for="prodDescription">Question: </label>
+                                        <textarea id="newQuestionID" name="newQuestion" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="prodDescription">Answer: </label>
+                                        <textarea id="newAnswerID" name="newAnswer" rows="4" cols="50"></textarea>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit" style="margin-top: 15px">
+                                        <div class="form-group">
+                                            <a onClick="addFAQ()" type="submit" class="btn btn-success" value="Create FAQ">Create FAQ</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </th>
+            </tr>
             @foreach($allFAQs as $faq)
                 <tr name="faq_row" style="text-align: center; justify-content: center;" id="faqForm{{ $faq->id }}">
                     <th scope="row" style="text-align: center; justify-content: center;">{{ $faq->id }}</th>

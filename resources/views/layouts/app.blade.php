@@ -49,8 +49,9 @@
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
                     <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="{{route('profile', [Auth::id()])}}">Profile</a>
-                      <a class="dropdown-item" href="#">Wishlist</a>
-                      <a class="dropdown-item" href="#">Orders</a>
+                      <a class="dropdown-item" href="/wishlist">Wishlist</a>
+                      <a class="dropdown-item" href="/shopcart">ShopCart</a>
+                      <a class="dropdown-item" href="/orders">Orders</a>
                       <div><hr class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
                     </div>

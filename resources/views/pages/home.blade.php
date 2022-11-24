@@ -5,7 +5,6 @@
 @section('content')
 
 <!-- MISSING DISPLAYING THE CATEGORIES -->
-<script src={{ asset('js/product.js') }} defer></script>
 <main>
     <div class="mt-5 container">
         <h2>New Releases</h2>
@@ -17,8 +16,8 @@
                     <a href="{{ route('product', ['product_id'=> $newProduct->id]) }}"><h6 style="cursor:pointer;">{{ $newProduct->prodname }}</h6></a>
                     <span>{{ $newProduct->price }} €</span>
                     <div>
-                        <button class="btn" onclick="sendRequest('post','wishlist', {{$newProduct->id}})"><i class="fas fa-star"></i></button>
-                        <button class="btn" onclick="addToShopCart(null, {{$newProduct->id}})"><i class="fas fa-shopping-bag"></i></button>
+                        <button class="btn" onclick="addToWishlist({{ $newProduct->id }})"><i class="fas fa-star"></i></button>
+                        <button class="btn" onclick="addToShopCart({{ $newProduct->id }})"><i class="fas fa-shopping-bag"></i></button>
                     </div>
                 </div>
             </div>
@@ -35,8 +34,8 @@
                     <a href="{{ route('product', ['product_id'=> $Smartphone->id]) }}"><h6 style="cursor:pointer;">{{ $Smartphone->prodname }}</h6></a>
                     <span>{{ $Smartphone->price }} €</span>
                     <div>
-                        <a class="btn" href="#"><i class="fas fa-star"></i></a>
-                        <a class="btn" href="#"><i class="fas fa-shopping-bag"></i></a>
+                        <button class="btn" onclick="addToWishlist({{ $Smartphone->id }})"><i class="fas fa-star"></i></button>
+                        <button class="btn" onclick="addToShopCart({{ $Smartphone->id }})"><i class="fas fa-shopping-bag"></i></button>
                     </div>
                 </div>
             </div>
@@ -53,8 +52,8 @@
                     <a href="{{ route('product', ['product_id'=> $Laptop->id]) }}"><h6 style="cursor:pointer;">{{ $Laptop->prodname }}</h6></a>
                     <span>{{ $Laptop->price }} €</span>
                     <div>
-                        <a class="btn" href="#"><i class="fas fa-star"></i></a>
-                        <a class="btn" href="#"><i class="fas fa-shopping-bag"></i></a>
+                        <button class="btn" onclick="addToWishlist({{ $Laptop->id }})"><i class="fas fa-star"></i></button>
+                        <button class="btn" onclick="addToShopCart({{ $Laptop->id }})"><i class="fas fa-shopping-bag"></i></button>
                     </div>
                 </div>
             </div>
