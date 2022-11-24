@@ -74,7 +74,7 @@ paths:
 
     post:
       operationId: R103
-      summary: 'R103: sign-out Action'
+      summary: 'R103: Sign-out Action'
       description: 'Sign-out the current authenticated used. Access: USR, ADM'
       tags:
         - 'M01: Authentication and Individual Profile'
