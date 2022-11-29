@@ -8,8 +8,9 @@
 <main>
     <div class="mt-5 container">
         <h2>New Releases</h2>
-        <div class="row justify-content-between">
-        @foreach($newProducts as $newProduct)
+        <div class="row flex-nowrap">
+        @each('partials.product_card', $newProducts, 'product')
+        <!--@foreach($newProducts as $newProduct)
             <div class="mt-4 col-md-6 col-lg-2 bg-opacity-25 bg-dark">
                 <div class="box d-flex flex-column align-items-center">
                     <a href="{{ route('product', ['product_id'=> $newProduct->id]) }}"><img src="https://cdn.pixabay.com/photo/2016/10/02/19/51/chip-1710300_960_720.png" alt="{{ $newProduct->prodName }}" class="img-fluid" style="cursor:pointer;"></a>
@@ -21,7 +22,7 @@
                     </div>
                 </div>
             </div>
-        @endforeach
+        @endforeach -->
         </div>
     </div>
     <div class="mt-5 container">
