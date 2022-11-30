@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 
 class ProductsController extends Controller {
-  public function showHighlights(){
+  public function showHighlights() {
 
     $newProducts = Product::orderBy('launchdate', 'desc')->take(5)->get();
     $bestSmartphones = Product::where('categoryname', 'Smartphones')->orderBy('score', 'desc')->take(5)->get();

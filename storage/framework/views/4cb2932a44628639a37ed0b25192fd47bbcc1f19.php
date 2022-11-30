@@ -12,6 +12,7 @@
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="/css/admin.css" rel="stylesheet">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
@@ -35,7 +36,7 @@
                 <?php if(Auth::user()->isAdmin()): ?>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo e(Auth::user()->name); ?></a>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="/profile/<?php echo e(Auth::user()->id); ?>">Profile</a>
                       <a class="dropdown-item" href="/adminManageUsers">Manage Users</a>
                       <a class="dropdown-item" href="/adminManageProducts">Manage Products</a>
