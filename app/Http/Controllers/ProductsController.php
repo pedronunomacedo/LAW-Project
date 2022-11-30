@@ -30,10 +30,7 @@ class ProductsController extends Controller {
   }
 
   public static function destroy(Request $request) {  
- 
     $result = Product::where('id', $request->id)->delete();
- 
-    //return redirect('adminManageProducts');
   }
 
   public static function updateProduct(Request $request) {
