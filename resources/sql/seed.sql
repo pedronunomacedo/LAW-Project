@@ -37,11 +37,11 @@ CREATE TABLE users (
 );
 
 CREATE TABLE AuthenticatedUser (
-  id INTEGER REFERENCES users(id)
+  id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Administrator (
-  id INTEGER REFERENCES users(id)
+  id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Address (
@@ -53,8 +53,8 @@ CREATE TABLE Address (
 );
 
 CREATE TABLE AuthUserAddress (
-	idusers INTEGER REFERENCES users(id), 
-  idAddress INTEGER REFERENCES Address(id)
+	idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
+  idAddress INTEGER REFERENCES Address(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Product (
@@ -70,8 +70,8 @@ CREATE TABLE Product (
 
 CREATE TABLE Orders (
 	id SERIAL PRIMARY KEY, 
-  idAddress INTEGER REFERENCES Address(id), 
-  idusers INTEGER REFERENCES users(id),
+  idAddress INTEGER REFERENCES Address(id) ON DELETE CASCADE,  
+  idusers INTEGER REFERENCES users(id)  ON DELETE CASCADE, 
   orderDate DATE NOT NULL DEFAULT CURRENT_DATE, 
   orderState ORDER_STATE NOT NULL DEFAULT 'In process'
 );
@@ -79,18 +79,18 @@ CREATE TABLE Orders (
 CREATE TABLE Notification (
 	content VARCHAR(255) NOT NULL, 
   notifDate DATE NOT NULL DEFAULT CURRENT_DATE, 
-  idusers INTEGER REFERENCES users(id), 
-  idOrders INTEGER REFERENCES Orders(id)
+  idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
+  idOrders INTEGER REFERENCES Orders(id) ON DELETE CASCADE
 );
 
 CREATE TABLE ProductImages (
-	idProduct INTEGER REFERENCES Product(id), 
+	idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
   imgPath VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE OrderStateHistory(
 	id SERIAL PRIMARY KEY, 
-  idOrders INTEGER REFERENCES Orders(id), 
+  idOrders INTEGER REFERENCES Orders(id) ON DELETE CASCADE, 
   stateDate DATE NOT NULL DEFAULT CURRENT_DATE, 
   orderState ORDER_STATE NOT NULL DEFAULT 'In process'
 );
@@ -98,26 +98,26 @@ CREATE TABLE OrderStateHistory(
 CREATE TABLE ProductOrder (
   quantity INTEGER CHECK (quantity > 0), 
   totalPrice FLOAT NOT NULL, 
-  idProduct INTEGER REFERENCES Product(id), 
-	idOrders INTEGER REFERENCES Orders(id), 
+  idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
+	idOrders INTEGER REFERENCES Orders(id) ON DELETE CASCADE, 
   PRIMARY KEY (idOrders, idProduct)
 );
 
 CREATE TABLE ShopCart (
-	idusers INTEGER REFERENCES users(id), 
-  idProduct INTEGER REFERENCES Product(id), 
+	idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
+  idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
   quantity INTEGER CHECK (quantity > 0)
 );
 
 CREATE TABLE Wishlist (
-	idusers INTEGER REFERENCES users(id), 
-  idProduct INTEGER REFERENCES Product(id)
+	idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
+  idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Review (
 	id SERIAL PRIMARY KEY, 
-  idusers INTEGER REFERENCES users(id), 
-  idProduct INTEGER REFERENCES Product(id), 
+  idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
+  idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
   reviewDate DATE NOT NULL DEFAULT CURRENT_DATE, 
   content VARCHAR(500) NOT NULL, 
   rating INTEGER NOT NULL CHECK (rating >= 0 AND rating <= 5)

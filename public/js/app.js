@@ -178,3 +178,90 @@ function createItem(item) {
 }
 
 addEventListeners();
+
+
+
+
+
+
+function deleteProduct(id) {
+  sendAjaxRequest("POST", "adminManageProducts/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+
+  document.querySelector("#productForm" + id).remove();
+}
+
+function updateProduct(id) {
+  var newName = document.querySelector("#product_name" + id).value;
+  var newPrice = document.querySelector("#product_price" + id).value;
+  var newStock = document.querySelector("#product_stock" + id).value;
+  var newLaunchDate = document.querySelector("#product_launchDate" + id).value;
+  var newCategory = document.querySelector("#product_category" + id).value;
+  var newDescription = document.querySelector("#product_description" + id).value;
+
+  sendAjaxRequest("POST", "adminManageProducts/saveChanges", {product_id : id, product_name : newName, product_price : newPrice, product_description: newDescription, product_launchdate : newLaunchDate, product_stock : newStock, product_category : newCategory}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+}
+
+function deleteUser(id) {
+  sendAjaxRequest("POST", "adminManageUsers/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+
+  document.querySelector("#userForm" + id).remove();
+}
+
+function updateOrder(id) {
+  var newOrderState = document.querySelector("#order_state" + id).value;
+
+  sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState});
+}
+
+function deleteFAQ(id) {
+  sendAjaxRequest("POST", "adminManageFAQS/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+  document.querySelector("#faqForm" + id).remove();
+}
+
+function updateFAQ(id) {
+  var newFAQquestion = document.querySelector("#faq_question" + id).value;
+  var newFAQanswer = document.querySelector("#faq_answer" + id).value;
+
+  sendAjaxRequest("POST", "adminManageFAQS/saveChanges", {id : id, new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
+}
+
+function addFAQ() {
+  var newFAQquestion = document.querySelector("#newQuestionID").value;
+  var newFAQanswer = document.querySelector("#newAnswerID").value;
+
+  sendAjaxRequest("POST", "adminManageFAQS/addFAQ", {new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
+}
+
+function addProduct() { // Not working
+  var newProductName = document.querySelector("#newProductName").value;
+  var newProductPrice = document.querySelector("#newProductPrice").value;
+  var newProdDescription = document.querySelector("#newProdDescription").value;
+  var newProductLaunchdate = document.querySelector("#newProductLaunchdate").value;
+  var newProductStock = document.querySelector("#newProductStock").value;
+  var newProductCategory = document.querySelector("#newProductCategory").value;
+
+  sendAjaxRequest("POST", "adminManageProducts/addProduct", {new_product_name : newProductName, new_product_price : newProductPrice, new_product_description : newProdDescription, new_product_launchdate : newProductLaunchdate, new_product_stock : newProductStock, new_product_category : newProductCategory});
+}
+
+function addToWishlist(id) {
+  console.log(id);
+  sendAjaxRequest("POST", "wishlist/addToWishlist", {id : id});
+}
+
+function removeFromWishlist(id){
+
+}
+
+function addToShopCart(id) {
+  console.log(id);
+  sendAjaxRequest("POST", "shopcart/addToShopCart", {id : id});
+}
+
+function removeFromShopCart(id) {
+  
+}
+
+function addToOrders(id) {
+  console.log(id);
+  sendAjaxRequest("POST", "orders/addToOrders", {id : id});
+}

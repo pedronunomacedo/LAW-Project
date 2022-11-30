@@ -1,32 +1,32 @@
 @extends('layouts.app')
 
 @section('content')
-<form method="POST" action="{{ route('login') }}">
+<form class="form-group bg-dark bg-opacity-25 p-3 mx-auto mt-5" method="POST" action="{{ route('login') }}" style="width: 20em">
     {{ csrf_field() }}
-
-    <label for="email">E-mail</label>
-    <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus>
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required placeholder="email">
+        <label for="email">Email</label>
+    </div>
     @if ($errors->has('email'))
         <span class="error">
-          {{ $errors->first('email') }}
+        {{ $errors->first('email') }}
         </span>
     @endif
-
-    <label for="password" >Password</label>
-    <input id="password" type="password" name="password" required>
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="password" name="password" required placeholder="password">
+        <label for="password">Password</label>
+    </div>
     @if ($errors->has('password'))
         <span class="error">
             {{ $errors->first('password') }}
         </span>
     @endif
-
     <label>
-        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
+        <input type="checkbox" class="form-check-input" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
     </label>
-
-    <button type="submit">
+    <button class="btn btn-dark" type="submit">
         Login
     </button>
-    <a class="button button-outline" href="{{ route('register') }}">Register</a>
+    <a class="btn btn-outline-dark" href="{{ route('register') }}">Register</a>
 </form>
 @endsection
