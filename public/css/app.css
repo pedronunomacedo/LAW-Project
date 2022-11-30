@@ -1,3 +1,4 @@
+/*
 body {
   background-color: #ffffff;
   color: #9b4dca;
@@ -132,10 +133,6 @@ main > header span {
     border-bottom: 1px solid rgba(96, 108, 118, 0.4);
   }
 }
-/**
- * Overide milligram colors
- * Some styles might be missing
- **/
 button {
   background-color: #9b4dca;
   border-color: #9b4dca;
@@ -154,4 +151,34 @@ input[type=text]:focus,
 input[type=email]:focus,
 input[type=password]:focus {
   border-color: #9b4dca;
+}
+*/
+
+.category_card img {
+  background-color: #f6f6f6;
+  margin: auto;
+}
+
+.category_card a{
+  color: black;
+}
+
+.category_card:hover img {
+  transform: scale(1.1);
+  transition: .2s;
+  background-color: red;
+  border: 2px solid white;
+}
+
+.category_card:hover div {
+  display: flex;
+  width: 108px; 
+  height: 108px; 
+  border-radius: 50%; 
+  overflow: hidden;
+  border: 2px solid orangered;
+}
+
+.category_card:hover a {
+  color: red;
 }
