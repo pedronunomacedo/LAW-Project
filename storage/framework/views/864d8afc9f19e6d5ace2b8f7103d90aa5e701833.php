@@ -12,8 +12,8 @@
 <div class="mainDiv" style="margin: 0px 100px">
     <h1>Manage users...</h1>
     <div id="search_div" style="display: block; text-align: center;">
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search" style="width: 50%; display: inline-block; min-width: 180px">
-            <input type="search" class="form-control form-control-dark text-bg-light" placeholder="Search..." aria-label="Search" style="unset: all">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="<?php echo e(url('search')); ?>" method="GET" role="search">
+            <input type="search" name="search" value="" class="form-control form-control-light text-bg-light" placeholder="Search for users" aria-label="Search">
         </form>
     </div>
     <div class="data_div">

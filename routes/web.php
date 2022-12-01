@@ -66,3 +66,6 @@ Route::post('orders/removeFromOrders', 'OrdersController@removeOrdersProduct') -
 
 // Product
 Route::get('product/{product_id}', 'ProductsController@showProduct') -> name('product');
+
+// User search
+Route::get('search','UserController@searchUsers')->name('search_products');

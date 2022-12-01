@@ -38,5 +38,10 @@ class UserController extends Controller {
 
     return redirect('profile/' . $id);
   }
+
+  public function searchUsers(Request $search_request){
+    $searchUsers = User::where('name','LIKE','%' . $search_request->search . '%')->paginate(20);
+    return view('pages.search', ['searchUsers' => $searchUsers, 'searchStr' => $search_request->search] );
+  }
   
 }
