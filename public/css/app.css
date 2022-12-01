@@ -1,3 +1,15 @@
-h1 {
-    size: 1px;
+.userCard {
+    position: relative;
+    margin-top: 30px;
+}
+
+.card_buttons > a {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    size: 50px;
+}
+
+svg {
+    color: blue;
 }
