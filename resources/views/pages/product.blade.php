@@ -28,11 +28,20 @@
                     </div>
                     <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
                         @foreach($productReviews as $review)
+                            <hr class="my-4" />
                             <div id="review{{ $review->id }}">
-                                <p style="font-weight:normal"><strong>userID</strong>: {{ $review->idusers }}</p>
-                                <p style="font-weight:normal"><strong>Date:</strong> {{ $review->reviewdate }}</p>
-                                <p style="font-weight:normal"><strong>Rating</strong>: {{ $review->rating }}</p>
-                                <p style="font-weight:normal"><strong>Content:</strong> {{ $review->content }}</p>
+                                <p style="font-weight:normal"><strong>{{ $review->idusers }}</strong>, {{ $review->reviewdate }}</p>
+                                <p style="font-weight:normal">{{ $review->content }}</p>
+                                <div class="ratings">
+                                    <?php
+                                    for ($x = 0; $x < $review->rating; $x++) {?> 
+                                        <i class="fa fa-star rating-color"></i>
+                                    <?php } ?>
+                                    <?php
+                                    for ($x = 0; $x <= 4 - $review->rating; $x++) {?> 
+                                        <i class="fa fa-star"></i>
+                                    <?php } ?>
+                                </div>
                             </div>
                         @endforeach
                     </div>
