@@ -196,3 +196,19 @@ input[type=password]:focus {
   background-color: white;
   padding: 1rem;
 }
+
+.product_page_info {
+  background-color: white;
+  padding: 1rem;
+}
+
+.product_page_img {
+  background-color: white;
+  padding: 1rem;
+}
+
+.product_page_tabs {
+  background-color: white;
+  padding: 1rem;
+}
+
