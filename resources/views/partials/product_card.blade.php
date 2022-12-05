@@ -13,7 +13,6 @@
                 <i class="fa fa-star"></i>
             <?php } ?>
         </div>
-        <p>Rating: {{ $product->score }} </p>
         <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
         <div>
             <button class="btn" onclick="addToWishlist({{ $product->id }})"><i class="fas fa-star"></i></button>
