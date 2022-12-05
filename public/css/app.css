@@ -182,3 +182,17 @@ input[type=password]:focus {
 .category_card:hover a {
   color: red;
 }
+
+.rating-color {
+  color: yellow;
+}
+
+.product_wishlist_card {
+  background-color: white;
+  padding: 1rem;
+}
+
+.wishlist_summary {
+  background-color: white;
+  padding: 1rem;
+}
