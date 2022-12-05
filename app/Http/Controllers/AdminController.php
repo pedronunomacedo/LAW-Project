@@ -11,15 +11,23 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller {
-  
   public function showAllOrders() {
     $allOrderStates = ["In process", "Preparing", "Dispatched", "Delivered", "Cancelled"];
 
-    $allOrders = Order::all();
+    $allOrders = Order::paginate(20);
 
     $allOrders = $allOrders->sortBy('id');
 
-    return view('pages.adminManageOrders', ['allOrders' => $allOrders, 'allOrderStates' => $allOrderStates]);
+    $allOrderWithUser = DB::table('orders')
+                            ->join('users', function ($join) {
+                                $join->on('orders.idusers', '=', 'users.id');
+                            })
+                            ->join('address', function ($join) {
+                                $join->on('orders.idaddress', '=', 'address.id');
+                            })
+                            ->get();
+
+    return view('pages.adminManageOrders', ['allOrders' => $allOrderWithUser, 'allOrderStates' => $allOrderStates]);
   }
 
   public function showAllFAQs() {

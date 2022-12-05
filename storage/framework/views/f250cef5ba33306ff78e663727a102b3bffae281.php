@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<?php $__env->startSection('title', 'Tech4You'); ?>
 
-@section('title', 'Tech4You')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <ol class="breadcrumb" style="margin-left: 10px">
   <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -56,7 +54,7 @@
 <div class="mainDiv" style="margin: 0px 100px">
     <h1>All products...</h1>
     <div id="search_div" style="display: block; text-align: center;">
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{ url('search/products') }}" method="GET" role="search">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="<?php echo e(url('search/products')); ?>" method="GET" role="search">
             <input type="search" name="search" value="" class="form-control form-control-light text-bg-light" placeholder="Search for users" aria-label="Search">
         </form>
     </div>
@@ -84,9 +82,9 @@
                         <div>
                             <select class="form-select" name="category_selector" id="newProductCategory">
                                 <option style="text-align: center">Select a category</option>
-                                @foreach($allCategories as $category)
-                                    <option style="text-align: center">{{ $category }}</option>
-                                @endforeach
+                                <?php $__currentLoopData = $allCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option style="text-align: center"><?php echo e($category); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </select>
                         </div>
                         <a onClick="addProduct()" type="submit" class="btn btn-success" value="Product create" style="margin-top: 10px;">Create Product</a>
@@ -94,17 +92,17 @@
                 </div>
             </div>
         </div>
-        @foreach($allProducts as $product)
-            <div class="card userCard" style="margin-top: 30px; display: flex;" id="productForm{{ $product->id }}">
+        <?php $__currentLoopData = $allProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="card userCard" style="margin-top: 30px; display: flex;" id="productForm<?php echo e($product->id); ?>">
                 <div class="card-header">
-                    <strong>{{ $product->prodname }}</strong>
+                    <strong><?php echo e($product->prodname); ?></strong>
                 </div>
                 <div class="card-body">
-                    <p class="card-text userEmail">Price: {{ $product->price }}</p>
-                    <p class="card-text userEmail">Launch date: {{ $product->launchdate }}</p>    
+                    <p class="card-text userEmail">Price: <?php echo e($product->price); ?></p>
+                    <p class="card-text userEmail">Launch date: <?php echo e($product->launchdate); ?></p>    
                 </div>
                 <div class="card_buttons">
-                    <a class="btn" id="productSearch" onClick="deleteProduct({{ $product->id }})" style="text-align: center; justify-content: center;">
+                    <a class="btn" id="productSearch" onClick="deleteProduct(<?php echo e($product->id); ?>)" style="text-align: center; justify-content: center;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                             <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
@@ -112,14 +110,15 @@
                     </a>
                 </div>
             </div>
-        @endforeach
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
     <div class="text-center">
-        {!! $allProducts->links(); !!}
+        <?php echo $allProducts->links(); ?>
+
     </span>
 </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
@@ -175,38 +174,39 @@
                     </div>
                 </th>
             </tr>
-            @foreach($allProducts as $product)
-                <tr id="productForm{{ $product->id }}">
-                    <th scope="row" style="white-space: nowrap; text-align: center; justify-content: center;"><input name="product_name" style="all: unset;" value="{{ $product->prodname }}" id="product_name{{ $product->id }}"></input></th>
-                    <td name="productPrice" style="text-align: center; justify-content: center;"><input name="product_price" style="all: unset;" value="{{ $product->price }}" id="product_price{{ $product->id }}"></input></td>
-                    <td name="productStock" style="text-align: center; justify-content: center;"><input name="product_stock" style="all: unset;" value="{{ $product->stock }}" id="product_stock{{ $product->id }}"></input></td>
-                    <td name="productLaunchDate" style="text-align: center; justify-content: center;"><input name="product_launchdate" style="all: unset;" value="{{ $product->launchdate }}" id="product_launchDate{{ $product->id }}"></input></td>
+            <?php $__currentLoopData = $allProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <tr id="productForm<?php echo e($product->id); ?>">
+                    <th scope="row" style="white-space: nowrap; text-align: center; justify-content: center;"><input name="product_name" style="all: unset;" value="<?php echo e($product->prodname); ?>" id="product_name<?php echo e($product->id); ?>"></input></th>
+                    <td name="productPrice" style="text-align: center; justify-content: center;"><input name="product_price" style="all: unset;" value="<?php echo e($product->price); ?>" id="product_price<?php echo e($product->id); ?>"></input></td>
+                    <td name="productStock" style="text-align: center; justify-content: center;"><input name="product_stock" style="all: unset;" value="<?php echo e($product->stock); ?>" id="product_stock<?php echo e($product->id); ?>"></input></td>
+                    <td name="productLaunchDate" style="text-align: center; justify-content: center;"><input name="product_launchdate" style="all: unset;" value="<?php echo e($product->launchdate); ?>" id="product_launchDate<?php echo e($product->id); ?>"></input></td>
                     <td>
-                        <select class="form-select" id="product_category{{ $product->id }}" name="category_selector">
-                            <option selected="selected">{{ $product->categoryname }}</option>
-                            @foreach($allCategories as $category)
-                                @if ($category <> $product->categoryname))
-                                    <option>{{ $category }}</option>
-                                @endif
-                            @endforeach
+                        <select class="form-select" id="product_category<?php echo e($product->id); ?>" name="category_selector">
+                            <option selected="selected"><?php echo e($product->categoryname); ?></option>
+                            <?php $__currentLoopData = $allCategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($category <> $product->categoryname): ?>)
+                                    <option><?php echo e($category); ?></option>
+                                <?php endif; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                     </td>
-                    <td name="productDescription{{ $product->id }}" style="text-align: center; justify-content: center;"><input name="product_description" style="all: unset;" value="{{ $product->proddescription }}" id="product_description{{ $product->id }}"></input></td>
+                    <td name="productDescription<?php echo e($product->id); ?>" style="text-align: center; justify-content: center;"><input name="product_description" style="all: unset;" value="<?php echo e($product->proddescription); ?>" id="product_description<?php echo e($product->id); ?>"></input></td>
                     <td>
-                        <a class="btn" onClick="deleteProduct({{ $product->id }})" style="text-align: center; justify-content: center;">
+                        <a class="btn" onClick="deleteProduct(<?php echo e($product->id); ?>)" style="text-align: center; justify-content: center;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" color="blue">
                                 <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
                             </svg>
                         </a>
                     </td>
                     <td>
-                        <a onClick="updateProduct({{ $product->id }})" class="btn" style="text-align: center; justify-content: center;">
+                        <a onClick="updateProduct(<?php echo e($product->id); ?>)" class="btn" style="text-align: center; justify-content: center;">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-save-fill" viewBox="0 0 16 16">
                                 <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v7.793L4.854 6.646a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l3.5-3.5a.5.5 0 0 0-.708-.708L8.5 9.293V1.5z"/>
                             </svg>
                         </a>
                     </td>
                 </tr>
-            @endforeach
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </tbody>
     </table> -->
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/pedromacedo/Desktop/lbaw2284/resources/views/pages/adminManageProducts.blade.php ENDPATH**/ ?>

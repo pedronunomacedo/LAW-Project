@@ -22,15 +22,14 @@ class ProductsController extends Controller {
   }
   
   public function showAllProducts() {
-    $allProducts = Product::all();
-    $allProducts = $allProducts->sortByDesc('launchdate');
+    $allProducts = Product::orderBy('prodname')->paginate(20);
     $allCategories = ["Smartphones", "Components", "TVs", "Laptops", "Desktops", "Others"];
 
     return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
   }
 
   public static function destroy(Request $request) {  
-    $result = Product::where('id', $request->id)->delete();
+    Product::where('id', $request->id)->delete();
   }
 
   public static function updateProduct(Request $request) {
@@ -48,5 +47,25 @@ class ProductsController extends Controller {
     $productImages = ProductImages::where('idproduct', $id)->get('imgpath');
 
     return $productImages;
+  }
+
+  public function searchProducts(Request $search_request){
+    $searchProducts = Product::where('prodname','LIKE','%' . $search_request->search . '%')->orderBy('prodname')->paginate(20);
+    return view('pages.searchProducts', ['searchProducts' => $searchProducts, 'searchStr' => $search_request->search] );
+  }
+
+  public function addProduct(Request $request) {
+    $product = New Product;
+
+    $product->prodname = $request->new_product_name;
+    $product->price = $request->new_product_price;
+    $product->proddescription = $request->new_product_description;
+    $product->launchdate = $request->new_product_launchdate;
+    $product->stock = $request->new_product_stock;
+    $product->categoryname = $request->new_product_category;
+
+    $product->save();
+
+    return response()->json(array('product' => $product), 200);
   }
 }

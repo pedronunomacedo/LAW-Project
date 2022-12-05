@@ -13,3 +13,11 @@
 svg {
     color: blue;
 }
+
+.w-5 {
+    display: none;
+}
+
+div.text-center > nav * {
+    margin-top: 20px;
+}

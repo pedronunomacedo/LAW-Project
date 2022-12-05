@@ -1,0 +1,75 @@
+<?php $__env->startSection('title', 'Tech4You'); ?>
+
+<?php $__env->startSection('content'); ?>
+
+<script>
+    function encodeForAjax(data) {
+        if (data == null) return null;
+        return Object.keys(data).map(function(k){
+            return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+        }).join('&');
+    }
+
+    function sendAjaxRequest(method, url, data, handler) {
+        let request = new XMLHttpRequest();
+
+        request.open(method, url, true);
+        request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.addEventListener('load', handler);
+        request.send(encodeForAjax(data));
+    }
+
+    function deleteProduct(id) {
+        sendAjaxRequest("POST", "adminManageProducts/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+        console.log("deletedProduct" + id);
+        document.querySelector("#productForm" + id).remove();
+    }
+</script>
+
+<ol class="breadcrumb" style="margin-left: 10px">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item active"><a href="/adminManageProducts">SearchProducts</a></li>
+  <li class="breadcrumb-item active">search(<?php echo e($searchStr); ?>)</li>
+</ol>
+
+<script src="extensions/editable/bootstrap-table-editable.js"></script>
+<?php if($searchProducts->total() == 0): ?>
+    <h3>Sorry, we could not find any product with name <i><?php echo e($searchStr); ?></i></h3>
+<?php else: ?>
+
+<h1 style="margin-left: 10px">We have found the following products:</h1>
+<p>(<?php echo e($searchProducts->total()); ?> product(s) found) </p>
+
+<div style="margin-left: 10px; margin: 20px;">
+    <div class="data_div">
+        <?php $__currentLoopData = $searchProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="card userCard" style="margin-top: 30px; display: flex;" id="productForm<?php echo e($product->id); ?>">
+                <div class="card-header">
+                    <strong><?php echo e($product->prodname); ?></strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text userEmail">Price: <?php echo e($product->price); ?></p>
+                    <p class="card-text userEmail">Launch date: <?php echo e($product->launchdate); ?></p>    
+                </div>
+                <div class="card_buttons">
+                    <a class="btn" onClick="deleteProduct(<?php echo e($product->id); ?>)" style="text-align: center; justify-content: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+    <div class="text-center">
+        <?php echo $searchProducts->links(); ?>
+
+    </span>
+</div>
+<?php endif; ?>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/pedromacedo/Desktop/lbaw2284/resources/views/pages/searchProducts.blade.php ENDPATH**/ ?>
