@@ -11,7 +11,7 @@ class Faq extends Model{
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
-    protected $table = 'faq';
+    protected $table = 'FAQ';
 
     public static function getFAQ($id) {
         $faq = DB::table('faq')

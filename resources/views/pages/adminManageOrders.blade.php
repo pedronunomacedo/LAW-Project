@@ -29,12 +29,6 @@
         request.send(encodeForAjax(data));
     }
 
-    function deleteProduct(id) {
-        sendAjaxRequest("POST", "adminManageProducts/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
-
-        document.querySelector("#productForm" + id).remove();
-    }
-
     function updateOrder(id) {
         var newOrderState = document.querySelector("#order_state" + id).value;
 
@@ -46,11 +40,11 @@
 
 
 
-<div style="margin-left: 10px; margin: 20px;">
+<div style="margin: 0px 100px">
     <h1>All orders...</h1>
     <div id="search_div" style="display: block; text-align: center;">
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{ url('search/orders') }}" method="GET" role="search">
-            <input type="search" name="search" value="" class="form-control form-control-light text-bg-light" placeholder="Search for users" aria-label="Search">
+            <input type="search" name="search" value="" class="form-control form-control-light text-bg-light" placeholder="Search for orders" aria-label="Search">
         </form>
     </div>
     @foreach($allOrders as $order)
@@ -59,9 +53,9 @@
                 <strong>Order {{ $order->id }}</strong>
             </div>
             <div class="card-body">
+                <p class="card-text" id="orderUserId"><strong>User:</strong> {{ $order->name }}</p>
                 <p class="card-text" id="orderDate"><strong>Date:</strong> {{ date('d-m-Y', strtotime($order->orderdate)) }}</p>
                 <p class="card-text" id="orderAddress"><strong>Address:</strong> {{ $order->street }}</p>    
-                <p class="card-text" id="orderUserId"><strong>User:</strong> {{ $order->name }}</p>
                 <label for="category_selector"><strong>State:</strong> </label>
                 <select class="form-select" name="category_selector" id="order_state{{ $order->id }}" style="width: 30%">
                     @foreach($allOrderStates as $orderState)
@@ -83,6 +77,9 @@
             </div>
         </div>
     @endforeach
+    <div class="text-center">
+        {!! $allOrders->links(); !!}
+    </span>
 </div>
 
 @endsection

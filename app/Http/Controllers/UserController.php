@@ -43,5 +43,4 @@ class UserController extends Controller {
     $searchUsers = User::where('name','LIKE','%' . $search_request->search . '%')->orderBy('name')->paginate(20);
     return view('pages.search', ['searchUsers' => $searchUsers, 'searchStr' => $search_request->search] );
   }
-  
 }

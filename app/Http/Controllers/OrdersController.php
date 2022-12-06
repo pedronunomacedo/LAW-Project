@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Faq;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -25,8 +26,7 @@ class OrdersController extends Controller
         }
     }
 
-    public function addOrdersProduct(Request $request)
-    {
+    public function addOrdersProduct(Request $request) {
         error_log('00');
         error_log(Auth::user()->orders()->get());
         error_log('11');
@@ -48,5 +48,28 @@ class OrdersController extends Controller
                 return route('login');  //not working
             }
         }
+    }
+
+    public function searchOrders(Request $search_request) {
+        $allOrdersWithUsername = ($this)->getAllOrdersWithUsername();
+
+        dd($allOrdersWithUsername);
+
+        $searchProducts = Order::where('idusers','LIKE','%' . $search_request->search . '%')->orderBy('prodname')->paginate(20);
+        return view('pages.searchProducts', ['searchProducts' => $searchProducts, 'searchStr' => $search_request->search] );
+    }
+
+    public static function getAllOrdersWithUsername () {
+        $allOrdersWithUsername = DB::table('orders')
+                                ->join('users', function ($join) {
+                                    $join->on('orders.idusers', '=', 'users.id');
+                                })
+                                ->join('address', function ($join) {
+                                    $join->on('orders.idaddress', '=', 'address.id');
+                                })
+                                ->orderBy('orderdate', 'DESC')
+                                ->get();
+
+        return $allOrdersWithUsername;
     }
 }

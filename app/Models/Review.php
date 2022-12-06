@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model {
   // Don't add create and update timestamps in database.
   public $timestamps  = false;
-  protected $table = 'review';
+  protected $table = 'Review';
 
   public function getAllReviews() {
     $allReviews = Reveiews::all();

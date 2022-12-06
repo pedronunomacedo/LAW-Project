@@ -28,7 +28,7 @@
         request.addEventListener('load', handler);
         request.send(encodeForAjax(data));
     }
-
+    
     function deleteProduct(id) {
         sendAjaxRequest("POST", "adminManageProducts/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
 
@@ -57,7 +57,7 @@
     <h1>All products...</h1>
     <div id="search_div" style="display: block; text-align: center;">
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{ url('search/products') }}" method="GET" role="search">
-            <input type="search" name="search" value="" class="form-control form-control-light text-bg-light" placeholder="Search for users" aria-label="Search">
+            <input type="search" name="search" value="" class="form-control form-control-light text-bg-light" placeholder="Search for products" aria-label="Search">
         </form>
     </div>
     <div class="data_div">
@@ -99,17 +99,25 @@
                 <div class="card-header">
                     <strong>{{ $product->prodname }}</strong>
                 </div>
-                <div class="card-body">
-                    <p class="card-text userEmail">Price: {{ $product->price }}</p>
-                    <p class="card-text userEmail">Launch date: {{ $product->launchdate }}</p>    
-                </div>
-                <div class="card_buttons">
-                    <a class="btn" id="productSearch" onClick="deleteProduct({{ $product->id }})" style="text-align: center; justify-content: center;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </a>
+                <div class="card_body" style="padding: 20px">
+                    <div class="card_body" style="display: inline-block;">
+                        <p class="card-text productPrice">Price: {{ $product->price }}</p>
+                        <p class="card-text productLaunchdate">Launch date: {{ $product->launchdate }}</p>    
+                    </div>
+                    <div class="div_buttons" style="display: inline-block; float: right; align-items: center;">
+                        <a class="btn" onClick="" style="text-align: center; justify-content: center;">
+                            <svg fill="none" height="40" width="40" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 13V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 15V3M12 3L8.5 6.5M12 3L15.5 6.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        <a class="btn" id="productSearch" onClick="deleteProduct({{ $product->id }})" style="text-align: center; justify-content: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
         @endforeach

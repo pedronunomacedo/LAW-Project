@@ -37,9 +37,9 @@
 </script>
 
 
-<div class="mainDiv" style="margin: 0px 100px">
+<div class="mainDiv" style="margin: 0px 100px;">
     <h1>Manage users...</h1>
-    <div id="search_div" style="display: block; text-align: center;">
+    <div id="search_div" style="display: block; text-align: center; width: 100%;">
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{ url('search') }}" method="GET" role="search">
             <input type="search" name="search" value="" class="form-control form-control-light text-bg-light" placeholder="Search for users" aria-label="Search">
         </form>

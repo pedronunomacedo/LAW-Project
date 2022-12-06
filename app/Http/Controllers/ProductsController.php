@@ -22,7 +22,7 @@ class ProductsController extends Controller {
   }
   
   public function showAllProducts() {
-    $allProducts = Product::orderBy('prodname')->paginate(20);
+    $allProducts = Product::orderBy('prodname', 'ASC')->paginate(20);
     $allCategories = ["Smartphones", "Components", "TVs", "Laptops", "Desktops", "Others"];
 
     return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
