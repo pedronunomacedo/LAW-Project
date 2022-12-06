@@ -15,7 +15,7 @@ class Product extends Model {
     'stock', 
     'categoryname'
   ];
-  protected $table = 'Product';
+  protected $table = 'product';
 
   public function getAllProducts() {
     $allProducts = Product::all();
