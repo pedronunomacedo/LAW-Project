@@ -54,6 +54,11 @@ class ProductsController extends Controller {
     return view('pages.searchProducts', ['searchProducts' => $searchProducts, 'searchStr' => $search_request->search] );
   }
 
+  public function searchMainPageProducts(Request $search_request) {
+    $searchProducts = Product::where('prodname','LIKE','%' . $search_request->search . '%')->orderBy('prodname')->paginate(20);
+    return view('pages.searchMainPageProducts', ['searchProducts' => $searchProducts, 'searchStr' => $search_request->search] );
+  }
+
   public function addProduct(Request $request) {
     $product = New Product;
 

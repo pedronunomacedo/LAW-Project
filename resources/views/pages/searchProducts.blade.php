@@ -76,7 +76,7 @@
         @endforeach
     </div>
     <div class="text-center">
-        {!! $searchProducts->links(); !!}
+        {!! $searchProducts->appends(request()->input())->links(); !!}
     </span>
 </div>
 @endif

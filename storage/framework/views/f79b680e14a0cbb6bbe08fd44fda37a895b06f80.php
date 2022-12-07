@@ -33,7 +33,7 @@
           <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse position-absolute end-0" id="navbarColor02">
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="<?php echo e(url('search')); ?>" method="GET" role="search">
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="<?php echo e(url('mainPageSearch/products')); ?>" method="GET" role="search">
               <input type="search" name="search" value="" class="form-control form-control-dark text-bg-dark" placeholder="Search for products" aria-label="Search">
             </form>
             <ul class="navbar-nav mx-2">

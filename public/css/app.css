@@ -22,3 +22,16 @@ div.text-center > nav * {
     margin-top: 20px;
 }
 
+
+
+
+/* Main Search Page */
+
+#mainPageSearchedProducts {
+    display: flex; 
+    flex-wrap: wrap;
+}
+
+#mainPageSearchedProducts > *:not(last-child) {
+    margin-bottom: 20px;
+}

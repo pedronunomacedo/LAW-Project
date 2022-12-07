@@ -66,7 +66,7 @@
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </div>
     <div class="text-center">
-        <?php echo $searchUsers->links(); ?>
+        <?php echo $searchUsers->appends(request()->input())->links(); ?>
 
     </span>
 </div>

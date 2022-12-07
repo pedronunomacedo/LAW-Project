@@ -68,7 +68,7 @@
         @endforeach
     </div>
     <div class="text-center">
-        {!! $searchUsers->links(); !!}
+        {!! $searchUsers->appends(request()->input())->links(); !!}
     </span>
 </div>
 @endif

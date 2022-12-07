@@ -44,8 +44,9 @@
 
     <h1>We have found the following products:</h1>
     <p id="paragraph_num_products_found">(<?php echo e($searchProducts->total()); ?> product(s) found) </p>
-    <div class="data_div">
-        <?php $__currentLoopData = $searchProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <div class="data_div" id="mainPageSearchedProducts">
+        <?php echo $__env->renderEach('partials.product_card', $searchProducts, 'product'); ?>
+        <!-- <?php $__currentLoopData = $searchProducts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $product): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="card userCard" style="margin-top: 30px; display: flex;" id="productForm<?php echo e($product->id); ?>">
                 <div class="card-header">
                     <strong><?php echo e($product->prodname); ?></strong>
@@ -71,7 +72,7 @@
                     </div>
                 </div>
             </div>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> -->
     </div>
     <div class="text-center">
         <?php echo $searchProducts->appends(request()->input())->links(); ?>
@@ -82,4 +83,4 @@
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/pedromacedo/Desktop/lbaw2284/resources/views/pages/searchProducts.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/pedromacedo/Desktop/lbaw2284/resources/views/pages/searchMainPageProducts.blade.php ENDPATH**/ ?>

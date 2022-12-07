@@ -75,3 +75,4 @@ Route::get('search','UserController@searchUsers')->name('search_users');
 Route::get('search/products','ProductsController@searchProducts')->name('search_products');
 Route::get('search/orders','OrdersController@searchOrders')->name('search_orders');
 Route::post('search/adminManageProducts/delete', 'ProductsController@destroy')->name('search.adminManageProducts');
+Route::get('mainPageSearch/products','ProductsController@searchMainPageProducts');
