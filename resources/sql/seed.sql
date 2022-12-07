@@ -1,4 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS lbaw2284;
+SET SEARCH_PATH TO lbaw2284;
 
 -- Start create tables --
 DROP TABLE IF EXISTS users CASCADE;
