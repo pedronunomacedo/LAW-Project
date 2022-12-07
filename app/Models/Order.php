@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Order extends Model {
-    protected $table = 'Orders';
+    protected $table = 'orders';
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
