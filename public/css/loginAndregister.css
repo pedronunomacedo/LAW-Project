@@ -47,7 +47,17 @@
     width: 20em;
 }
 
-#register_button:hover {
-    background-color: #157347;
-    border-color: #157347;
+.hovered_button:hover {
+    background-color: #157347 !important;
+    border-color: #157347 !important;
+}
+
+@media only screen and (max-width: 950px) {
+    #main_image_div {
+        display: none;
+    }
+
+    #login_register_content {
+        width: 100%;
+    }
 }

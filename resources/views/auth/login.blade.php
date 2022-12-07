@@ -31,8 +31,8 @@
                     <input type="checkbox" class="form-check-input" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me</input>
                 </label>
                 <div class="buttons" id="butons_login_page">
-                    <button class="btn btn-dark" type="submit">Login</button>
-                    <button class="btn btn-outline-dark" id="register_button" href="{{ route('register') }}">Register</button>
+                    <button class="btn btn-dark" type="submit">Login</button> 
+                    <a class="btn btn-outline-dark hovered_button" href="{{ route('register') }}">Register</a>
                 </div>
             </form>
         </div>
