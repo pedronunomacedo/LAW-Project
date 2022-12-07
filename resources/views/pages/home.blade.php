@@ -4,7 +4,6 @@
 
 @section('content')
 
-<!-- MISSING DISPLAYING THE CATEGORIES -->
 <main>
     <div id="categories" class="mt-4 container">
         <div class="row flex-nowrap overflow-scroll justify-content-between" style="background-color: white">
