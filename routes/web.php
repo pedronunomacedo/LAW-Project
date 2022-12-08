@@ -79,11 +79,6 @@ Route::get('search/orders','OrdersController@searchOrders')->name('search_orders
 Route::post('search/adminManageProducts/delete', 'ProductsController@destroy')->name('search.adminManageProducts');
 Route::get('mainPageSearch/products','ProductsController@searchMainPageProducts');
 
-
-// Send email (TEST)
-use App\Http\Controllers\TestController;
-Route::get('send-email', [TestController::class, 'sendEmail']);
-
 // Sign-in and Sign-up with google account
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handle']);
