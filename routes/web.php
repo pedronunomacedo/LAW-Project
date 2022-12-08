@@ -87,3 +87,6 @@ Route::get('send-email', [TestController::class, 'sendEmail']);
 // Sign-in and Sign-up with google account
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handle']);
+
+// Product Category
+Route::get('productCategory', 'ProductsController@showCategoryProducts')->name('category_page');

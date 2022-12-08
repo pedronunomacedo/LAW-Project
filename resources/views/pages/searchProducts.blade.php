@@ -31,7 +31,7 @@
     }
 </script>
 
-<ol class="breadcrumb" style="margin-left: 10px">
+<ol class="breadcrumb" style="margin: 0px 100px">
   <li class="breadcrumb-item"><a href="/">Home</a></li>
   <li class="breadcrumb-item active"><a href="/adminManageProducts">SearchProducts</a></li>
   <li class="breadcrumb-item active">search({{ $searchStr }})</li>

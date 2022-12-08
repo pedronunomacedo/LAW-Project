@@ -73,4 +73,10 @@ class ProductsController extends Controller {
 
     return response()->json(array('product' => $product), 200);
   }
+
+  public function showCategoryProducts(Request $request) {
+    $categoryProducts = Product::where('categoryname', $request->category)->paginate(20);
+
+    return view('pages.category', ['categoryProducts' => $categoryProducts, 'category' => $request->category]);
+  }
 }

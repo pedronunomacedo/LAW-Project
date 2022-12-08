@@ -1,4 +1,4 @@
-<div class="card mx-1" style="width: 18rem;">
+<div class="card mx-1" style="width: 18rem; ">
     <a href="<?php echo e(route('product', ['product_id'=> $product->id])); ?>"><img class="card-img-top" src="https://cdn.pixabay.com/photo/2016/10/02/19/51/chip-1710300_960_720.png" alt="Card image cap"></a>
     <div class="card-body">
         <a href="<?php echo e(route('product', ['product_id'=> $product->id])); ?>"><h5 class="card-title"><?php echo e($product->prodname); ?></h5></a>

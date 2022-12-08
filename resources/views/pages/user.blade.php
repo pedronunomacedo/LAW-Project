@@ -4,7 +4,7 @@
 
 @section('content')
 
-<ol class="breadcrumb">
+<ol class="breadcrumb" style="margin: 0px 100px">
   <li class="breadcrumb-item"><a href="/">Home</a></li>
   <li class="breadcrumb-item active">Manage Users</li>
 </ol>
