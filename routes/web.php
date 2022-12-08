@@ -76,3 +76,8 @@ Route::get('search/products','ProductsController@searchProducts')->name('search_
 Route::get('search/orders','OrdersController@searchOrders')->name('search_orders');
 Route::post('search/adminManageProducts/delete', 'ProductsController@destroy')->name('search.adminManageProducts');
 Route::get('mainPageSearch/products','ProductsController@searchMainPageProducts');
+
+
+// Send email (TEST)
+use App\Http\Controllers\TestController;
+Route::get('send-email', [TestController::class, 'sendEmail']);
