@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GoogleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -81,3 +83,7 @@ Route::get('mainPageSearch/products','ProductsController@searchMainPageProducts'
 // Send email (TEST)
 use App\Http\Controllers\TestController;
 Route::get('send-email', [TestController::class, 'sendEmail']);
+
+// Sign-in and Sign-up with google account
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleController::class, 'handle']);

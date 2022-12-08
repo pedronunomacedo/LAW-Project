@@ -36,6 +36,12 @@
                     <a class="btn btn-outline-dark hovered_button" href="<?php echo e(route('register')); ?>">Register</a>
                 </div>
             </form>
+            <div class="login_other_options">
+                <a class="btn btn-primary" href="/auth/google">
+                    <!-- <i class="fa-brands fa-google"></i> -->
+                    Sign-in/Sign-up with Google
+                </a>
+            </div>
         </div>
     </div>
 <?php $__env->stopSection(); ?>
