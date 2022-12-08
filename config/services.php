@@ -32,7 +32,7 @@ return [
 
     'google' => [
         'client_id' => '420856953560-jh21qrkb38hds275i784idppje1ub8s1.apps.googleusercontent.com', 
-        'client_secret' => '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', 
+        'client_secret' => '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', 
         'redirect' => '/auth/google/callback', 
     ],
 
