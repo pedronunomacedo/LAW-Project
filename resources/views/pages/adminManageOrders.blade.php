@@ -13,14 +13,15 @@
 
 <script>
     function encodeForAjax(data) {
-    if (data == null) return null;
+        if (data == null) return null;
+
         return Object.keys(data).map(function(k){
             return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
         }).join('&');
     }
 
     function sendAjaxRequest(method, url, data, handler) {
-        let request = new XMLHttpRequest();
+        var request = new XMLHttpRequest();
 
         request.open(method, url, true);
         request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
@@ -31,9 +32,7 @@
 
     function updateOrder(id) {
         var newOrderState = document.querySelector("#order_state" + id).value;
-
-        console.log(newOrderState);
-
+        
         sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState});
     }
 </script>

@@ -59,6 +59,8 @@ class AdminController extends Controller {
     $order->orderstate = $request->new_order_state;
 
     $order->save();
+
+    return response('', 200);
   }
 
   public function updateFAQ(Request $request) {
