@@ -235,6 +235,8 @@ function addFAQ() {
 function addToWishlist(id) {
   console.log(id);
   sendAjaxRequest("POST", "wishlist/addToWishlist", {id : id});
+
+  // Check AJAX response and redirect
 }
 
 function removeFromWishlist(id){

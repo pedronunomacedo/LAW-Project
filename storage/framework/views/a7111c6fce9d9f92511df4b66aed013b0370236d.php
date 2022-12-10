@@ -30,9 +30,7 @@
 
     function updateOrder(id) {
         var newOrderState = document.querySelector("#order_state" + id).value;
-
-        console.log(newOrderState);
-
+        
         sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState});
     }
 </script>

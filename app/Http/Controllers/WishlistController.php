@@ -27,6 +27,7 @@ class WishlistController extends Controller
 
     public function addWishlistProduct(Request $request)
     {
+        return redirect('/login');
         if (1) {
 
             if (Auth::check()) {
@@ -42,7 +43,7 @@ class WishlistController extends Controller
                 return $wishlist;
 
             } else {
-                return route('login');  //not working
+                return redirect('/login');  //not working
             }
         }
     }
