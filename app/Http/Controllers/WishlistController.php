@@ -31,15 +31,29 @@ class WishlistController extends Controller
 
             if (Auth::check()) {
                 $user = Auth::user();
-                error_log('0');
-                error_log($user->wishlist()->get());
-                error_log('1');
+                if($user->wishlist()->where('idproduct', $request->id)->count() > 0){
+                    return response(json_encode("You already have this product in your wishlist"), 400);
+                }
                 Auth::user()->wishlist()->attach($product);
-                return $wishlist;
-
+                return response(json_encode("Product added to Wishlist"), 200);
             } else {
-                return route('login');  //not working
+                return redirect('/login');
             }
+        }
+    }
+
+    public function removeWishlistProduct(Request $request)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $product = $user->wishlist()->where('product_id', $request->id)->first();
+        }
+        if($product != null){
+            $user->wishlist()->detach([$request->id]);
+            return response(json_encode("Product deleted from wishlist"), 200);
+        }
+        else{
+            return response(json_encode("That product is not in wishlist"), 404);
         }
     }
 }

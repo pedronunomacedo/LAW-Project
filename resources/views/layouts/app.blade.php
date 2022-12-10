@@ -69,6 +69,10 @@
       </nav>
     </header>
     <section id="content" class="min-vh-100">
+      <div class="alert alert-success show fade" id="wishlist-success" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-warning show fade" id="wishlist-error" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-success show fade" id="shopcart-success" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-warning show fade" id="shopcart-error" style="display: none; position: fixed; z-index: 5"></div>
       @yield('content')
     </section>
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mx-5">

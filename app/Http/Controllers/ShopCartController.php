@@ -30,11 +30,11 @@ class ShopCartController extends Controller
 
             if (Auth::check()) {
                 $user = Auth::user();
-                error_log('0');
-                error_log($user->shopcart()->get());
-                error_log('1');
+                if($user->wishlist()->where('idproduct', $request->id)->count() > 0){
+                    return response(json_encode("You already have this product in your Shopcart"), 400);
+                }
                 Auth::user()->shopcart()->attach($product, array('quantity' => 1));
-                return $wishlist;
+                return response(json_encode("Product added to Shopcart"), 200);
 
             } else {
                 return route('login');  //not working
