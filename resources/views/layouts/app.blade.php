@@ -25,7 +25,7 @@
     <script type="text/javascript" src={{ asset('js/app.js') }} defer></script>
 
   </head>
-  <body>
+  <body style="background-color: #f6f6f6;">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 5em">
         <div class="container-fluid">
@@ -75,6 +75,10 @@
       </nav>
     </header>
     <section id="content" class="min-vh-100">
+      <div class="alert alert-success show fade" id="wishlist-success" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-warning show fade" id="wishlist-error" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-success show fade" id="shopcart-success" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-warning show fade" id="shopcart-error" style="display: none; position: fixed; z-index: 5"></div>
       @yield('content')
     </section>
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mx-5">

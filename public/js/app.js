@@ -233,10 +233,43 @@ function addFAQ() {
 }
 
 function addToWishlist(id) {
-  console.log(id);
-  sendAjaxRequest("POST", "wishlist/addToWishlist", {id : id});
+  //console.log(id);
+  //sendAjaxRequest("POST", "wishlist/addToWishlist", {id : id});
 
-  // Check AJAX response and redirect
+  let product_data = {};
+  product_data.id = id;
+
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    type: "POST",
+    url: 'wishlist/addToWishlist',
+    data: product_data,
+    dataType: 'text',
+    success: function (data) {
+        $("#wishlist-error").css('display','none');            
+        $("#wishlist-success").css('display','block');
+        $("#wishlist-success").text(data);
+        console.log(data);
+        setTimeout(() => {
+          $("#wishlist-success").css('display','none');
+        }, 1000);
+    },
+    error: function (data) {
+        $("#wishlist-success").css('display','none');            
+        $("#wishlist-error").css('display','block');
+        $("#wishlist-error").text(data.responseText);
+        console.log(data.responseText);
+        setTimeout(() => {
+          $("#wishlist-error").css('display','none');
+        }, 1000);
+    }
+  });
+
+  return false;
 }
 
 function removeFromWishlist(id){
@@ -244,8 +277,43 @@ function removeFromWishlist(id){
 }
 
 function addToShopCart(id) {
-  console.log(id);
-  sendAjaxRequest("POST", "shopcart/addToShopCart", {id : id});
+  //console.log(id);
+  //sendAjaxRequest("POST", "shopcart/addToShopCart", {id : id});
+
+  let product_data = {};
+  product_data.id = id;
+
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    type: "POST",
+    url: 'shopcart/addToShopCart',
+    data: product_data,
+    dataType: 'text',
+    success: function (data) {
+        $("#shopcart-error").css('display','none');            
+        $("#shopcart-success").css('display','block');
+        $("#shopcart-success").text(data);
+        console.log(data);
+        setTimeout(() => {
+          $("#shopcart-success").css('display','none');
+        }, 1000);
+    },
+    error: function (data) {
+        $("#shopcart-success").css('display','none');            
+        $("#shopcart-error").css('display','block');
+        $("#shopcart-error").text(data.responseText);
+        console.log(data.responseText);
+        setTimeout(() => {
+          $("#shopcart-error").css('display','none');
+        }, 1000);
+    }
+  });
+
+  return false;
 }
 
 function removeFromShopCart(id) {
