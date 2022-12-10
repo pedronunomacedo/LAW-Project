@@ -4,6 +4,10 @@
 
 @section('content')
 
+<ol class="breadcrumb" style="margin: 0px 100px">
+  <li class="breadcrumb-item"><a href="/">Home</a></li>
+  <li class="breadcrumb-item active">{{ $product->prodname }}</li>
+</ol>
 
 <div class="container py-5">
     <div class="row d-flex justify-content-center my-4">

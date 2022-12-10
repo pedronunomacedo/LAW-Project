@@ -18,8 +18,8 @@ class UserController extends Controller {
   }
 
   public function showAllUsers() {
-    $allUsers = User::all();
-    $allUsers = $allUsers->sortBy('name');
+    $allUsers = User::orderBy('name')->paginate(20);
+    // $allUsers = $allUsers->sortBy('name');
 
     return view('pages.adminManageUsers', ['allUsers' => $allUsers]);
   }
@@ -38,5 +38,9 @@ class UserController extends Controller {
 
     return redirect('profile/' . $id);
   }
-  
+
+  public function searchUsers(Request $search_request){
+    $searchUsers = User::where('name','LIKE','%' . $search_request->search . '%')->orderBy('name')->paginate(20);
+    return view('pages.search', ['searchUsers' => $searchUsers, 'searchStr' => $search_request->search] );
+  }
 }

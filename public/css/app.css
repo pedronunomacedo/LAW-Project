@@ -1,3 +1,39 @@
+.userCard {
+    position: relative;
+    margin-top: 30px;
+}
+
+.card_buttons > a {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    size: 50px;
+}
+
+svg {
+    color: blue;
+}
+
+.w-5 {
+    display: none;
+}
+
+div.text-center > nav * {
+    margin-top: 20px;
+}
+
+
+
+
+/* Main Search Page */
+
+#mainPageSearchedProducts {
+    display: flex; 
+    flex-wrap: wrap;
+}
+
+#mainPageSearchedProducts > *:not(last-child) {
+    margin-bottom: 20px;
 /*
 body {
   background-color: #ffffff;

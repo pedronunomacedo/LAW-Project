@@ -232,17 +232,6 @@ function addFAQ() {
   sendAjaxRequest("POST", "adminManageFAQS/addFAQ", {new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
 }
 
-function addProduct() { // Not working
-  var newProductName = document.querySelector("#newProductName").value;
-  var newProductPrice = document.querySelector("#newProductPrice").value;
-  var newProdDescription = document.querySelector("#newProdDescription").value;
-  var newProductLaunchdate = document.querySelector("#newProductLaunchdate").value;
-  var newProductStock = document.querySelector("#newProductStock").value;
-  var newProductCategory = document.querySelector("#newProductCategory").value;
-
-  sendAjaxRequest("POST", "adminManageProducts/addProduct", {new_product_name : newProductName, new_product_price : newProductPrice, new_product_description : newProdDescription, new_product_launchdate : newProductLaunchdate, new_product_stock : newProductStock, new_product_category : newProductCategory});
-}
-
 function addToWishlist(id) {
   //console.log(id);
   //sendAjaxRequest("POST", "wishlist/addToWishlist", {id : id});

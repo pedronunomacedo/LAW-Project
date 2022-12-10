@@ -1,4 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS lbaw2284;
+SET SEARCH_PATH TO lbaw2284;
 
 -- Start create tables --
 DROP TABLE IF EXISTS users CASCADE;
@@ -33,7 +34,8 @@ CREATE TABLE users (
   name VARCHAR(255) NOT NULL, 
   email VARCHAR(255) UNIQUE NOT NULL, 
   phoneNumber VARCHAR(255) UNIQUE, 
-  password VARCHAR(255) NOT NULL
+  password VARCHAR(255) NOT NULL, 
+  google_id VARCHAR(255) 
 );
 
 CREATE TABLE AuthenticatedUser (

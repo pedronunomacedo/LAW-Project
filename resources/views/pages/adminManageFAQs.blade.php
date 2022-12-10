@@ -4,21 +4,105 @@
 
 @section('content')
 
-<ol class="breadcrumb" style="margin-left: 10px">
+<ol class="breadcrumb" style="margin: 0px 100px">
   <li class="breadcrumb-item"><a href="/">Home</a></li>
   <li class="breadcrumb-item active">ManageFAQs</li>
 </ol>
 
 <script src="extensions/editable/bootstrap-table-editable.js"></script>
 
-<h1 style="margin-left: 10px">All FAQs...</h1>
+<script>
+    function encodeForAjax(data) {
+        if (data == null) return null;
+        
+        return Object.keys(data).map(function(k){
+            return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+        }).join('&');
+    }
 
-<div style="margin-left: 10px; margin: 20px;">
+    function sendAjaxRequest(method, url, data, handler) {
+        let request = new XMLHttpRequest();
+
+        request.open(method, url, true);
+        request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.addEventListener('load', handler);
+        request.send(encodeForAjax(data));
+    }
+
+    function deleteFAQ(id) {
+        sendAjaxRequest("POST", "adminManageFAQS/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+        document.querySelector("#faqForm" + id).remove();
+    }
+
+    function addFAQ() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var newFAQquestion = document.getElementById("newQuestion").value;
+        var newFAQanswer = document.getElementById("newAnswer").value;
+
+        sendAjaxRequest("POST", "adminManageFAQS/addFAQ", {new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
+    }
+
+    function updateFAQ(id) {
+        var newFAQquestion = document.querySelector("#faq_question" + id).innerHTML;
+        var newFAQanswer = document.querySelector("#faq_answer" + id).innerHTML;
+
+        sendAjaxRequest("POST", "adminManageFAQS/saveChanges", {id : id, new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
+    }
+</script>
+
+<style>
+    .contentEditable:read-write:focus {
+        outline: none;
+    }
+</style>
+
+
+
+<div class="mainDiv" style="margin: 0px 100px;">
+    <h1>Manage FAQs...</h1>
+    <div class="data_div">
+        @foreach($allFAQs as $faq)
+            <div class="card userCard" style="margin-top: 30px; display: flex;" id="faqForm{{ $faq->id }}">
+                <div class="card-header">
+                    <strong class="contentEditable" id="faq_question{{ $faq->id }}" contentEditable="true">{{ $faq->question }}</strong>
+                </div>
+                <div class="card_body">
+                    <div class="card-body" style="display: inline-block;">
+                        <p class="card-text contentEditable" id="faq_answer{{ $faq->id }}" contentEditable="true">{{ $faq->answer }}</p>    
+                    </div>
+                    <div class="div_buttons" style="display: inline-block; float: right; align-items: center;">
+                        <a class="btn" onClick="updateFAQ({{ $faq->id }})" style="text-align: center; justify-content: center;">
+                            <svg fill="none" height="40" width="40" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 13V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M12 15V3M12 3L8.5 6.5M12 3L15.5 6.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </a>
+                        <a class="btn" id="userSearch" onClick="deleteFAQ({{ $faq->id }})" style="text-align: center; justify-content: center;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+    </div>
+</div>
+
+<!-- <div style="margin: 0px 100px">
+    <h1>All FAQs...</h1>
+
     
     <table class="table table-hover">
         <thead>
             <tr class="table-active" style="nowrap: nowrap;">
-                <!-- <th scope="col">Product id</th> -->
                 <th scope="col" style="text-align: center">ID</th>
                 <th scope="col" style="text-align: center">Question</th>
                 <th scope="col" style="text-align: center">Answer</th>
@@ -39,11 +123,11 @@
                                 <div id="rowAddFAQ">
                                     <div>
                                         <label for="prodDescription">Question: </label>
-                                        <textarea id="newQuestionID" name="newQuestion" rows="4" cols="50"></textarea>
+                                        <textarea id="newQuestion" name="newQuestion" rows="4" cols="50"></textarea>
                                     </div>
                                     <div>
                                         <label for="prodDescription">Answer: </label>
-                                        <textarea id="newAnswerID" name="newAnswer" rows="4" cols="50"></textarea>
+                                        <textarea id="newAnswer" name="newAnswer" rows="4" cols="50"></textarea>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 submit" style="margin-top: 15px">
                                         <div class="form-group">
@@ -79,6 +163,6 @@
             @endforeach
         </tbody>
     </table>
-</div>
+</div> -->
 
 @endsection

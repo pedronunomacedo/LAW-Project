@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\GoogleController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -42,6 +44,7 @@ Route::post('adminManageUsers/delete', 'UserController@destroy')->name('adminMan
 Route::get('adminManageProducts', 'ProductsController@showAllProducts');
 Route::post('adminManageProducts/delete', 'ProductsController@destroy')->name('adminManageProducts');
 Route::post('adminManageProducts/saveChanges', 'ProductsController@updateProduct')->name('adminManageUpdateProducts');
+Route::post('adminManageProducts/addProduct', 'ProductsController@addProduct')->name('adminManageProducts.addProduct');
 Route::get('adminManageOrders', 'AdminController@showAllOrders');
 Route::post('adminManageOrders/saveChanges', 'AdminController@saveOrderInfo')->name('adminManageUpdateOrders');
 Route::get('adminManageFAQs', 'AdminController@showAllFAQs');
@@ -66,3 +69,19 @@ Route::post('orders/removeFromOrders', 'OrdersController@removeOrdersProduct') -
 
 // Product
 Route::get('product/{product_id}', 'ProductsController@showProduct') -> name('product');
+
+// User search
+Route::get('search','UserController@searchUsers')->name('search_users');
+
+// Product search
+Route::get('search/products','ProductsController@searchProducts')->name('search_products');
+Route::get('search/orders','OrdersController@searchOrders')->name('search_orders');
+Route::post('search/adminManageProducts/delete', 'ProductsController@destroy')->name('search.adminManageProducts');
+Route::get('mainPageSearch/products','ProductsController@searchMainPageProducts');
+
+// Sign-in and Sign-up with google account
+Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleController::class, 'handle']);
+
+// Product Category
+Route::get('productCategory', 'ProductsController@showCategoryProducts')->name('category_page');

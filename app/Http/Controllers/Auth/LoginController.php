@@ -43,7 +43,6 @@ class LoginController extends Controller
     }
 
     public function home() {
-        error_log('Home');
         return redirect('login');
     }
 

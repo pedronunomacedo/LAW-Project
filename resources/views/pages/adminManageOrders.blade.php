@@ -4,61 +4,81 @@
 
 @section('content')
 
-<ol class="breadcrumb" style="margin-left: 10px">
+<ol class="breadcrumb" style="margin: 0px 100px">
   <li class="breadcrumb-item"><a href="/">Home</a></li>
   <li class="breadcrumb-item active">ManageOrders</li>
 </ol>
 
 <script src="extensions/editable/bootstrap-table-editable.js"></script>
 
-<h1 style="margin-left: 10px">All orders...</h1>
+<script>
+    function encodeForAjax(data) {
+        if (data == null) return null;
 
-<div style="margin-left: 10px; margin: 20px;">
-    
-    <table class="table table-hover">
-        <thead>
-            <tr class="table-active" style="nowrap: nowrap;">
-                <!-- <th scope="col">Product id</th> -->
-                <th scope="col" style="text-align: center">ID</th>
-                <th scope="col" style="text-align: center">Order Date</th>
-                <th scope="col" style="text-align: center">Order State</th>
-                <th scope="col" style="text-align: center">User ID</th>
-                <th scope="col" style="text-align: center">Address</th>
-                <th scope="col" style="text-align: center">Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($allOrders as $order)
-                <tr id="orderForm{{ $order->id }}">
-                    <!-- <th contenteditable='true' scope="row">{{ $order->id }}</th> -->
-                    <th scope="row" id="orderID" style="text-align: center">{{ $order->id }}</th>
-                    <td id="orderDate" style="text-align: center">{{ date('d-m-Y', strtotime($order->orderdate)) }}</td>
-                    <td>
-                        <select class="form-select" name="category_selector" id="order_state{{ $order->id }}">
-                            @foreach($allOrderStates as $orderState)
-                                @if ($orderState <> $order->orderstate))
-                                    <option style="text-align: center">{{ $orderState }}</option>
-                                @else
-                                    <option selected="selected" style="text-align: center">{{ $order->orderstate }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </td>
+        return Object.keys(data).map(function(k){
+            return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
+        }).join('&');
+    }
 
-                    <td id="orderUserID" style="text-align: center">{{ $order->idusers }}</td>
-                    <td id="orderAddress" style="text-align: center">{{ $order->idaddress }}</td>
+    function sendAjaxRequest(method, url, data, handler) {
+        var request = new XMLHttpRequest();
 
-                    <td>
-                        <a class="btn" onClick="updateOrder({{ $order->id }})" style="text-align: center; justify-content: center;">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-save-fill" viewBox="0 0 16 16">
-                                <path d="M8.5 1.5A1.5 1.5 0 0 1 10 0h4a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h6c-.314.418-.5.937-.5 1.5v7.793L4.854 6.646a.5.5 0 1 0-.708.708l3.5 3.5a.5.5 0 0 0 .708 0l3.5-3.5a.5.5 0 0 0-.708-.708L8.5 9.293V1.5z"/>
-                            </svg>
-                        </a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        request.open(method, url, true);
+        request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.addEventListener('load', handler);
+        request.send(encodeForAjax(data));
+    }
+
+    function updateOrder(id) {
+        var newOrderState = document.querySelector("#order_state" + id).value;
+        
+        sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState});
+    }
+</script>
+
+
+
+<div style="margin: 0px 100px">
+    <h1>All orders...</h1>
+    <div id="search_div" style="display: block; text-align: center;">
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{ url('search/orders') }}" method="GET" role="search">
+            <input type="search" name="search" value="" class="form-control form-control-light text-bg-light" placeholder="Search for orders" aria-label="Search">
+        </form>
+    </div>
+    @foreach($allOrders as $order)
+        <div class="card userCard" style="margin-top: 30px; display: flex;" id="orderForm{{ $order->id }}">
+            <div class="card-header">
+                <strong>Order {{ $order->id }}</strong>
+            </div>
+            <div class="card-body">
+                <p class="card-text" id="orderUserId"><strong>User:</strong> {{ $order->name }}</p>
+                <p class="card-text" id="orderDate"><strong>Date:</strong> {{ date('d-m-Y', strtotime($order->orderdate)) }}</p>
+                <p class="card-text" id="orderAddress"><strong>Address:</strong> {{ $order->street }}</p>    
+                <label for="category_selector"><strong>State:</strong> </label>
+                <select class="form-select" name="category_selector" id="order_state{{ $order->id }}" style="width: 30%">
+                    @foreach($allOrderStates as $orderState)
+                        @if ($orderState <> $order->orderstate))
+                            <option style="text-align: center">{{ $orderState }}</option>
+                        @else
+                            <option selected="selected" style="text-align: center">{{ $order->orderstate }}</option>
+                        @endif
+                    @endforeach
+                </select>
+            </div>
+            <div class="card_buttons">
+                <a class="btn" onClick="updateOrder({{ $order->id }})" style="text-align: center; justify-content: center;">
+                    <svg fill="none" height="40" width="40" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 13V19C20 20.1046 19.1046 21 18 21H6C4.89543 21 4 20.1046 4 19V13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M12 15V3M12 3L8.5 6.5M12 3L15.5 6.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    @endforeach
+    <div class="text-center">
+        {!! $allOrders->links(); !!}
+    </span>
 </div>
 
 @endsection

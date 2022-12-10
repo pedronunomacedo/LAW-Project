@@ -6,20 +6,43 @@ use App\Models\User;
 use App\Models\Order;
 use App\Models\Faq;
 
+use \Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller {
-  
   public function showAllOrders() {
     $allOrderStates = ["In process", "Preparing", "Dispatched", "Delivered", "Cancelled"];
 
-    $allOrders = Order::all();
+    $allOrders = Order::paginate(20);
 
     $allOrders = $allOrders->sortBy('id');
 
-    return view('pages.adminManageOrders', ['allOrders' => $allOrders, 'allOrderStates' => $allOrderStates]);
+    $allOrderWithUser = DB::table('orders')
+                            ->join('users', function ($join) {
+                                $join->on('orders.idusers', '=', 'users.id');
+                            })
+                            ->join('address', function ($join) {
+                                $join->on('orders.idaddress', '=', 'address.id');
+                            })
+                            ->orderBy('orderdate', 'DESC')
+                            ->get();
+    
+    $data = $this->paginate($allOrderWithUser);
+
+    return view('pages.adminManageOrders', ['allOrders' => $data, 'allOrderStates' => $allOrderStates]);
+  }
+
+  public function paginate($items, $perPage = 20, $page = null, $options = []) {
+      $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+      $items = $items instanceof Collection ? $items : Collection::make($items);
+      
+      return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, [
+        'path' => Paginator::resolveCurrentPath()
+      ]);
   }
 
   public function showAllFAQs() {
@@ -36,6 +59,8 @@ class AdminController extends Controller {
     $order->orderstate = $request->new_order_state;
 
     $order->save();
+
+    return response('', 200);
   }
 
   public function updateFAQ(Request $request) {
