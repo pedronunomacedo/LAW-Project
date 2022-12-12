@@ -37,7 +37,7 @@
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{ url('mainPageSearch/products') }}" method="GET" role="search">
               <input type="search" name="search" value="" class="form-control form-control-dark text-bg-dark" placeholder="Search for products" aria-label="Search">
             </form>
-            <ul class="navbar-nav mx-2">
+            <ul class="navbar-nav mx-2 align-items-center">
               @if (Auth::check())
                 @if (Auth::user()->isAdmin())
                   <li class="nav-item dropdown">
@@ -52,12 +52,25 @@
                     </div>
                   </li>
                 @else
+                  <li class="nav-item">
+                    <a class="nav-link position-relative" href="/wishlist">
+                      <i class="far fa-heart fa-2x"></i>
+                      @if (Auth::user()->wishlist()->count() > 0)
+                        <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>
+                      @endif
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link position-relative" href="/shopcart">
+                      <i class="fas fa-shopping-cart fa-2x"></i>
+                      @if (Auth::user()->shopcart()->count() > 0)
+                      <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>                      @endif
+                    </a>
+                  </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
                     <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="{{route('profile', [Auth::id()])}}">Profile</a>
-                      <a class="dropdown-item" href="/wishlist">Wishlist</a>
-                      <a class="dropdown-item" href="/shopcart">ShopCart</a>
                       <a class="dropdown-item" href="/orders">Orders</a>
                       <div><hr class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
@@ -66,7 +79,7 @@
                 @endif
               @else
                 <li class="nav-item">
-                <a class="nav-link" href="{{route('login')}}">Login</a>
+                  <a class="nav-link" href="{{route('login')}}">Login</a>
                 </li>
               @endif
             </ul>
