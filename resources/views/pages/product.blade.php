@@ -4,12 +4,14 @@
 
 @section('content')
 
-<ol class="breadcrumb" style="margin: 0px 100px">
-  <li class="breadcrumb-item"><a href="/">Home</a></li>
-  <li class="breadcrumb-item active">{{ $product->prodname }}</li>
-</ol>
 
 <div class="container py-5">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category_page', ['category_id'=> $product->categoryname]) }}">{{ $product->categoryname }}</a></li>
+        </ol>
+    </nav>
     <div class="row d-flex justify-content-center my-4">
         <div class="col-md-7">
             <div class="product_page_img mb-4">
