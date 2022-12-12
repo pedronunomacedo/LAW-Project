@@ -15,15 +15,15 @@ class ProductsController extends Controller {
   public function showHighlights() {
 
     $newProducts = Product::orderBy('launchdate', 'desc')->take(5)
-                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct desc) as img'), function ($join) {
+                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                                                         $join->on('product.id', '=', 'img.idproduct');
                                                     })->get();
     $bestSmartphones = Product::where('categoryname', 'Smartphones')->orderBy('score', 'desc')->take(5)
-                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct desc) as img'), function ($join) {
+                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                                                         $join->on('product.id', '=', 'img.idproduct');
                                                     })->get();
     $bestLaptops = Product::where('categoryname', 'Laptops')->orderBy('score', 'desc')->take(5)
-                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct desc) as img'), function ($join) {
+                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                                                         $join->on('product.id', '=', 'img.idproduct');
                                                     })->get();
 
@@ -85,9 +85,11 @@ class ProductsController extends Controller {
     return response()->json(array('product' => $product), 200);
   }
 
-  public function showCategoryProducts(Request $request) {
-    $categoryProducts = Product::where('categoryname', $request->category)->paginate(20);
+  public function showCategoryProducts($id) {
+    $categoryProducts = Product::where('categoryname', $id)->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+                                                            $join->on('product.id', '=', 'img.idproduct');
+                                                        })->paginate(20);
 
-    return view('pages.category', ['categoryProducts' => $categoryProducts, 'category' => $request->category]);
+    return view('pages.category', ['categoryProducts' => $categoryProducts, 'category' => $id]);
   }
 }

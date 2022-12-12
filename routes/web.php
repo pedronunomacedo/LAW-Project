@@ -84,4 +84,4 @@ Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleController::class, 'handle']);
 
 // Product Category
-Route::get('productCategory', 'ProductsController@showCategoryProducts')->name('category_page');
+Route::get('productCategory/{category_id}', 'ProductsController@showCategoryProducts')->name('category_page');

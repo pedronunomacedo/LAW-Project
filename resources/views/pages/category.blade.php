@@ -4,22 +4,29 @@
 
 @section('content')
 
-<ol class="breadcrumb" style="margin: 0px 100px">
-  <li class="breadcrumb-item"><a href="/">Home</a></li>
-  <li class="breadcrumb-item active">ProductsCategory ({{ $category }})</li>
-</ol>
+
 
 <script src="extensions/editable/bootstrap-table-editable.js"></script>
 
-<div class="mainDiv" style="margin: 0px 100px">
-    <h1>{{ $category }}</h1>
+<main>
     @if($categoryProducts->total() == 0)
         <h3>Sorry, we could not find any product with the category '{{ $category }}'</i></h3>
     @else
-
-    <div class="data_div" id="mainPageCategoryProductsDiv" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+    <div class="mt-5 container">
+        <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" style="color: black;">{{ $category }}</li>
+            </ol>
+        </nav>
+        <div class="row" style="border-left: 0.5rem solid red; margin-bottom: 2rem;"><h2>{{ $category }}</h2></div>
+        <div class="row flex-wrap justify-content-between" style="gap: 2rem">
+            @each('partials.product_card', $categoryProducts, 'product')
+        </div>
+    </div>
+    <!--<div class="data_div" id="mainPageCategoryProductsDiv" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
         @each('partials.product_card', $categoryProducts, 'product')
-        <!-- @foreach($categoryProducts as $product)
+         @foreach($categoryProducts as $product)
             <div class="card userCard" style="margin-top: 30px; display: flex;" id="productForm{{ $product->id }}">
                 <div class="card-header">
                     <strong>{{ $product->prodname }}</strong>
@@ -45,12 +52,12 @@
                     </div>
                 </div>
             </div>
-        @endforeach -->
-    </div>
+        @endforeach 
+    </div>-->
     <div class="text-center">
         {!! $categoryProducts->appends(request()->input())->links(); !!}
-    </span>
-</div>
+    </div>
+</main>
 @endif
 
 @endsection

@@ -129,7 +129,8 @@ div.text-center > nav * {
 }
 
 .product_card_name {
-  height: 3rem;
+  height: 2.5rem;
+  overflow: hidden;
   font-size: large;
 }
 
@@ -152,3 +153,17 @@ div.text-center > nav * {
   color: red;
 }
 
+.breadcrumb-item a {
+  color: black;
+  text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+  color: red;
+  transition: .1s;
+} 
+
+.breadcrumb-item.active {
+  font-weight: bold;
+  text-transform: uppercase;
+}
