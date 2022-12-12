@@ -14,11 +14,18 @@ use Illuminate\Support\Collection;
 class ProductsController extends Controller {
   public function showHighlights() {
 
-    $newProducts = Product::orderBy('launchdate', 'desc')->take(5)->join('productimages', function ($join) {
-                                                                          $join->on('productimages.idproduct', '=', 'product.id');
-                                                                      })->get();
-    $bestSmartphones = Product::where('categoryname', 'Smartphones')->orderBy('score', 'desc')->take(5)->get();
-    $bestLaptops = Product::where('categoryname', 'Laptops')->orderBy('score', 'desc')->take(5)->get();
+    $newProducts = Product::orderBy('launchdate', 'desc')->take(5)
+                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct desc) as img'), function ($join) {
+                                                        $join->on('product.id', '=', 'img.idproduct');
+                                                    })->get();
+    $bestSmartphones = Product::where('categoryname', 'Smartphones')->orderBy('score', 'desc')->take(5)
+                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct desc) as img'), function ($join) {
+                                                        $join->on('product.id', '=', 'img.idproduct');
+                                                    })->get();
+    $bestLaptops = Product::where('categoryname', 'Laptops')->orderBy('score', 'desc')->take(5)
+                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct desc) as img'), function ($join) {
+                                                        $join->on('product.id', '=', 'img.idproduct');
+                                                    })->get();
 
 
     error_log($newProducts);
