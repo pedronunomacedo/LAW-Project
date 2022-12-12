@@ -13,9 +13,32 @@
     <div class="row d-flex justify-content-center my-4">
         <div class="col-md-7">
             <div class="product_page_img mb-4">
-                @foreach($productImages as $image)
-                    <img src="https://cdn.pixabay.com/photo/2016/10/02/19/51/chip-1710300_960_720.png" />
-                @endforeach
+                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="false">
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active bg-dark" aria-current="true" aria-label="Slide 1"></button>
+                        <?php for ($x = 1; $x < count($productImages); $x++) { ?>
+                            <button class="bg-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $x ?>" aria-label="Slide <?= $x + 1 ?>"></button>
+                        <?php } ?>
+                    </div>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="<?= $productImages[0]->imgpath ?>" class="d-block ">
+                        </div>
+                        <?php for ($y = 1; $y < count($productImages); $y++) { ?>
+                            <div class="carousel-item">
+                                <img src="<?= $productImages[$y]->imgpath ?>" class="d-block ">
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" style="background-color: black; border-radius: 5px" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" style="background-color: black; border-radius: 5px" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
             </div>
             <div class="product_page_tabs mb-4">
                 <ul class="nav nav-pills nav-justified mb-3" id="pills-tab" role="tablist">

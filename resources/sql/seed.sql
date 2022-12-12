@@ -8318,7 +8318,7 @@ insert into Product (prodName, price, prodDescription, launchDate, stock, catego
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('ElFlores Keyboard Spectrum', '9202.70', 'turpis enim blandit mi in porttitor pede justo eu massa donec dapibus duis at velit eu est congue elementum in hac habitasse platea dictumst morbi vestibulum velit id pretium iaculis diam erat fermentum justo nec condimentum neque sapien placerat ante nulla justo', '2021-01-12', 200, 'Components');
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Googlee Headset Special Edition', '8862.07', 'tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas', '2020-08-08', 200, 'Other');
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Googlee Headset Ultra', '4366.92', 'eleifend pede libero quis orci nullam molestie nibh in lectus pellentesque at nulla suspendisse potenti cras in purus eu magna vulputate luctus cum sociis natoque penatibus et magnis dis parturient montes nascetur', '2021-10-24', 200, 'Other');
-insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Uauei Gaming Desktop Special Edition', '9001.52', 'proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin at turpis a pede posuere nonummy integer non velit donec diam neque', '2021-02-09', 200, 'Desktops');
+insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Televisão LG Série C2 SmartTV 55" OLED evo 4K UHD', '1179.90', 'Maximizámos a beleza e a vivacidade dos píxeis autoiluminados LG OLED. A funcionalidade Brightness Booster eleva as capacidades do processador a9 Gen 5 AI a um novo patamar, proporcionando níveis de brilho superiores em 20%. Agora, as imagens tornam-se ainda mais poderosas, graças a uma maior eficiência e controlo da luz.', '2022-11-09', 200, 'TVs');
 --product end
 
 -- prodImage start
@@ -9319,9 +9319,9 @@ INSERT INTO ProductImages (idProduct, imgPath) VALUES (994, '../../artifacts/cla
 INSERT INTO ProductImages (idProduct, imgPath) VALUES (995, '../../artifacts/classDiagram_LBAW.png');
 INSERT INTO ProductImages (idProduct, imgPath) VALUES (996, '../../artifacts/classDiagram_LBAW.png');
 INSERT INTO ProductImages (idProduct, imgPath) VALUES (997, '../../artifacts/classDiagram_LBAW.png');
-INSERT INTO ProductImages (idProduct, imgPath) VALUES (998, '../../artifacts/classDiagram_LBAW.png');
-INSERT INTO ProductImages (idProduct, imgPath) VALUES (999, '../../artifacts/classDiagram_LBAW.png');
-INSERT INTO ProductImages (idProduct, imgPath) VALUES (1000, '../../artifacts/classDiagram_LBAW.png');
+INSERT INTO ProductImages (idProduct, imgPath) VALUES (1000, '/img/1001.png');
+INSERT INTO ProductImages (idProduct, imgPath) VALUES (1000, '/img/1002.png');
+INSERT INTO ProductImages (idProduct, imgPath) VALUES (1000, '/img/1003.png');
 -- prodImage end
 
 --reviews start
@@ -15361,5 +15361,5 @@ insert into Review (idusers, idProduct, reviewDate, content, rating) values (996
 insert into Review (idusers, idProduct, reviewDate, content, rating) values (997, 997, '2022-05-09', 'in quis justo maecenas rhoncus aliquam lacus morbi quis tortor id nulla ultrices aliquet maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra pede ac diam cras pellentesque volutpat dui maecenas tristique est et tempus', 1);
 insert into Review (idusers, idProduct, reviewDate, content, rating) values (998, 998, '2022-04-13', 'viverra eget congue eget semper rutrum nulla nunc purus phasellus in felis', 5);
 insert into Review (idusers, idProduct, reviewDate, content, rating) values (999, 999, '2022-10-11', 'enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam', 2);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (1000, 1000, '2022-05-23', 'dui vel nisl duis ac nibh fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie', 4);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (1000, 1000, '2022-05-23', 'Very nice product.', 5);
 --review end

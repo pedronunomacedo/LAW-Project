@@ -14,10 +14,14 @@ use Illuminate\Support\Collection;
 class ProductsController extends Controller {
   public function showHighlights() {
 
-    $newProducts = Product::orderBy('launchdate', 'desc')->take(5)->get();
+    $newProducts = Product::orderBy('launchdate', 'desc')->take(5)->join('productimages', function ($join) {
+                                                                          $join->on('productimages.idproduct', '=', 'product.id');
+                                                                      })->get();
     $bestSmartphones = Product::where('categoryname', 'Smartphones')->orderBy('score', 'desc')->take(5)->get();
     $bestLaptops = Product::where('categoryname', 'Laptops')->orderBy('score', 'desc')->take(5)->get();
 
+
+    error_log($newProducts);
     return view('pages.home', ['newProducts' => $newProducts, 'bestSmartphones' => $bestSmartphones, 'bestLaptops' => $bestLaptops]);
   }
   

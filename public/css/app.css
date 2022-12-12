@@ -88,6 +88,12 @@ div.text-center > nav * {
   padding: 1rem;
 }
 
+.product_page_img img {
+  height: 34rem;
+  width: 34rem;
+  margin: 0 auto;
+}
+
 .product_page_tabs {
   background-color: white;
   padding: 1rem;
@@ -124,6 +130,7 @@ div.text-center > nav * {
 
 .product_card_name {
   height: 3rem;
+  font-size: large;
 }
 
 .product_card_name a {
