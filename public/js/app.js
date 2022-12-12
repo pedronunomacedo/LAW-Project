@@ -297,7 +297,7 @@ function addToShopCart(id) {
         $("#shopcart-error").css('display','none');            
         $("#shopcart-success").css('display','block');
         $("#shopcart-success").text(data);
-        console.log(data);
+        //console.log(data);
         setTimeout(() => {
           $("#shopcart-success").css('display','none');
         }, 1000);
@@ -306,7 +306,7 @@ function addToShopCart(id) {
         $("#shopcart-success").css('display','none');            
         $("#shopcart-error").css('display','block');
         $("#shopcart-error").text(data.responseText);
-        console.log(data.responseText);
+        //console.log(data.responseText);
         setTimeout(() => {
           $("#shopcart-error").css('display','none');
         }, 1000);

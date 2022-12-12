@@ -1,6 +1,6 @@
 <div class="product_wishlist_card row mb-3">
     <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-        <a href="{{ route('product', ['product_id'=> $product->id]) }}"><img class="card-img-top w-100" src="https://cdn.pixabay.com/photo/2016/10/02/19/51/chip-1710300_960_720.png" alt="Card image cap"></a>
+        <a href="{{ route('product', ['product_id'=> $product->id]) }}"><img class=" w-100" src="{{$product->imgpath}}" alt="Card image cap"></a>
     </div>
     <div class="col-lg-7 col-md-6 mb-4 mb-lg-0">
         <p><strong>{{$product->prodname}}</strong></p>

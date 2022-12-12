@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use App\Models\Product;
+use App\Models\ProductImages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +19,10 @@ class WishlistController extends Controller
 
             $user = Auth::user();
             //$this->authorize('edit', $user);
-            $products = $user->wishlist()->get();
+            $products = $user->wishlist()
+                ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+                    $join->on('product.id', '=', 'img.idproduct');
+                })->get();
         }
         return view('pages.wishlist', ['products' => $products]);
 
@@ -32,12 +36,12 @@ class WishlistController extends Controller
             if (Auth::check()) {
                 $user = Auth::user();
                 if($user->wishlist()->where('idproduct', $request->id)->count() > 0){
-                    return response(json_encode("You already have this product in your wishlist"), 400);
+                    return response(json_encode("You already have this product in your wishlist"), 401);
                 }
                 Auth::user()->wishlist()->attach($product);
                 return response(json_encode("Product added to Wishlist"), 200);
             } else {
-                return redirect('/login');
+                return response(json_encode("You need to Login first"), 401);
             }
         }
     }
