@@ -1,5 +1,5 @@
 <div class="product_card mx-1" style="width: 18rem;">
-    <div class="product_card_img"><a style="display: block" href="{{ route('product', ['product_id'=> $product->id]) }}"><img src="/img/Smartphones.png" alt="Card image cap"></a></div>
+    <div class="product_card_img"><a style="display: block" href="{{ route('product', ['product_id'=> $product->id]) }}"><img src="{{$product->imgpath}}" alt="Card image cap"></a></div>
     <h5 class="product_card_name"><a href="{{ route('product', ['product_id'=> $product->id]) }}">{{$product->prodname}}</a></h5>
     <div class="product_card_desc text-muted small my-1">{{$product->proddescription}}</div>
     <div class="product_card_ratings">
