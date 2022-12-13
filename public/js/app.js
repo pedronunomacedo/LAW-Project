@@ -246,7 +246,7 @@ function addToWishlist(id) {
   });
   $.ajax({
     type: "POST",
-    url: 'wishlist/addToWishlist',
+    url: '/wishlist/addToWishlist',
     data: product_data,
     dataType: 'text',
     success: function (data) {
@@ -290,7 +290,7 @@ function addToShopCart(id) {
   });
   $.ajax({
     type: "POST",
-    url: 'shopcart/addToShopCart',
+    url: '/shopcart/addToShopCart',
     data: product_data,
     dataType: 'text',
     success: function (data) {

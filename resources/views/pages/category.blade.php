@@ -6,7 +6,7 @@
 
 
 
-<script src="extensions/editable/bootstrap-table-editable.js"></script>
+<!--<script src="extensions/editable/bootstrap-table-editable.js"></script>-->
 
 <main>
     @if($categoryProducts->total() == 0)
