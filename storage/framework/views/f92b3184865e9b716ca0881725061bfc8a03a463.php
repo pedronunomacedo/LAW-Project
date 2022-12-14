@@ -1,14 +1,21 @@
-<div class="card mx-1" style="width: 18rem; ">
-    <a href="<?php echo e(route('product', ['product_id'=> $product->id])); ?>"><img class="card-img-top" src="https://cdn.pixabay.com/photo/2016/10/02/19/51/chip-1710300_960_720.png" alt="Card image cap"></a>
-    <div class="card-body">
-        <a href="<?php echo e(route('product', ['product_id'=> $product->id])); ?>"><h5 class="card-title"><?php echo e($product->prodname); ?></h5></a>
-        <p>Price: <?php echo e($product->price); ?> €</p>
-        <p>Rating: <?php echo e($product->score); ?> </p>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <div>
-            <button class="btn" onclick="addToWishlist(<?php echo e($product->id); ?>)"><i class="fas fa-star"></i></button>
-            <button class="btn" onclick="addToShopCart(<?php echo e($product->id); ?>)"><i class="fas fa-shopping-bag"></i></button>
-        </div>
+<div class="product_card mx-1" style="width: 18rem;">
+    <div class="product_card_img"><a style="display: block" href="<?php echo e(route('product', ['product_id'=> $product->id])); ?>"><img src="<?php echo e($product->imgpath); ?>" alt="Card image cap"></a></div>
+    <h5 class="product_card_name"><a href="<?php echo e(route('product', ['product_id'=> $product->id])); ?>"><?php echo e($product->prodname); ?></a></h5>
+    <div class="product_card_desc text-muted small my-1"><?php echo e($product->proddescription); ?></div>
+    <div class="product_card_ratings">
+        <?php
+        for ($x = 0; $x < $product->score; $x++) {?> 
+            <i class="fa fa-star rating-color"></i>
+        <?php } ?>
+        <?php
+        for ($x = 0; $x <= 4 - $product->score; $x++) {?> 
+            <i class="fa fa-star"></i>
+        <?php } ?>
+    </div>
+    <p class="product_card_price mb-1"><strong><?php echo e($product->price); ?> €</strong></p>
+    <div class="product_card_btn my-2">
+        <button class="btn p-0" onclick="addToWishlist(<?php echo e($product->id); ?>)"><i class="fas fa-heart"></i> Wishlist</button>
+        <button class="btn p-0 mx-4" onclick="addToShopCart(<?php echo e($product->id); ?>)"><i class="fas fa-shopping-cart"></i> Cart</button>
     </div>
 </div>
 

@@ -15,6 +15,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@800&display=swap" rel="stylesheet"> 
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/profile.css" rel="stylesheet">
     <link href="/css/loginAndregister.css" rel="stylesheet">
     <link href="/css/categoryPage.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -25,7 +26,7 @@
     <script type="text/javascript" src=<?php echo e(asset('js/app.js')); ?> defer></script>
 
   </head>
-  <body>
+  <body style="background-color: #f6f6f6;">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 5em">
         <div class="container-fluid">
@@ -37,7 +38,7 @@
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="<?php echo e(url('mainPageSearch/products')); ?>" method="GET" role="search">
               <input type="search" name="search" value="" class="form-control form-control-dark text-bg-dark" placeholder="Search for products" aria-label="Search">
             </form>
-            <ul class="navbar-nav mx-2">
+            <ul class="navbar-nav mx-2 align-items-center">
               <?php if(Auth::check()): ?>
                 <?php if(Auth::user()->isAdmin()): ?>
                   <li class="nav-item dropdown">
@@ -52,12 +53,25 @@
                     </div>
                   </li>
                 <?php else: ?>
+                  <li class="nav-item">
+                    <a class="nav-link position-relative" href="/wishlist">
+                      <i class="far fa-heart fa-2x"></i>
+                      <?php if(Auth::user()->wishlist()->count() > 0): ?>
+                        <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>
+                      <?php endif; ?>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link position-relative" href="/shopcart">
+                      <i class="fas fa-shopping-cart fa-2x"></i>
+                      <?php if(Auth::user()->shopcart()->count() > 0): ?>
+                      <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>                      <?php endif; ?>
+                    </a>
+                  </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><?php echo e(Auth::user()->name); ?></a>
                     <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="<?php echo e(route('profile', [Auth::id()])); ?>">Profile</a>
-                      <a class="dropdown-item" href="/wishlist">Wishlist</a>
-                      <a class="dropdown-item" href="/shopcart">ShopCart</a>
                       <a class="dropdown-item" href="/orders">Orders</a>
                       <div><hr class="dropdown-divider"></div>
                       <a class="dropdown-item" href="<?php echo e(route('logout')); ?>">Logout</a>
@@ -66,7 +80,7 @@
                 <?php endif; ?>
               <?php else: ?>
                 <li class="nav-item">
-                <a class="nav-link" href="<?php echo e(route('login')); ?>">Login</a>
+                  <a class="nav-link" href="<?php echo e(route('login')); ?>">Login</a>
                 </li>
               <?php endif; ?>
             </ul>
@@ -75,6 +89,10 @@
       </nav>
     </header>
     <section id="content" class="min-vh-100">
+      <div class="alert alert-success show fade" id="wishlist-success" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-warning show fade" id="wishlist-error" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-success show fade" id="shopcart-success" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-warning show fade" id="shopcart-error" style="display: none; position: fixed; z-index: 5"></div>
       <?php echo $__env->yieldContent('content'); ?>
     </section>
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mx-5">

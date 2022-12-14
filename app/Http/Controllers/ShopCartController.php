@@ -19,9 +19,15 @@ class ShopCartController extends Controller
 
             $user = Auth::user();
             //$this->authorize('edit', $user);
-            $products = $user->shopcart()->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
-                $join->on('product.id', '=', 'img.idproduct');})->get();
+            $products = ShopCart::where('idusers', $user->id)
+                    ->join('product', function ($join) {
+                        $join->on('shopcart.idproduct', '=', 'product.id');
+                    })
+                    ->join('productimages', 'shopcart.idproduct', 'productimages.idproduct')
+                    ->distinct('productimages.idproduct')
+                    ->get();
         }
+
         return view('pages.shopcart', ['products' => $products]);
     }
 

@@ -19,13 +19,16 @@ class WishlistController extends Controller
 
             $user = Auth::user();
             //$this->authorize('edit', $user);
-            $products = $user->wishlist()
-                ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
-                    $join->on('product.id', '=', 'img.idproduct');
-                })->get();
+            $products = Wishlist::where('idusers', $user->id)
+                    ->join('product', function ($join) {
+                        $join->on('wishlist.idproduct', '=', 'product.id');
+                    })
+                    ->join('productimages', 'wishlist.idproduct', 'productimages.idproduct')
+                    ->distinct('productimages.idproduct')
+                    ->get();
         }
-        return view('pages.wishlist', ['products' => $products]);
 
+        return view('pages.wishlist', ['products' => $products]);
     }
 
     public function addWishlistProduct(Request $request)

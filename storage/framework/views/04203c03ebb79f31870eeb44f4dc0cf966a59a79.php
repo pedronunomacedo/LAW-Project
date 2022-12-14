@@ -2,13 +2,13 @@
 
 <?php $__env->startSection('content'); ?>
 
-<ol class="breadcrumb" style="margin: 0px 100px">
+<ol class="breadcrumb" style="margin: 0px 20px">
   <li class="breadcrumb-item"><a href="/">Home</a></li>
   <li class="breadcrumb-item active">Profile</li>
 </ol>
 
-<div class="container">
-	<h1>My Profile</h1>
+<div class="container main_content">
+	<div class="row" style="border-left: 0.5rem solid red; margin-bottom: 2rem;"><h2>My Profile</h2></div>
 	<div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12 edit_information">
 		<form action="<?php echo e(route('saveUserProfile', ['id' => $user->id])); ?>"  method="POST">
 		<?php echo csrf_field(); ?>
@@ -57,4 +57,5 @@
 </div>
 
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH /Users/pedromacedo/Desktop/lbaw2284/resources/views/pages/profile.blade.php ENDPATH**/ ?>
