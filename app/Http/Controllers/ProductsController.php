@@ -50,7 +50,10 @@ class ProductsController extends Controller {
   public static function showProduct($id) {
     $product = Product::findOrFail($id);
     $productImages = ProductsController::getProductImages($id);
-    $productReviews = Review::where('idproduct', $id)->get();
+    $productReviews = Review::where('review.idproduct', $id)
+                      ->join('users', 'review.idusers', 'users.id')
+                      ->get();
+    
     return view('pages.product', ['product' => $product, 'productImages' => $productImages, 'productReviews' => $productReviews]);
   }
 
@@ -66,7 +69,12 @@ class ProductsController extends Controller {
   }
 
   public function searchMainPageProducts(Request $search_request) {
-    $searchProducts = Product::where('prodname','LIKE','%' . $search_request->search . '%')->orderBy('prodname')->paginate(20);
+    $searchProducts = Product::where('prodname','LIKE','%' . $search_request->search . '%')
+                      ->join('productimages', 'product.id', 'productimages.idproduct')
+                      ->distinct('productimages.idproduct')
+                      // ->orderBy('prodname', 'ASC')
+                      ->paginate(20);
+
     return view('pages.searchMainPageProducts', ['searchProducts' => $searchProducts, 'searchStr' => $search_request->search] );
   }
 

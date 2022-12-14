@@ -2,12 +2,12 @@
 
 <?php $__env->startSection('content'); ?>
 
-
 <div class="container py-5">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="<?php echo e(route('category_page', ['category_id'=> $product->categoryname])); ?>"><?php echo e($product->categoryname); ?></a></li>
+            <li class="breadcrumb-item" style="color: black;"><strong><?php echo e($product->prodname); ?></strong></li>
         </ol>
     </nav>
     <div class="row d-flex justify-content-center my-4">
@@ -57,7 +57,7 @@
                         <?php $__currentLoopData = $productReviews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $review): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <hr class="my-4" />
                             <div id="review<?php echo e($review->id); ?>">
-                                <p style="font-weight:normal"><strong><?php echo e($review->idusers); ?></strong>, <?php echo e($review->reviewdate); ?></p>
+                                <p style="font-weight:normal"><strong><?php echo e($review->name); ?></strong>, <?php echo e($review->reviewdate); ?></p>
                                 <p style="font-weight:normal"><?php echo e($review->content); ?></p>
                                 <div class="ratings">
                                     <?php

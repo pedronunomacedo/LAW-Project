@@ -4,12 +4,12 @@
 
 @section('content')
 
-
 <div class="container py-5">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{{ route('category_page', ['category_id'=> $product->categoryname]) }}">{{ $product->categoryname }}</a></li>
+            <li class="breadcrumb-item" style="color: black;"><strong>{{ $product->prodname }}</strong></li>
         </ol>
     </nav>
     <div class="row d-flex justify-content-center my-4">
@@ -59,7 +59,7 @@
                         @foreach($productReviews as $review)
                             <hr class="my-4" />
                             <div id="review{{ $review->id }}">
-                                <p style="font-weight:normal"><strong>{{ $review->idusers }}</strong>, {{ $review->reviewdate }}</p>
+                                <p style="font-weight:normal"><strong>{{ $review->name }}</strong>, {{ $review->reviewdate }}</p>
                                 <p style="font-weight:normal">{{ $review->content }}</p>
                                 <div class="ratings">
                                     <?php
