@@ -14,7 +14,7 @@ class OrdersController extends Controller {
     public function showOrders() {
 
         if (Auth::check()) {
-
+            // $this->authorize('show', Auth::id());
             $user = Auth::user();
             $userOrders = Order::where('idusers', Auth::id())->get();
         }
