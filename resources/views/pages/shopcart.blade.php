@@ -9,11 +9,11 @@
     <div class="row" style="border-left: 0.5rem solid red; margin-bottom: 2rem;"><h2>Shopcart</h2></div>
     <div class="row d-flex justify-content-center my-4">
         <div class="col-md-9">
-        <div class="mb-4">
-            <!-- Single item -->
-            @each('partials.product_shopcart_card', $products, 'product')
-            <!-- Single item -->
-        </div>
+            <div class="mb-4">
+                <!-- Single item -->
+                @each('partials.product_shopcart_card', $products, 'product')
+                <!-- Single item -->
+            </div>
         </div>
         <div class="col-md-3">
             <div class="mb-4 wishlist_summary">

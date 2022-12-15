@@ -68,14 +68,10 @@ div.text-center > nav * {
   color: rgb(228, 228, 1);
 }
 
-.product_wishlist_card {
+.wishlist_summary, .filter_sidebar, .filter_orderby_bar, .product_wishlist_card {
   background-color: white;
   padding: 1rem;
-}
-
-.wishlist_summary {
-  background-color: white;
-  padding: 1rem;
+  border-radius: 10px;
 }
 
 .product_page_info {
@@ -166,4 +162,15 @@ div.text-center > nav * {
 .breadcrumb-item.active {
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.filter_orderby_bar .form-select {
+  font-weight: bold;
+  width: 10rem;
+  border: 0;
+}
+
+.container div h2 {
+  margin-top: 0;
+  margin-bottom: 0;
 }
