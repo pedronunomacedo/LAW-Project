@@ -35,7 +35,7 @@ class ShopCartController extends Controller {
 
             if (Auth::check()) {
                 $user = Auth::user();
-                if($user->wishlist()->where('idproduct', $request->id)->count() > 0){
+                if($user->shopcart()->where('idproduct', $request->id)->count() > 0){
                     return response(json_encode("You already have this product in your Shopcart"), 401);
                 }
                 Auth::user()->shopcart()->attach($product, array('quantity' => 1));
@@ -45,5 +45,18 @@ class ShopCartController extends Controller {
                 return response(json_encode("You need to Login first"), 401);
             }
         }
+    }
+
+    public function removeShopCartProduct(Request $request)
+    {
+        if (Auth::check()) {
+            $user = Auth::user();
+            $product = $user->shopcart()->where('idproduct', $request->id)->first();
+        }
+        if($product != null){
+            $user->shopcart()->detach([$product->id]);
+            return response(200);
+        }
+        return response(401);
     }
 }

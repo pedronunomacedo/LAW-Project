@@ -273,7 +273,25 @@ function addToWishlist(id) {
 }
 
 function removeFromWishlist(id){
+  let product_data = {};
+  product_data.id = id;
 
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    type: "POST",
+    url: '/wishlist/removeFromWishlist',
+    data: product_data,
+    dataType: 'text',
+    success: function (data) {
+      window.location = '/wishlist';
+    }
+  });
+
+  return false;
 }
 
 function addToShopCart(id) {
@@ -317,7 +335,25 @@ function addToShopCart(id) {
 }
 
 function removeFromShopCart(id) {
-  
+  let product_data = {};
+  product_data.id = id;
+
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    type: "POST",
+    url: '/shopcart/removeFromShopCart',
+    data: product_data,
+    dataType: 'text',
+    success: function (data) {
+      window.location = '/shopcart';
+    }
+  });
+
+  return false;
 }
 
 function addToOrders(id) {

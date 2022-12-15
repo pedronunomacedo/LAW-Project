@@ -53,14 +53,12 @@ class WishlistController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $product = $user->wishlist()->where('product_id', $request->id)->first();
+            $product = $user->wishlist()->where('idproduct', $request->id)->first();
         }
         if($product != null){
-            $user->wishlist()->detach([$request->id]);
-            return response(json_encode("Product deleted from wishlist"), 200);
+            $user->wishlist()->detach([$product->id]);
+            return response(200);
         }
-        else{
-            return response(json_encode("That product is not in wishlist"), 404);
-        }
+        return response(401);
     }
 }
