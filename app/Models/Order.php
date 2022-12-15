@@ -17,4 +17,15 @@ class Order extends Model {
         
         return $userOrders;
     }
+
+    public static function getOrderProducts($id) {
+        $result1 = DB::table('productorder')
+                        ->where('idproduct', $id)
+                        ->join('product', function ($join) {
+                            $join->on('product.id', '=', 'productorder.idproduct');
+                        })
+                        ->get();
+
+        dd($result1);
+    }
 }

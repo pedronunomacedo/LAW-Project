@@ -10,13 +10,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class ShopCartController extends Controller
-{
-    public function showShopCart(Request $request)
-    {
+class ShopCartController extends Controller {
+    public function showShopCart(Request $request) {
 
         if (Auth::check()) {
-
             $user = Auth::user();
             //$this->authorize('edit', $user);
             $products = ShopCart::where('idusers', $user->id)

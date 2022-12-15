@@ -5,25 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Faq;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class OrdersController extends Controller
-{
-    public function showOrders(Request $request)
-    {
+class OrdersController extends Controller {
+    public function showOrders() {
 
-        if ($product != null) {
+        if (Auth::check()) {
 
-            if (Auth::check()) {
-
-                $user = Auth::user();
-                //$this->authorize('edit', $user);
-                $product = $user->orders()->get();
-            }
-            return view('pages.orders', ['products' => $products]);
+            $user = Auth::user();
+            $userOrders = Order::where('idusers', Auth::id())->get();
         }
+
+        return view('pages.orders', ['userOrders' => $userOrders]);
     }
 
     public function addOrdersProduct(Request $request) {
@@ -51,15 +47,17 @@ class OrdersController extends Controller
     }
 
     public function searchOrders(Request $search_request) {
+        $this->authorize('admin', Auth::user());
+
         $allOrdersWithUsername = ($this)->getAllOrdersWithUsername();
-
-        dd($allOrdersWithUsername);
-
         $searchProducts = Order::where('idusers','LIKE','%' . $search_request->search . '%')->orderBy('prodname')->paginate(20);
+        
         return view('pages.searchProducts', ['searchProducts' => $searchProducts, 'searchStr' => $search_request->search] );
     }
 
     public static function getAllOrdersWithUsername () {
+        $this->authorize('admin', Auth::user());
+        
         $allOrdersWithUsername = DB::table('orders')
                                 ->join('users', function ($join) {
                                     $join->on('orders.idusers', '=', 'users.id');

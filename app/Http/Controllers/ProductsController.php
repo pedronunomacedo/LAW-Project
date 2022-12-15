@@ -39,11 +39,15 @@ class ProductsController extends Controller {
     return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
   }
 
-  public static function destroy(Request $request) {  
+  public static function destroy(Request $request) { 
+    $this->authorize('admin', Auth::user());
+
     Product::where('id', $request->id)->delete();
   }
 
   public static function updateProduct(Request $request) {
+    $this->authorize('admin', Auth::user());
+
     Product::where('id', $request->product_id)->update(['prodname' => $request->product_name, 'price' => $request->product_price, 'proddescription' => $request->product_description, 'launchdate' => $request->product_launchdate, 'stock' => $request->product_stock, 'categoryname' => $request->product_category]);
   }
 
@@ -63,8 +67,9 @@ class ProductsController extends Controller {
     return $productImages;
   }
 
-  public function searchProducts(Request $search_request){
+  public function searchProducts(Request $search_request) {
     $searchProducts = Product::where('prodname','LIKE','%' . $search_request->search . '%')->orderBy('prodname')->paginate(20);
+
     return view('pages.searchProducts', ['searchProducts' => $searchProducts, 'searchStr' => $search_request->search] );
   }
 
@@ -79,8 +84,9 @@ class ProductsController extends Controller {
   }
 
   public function addProduct(Request $request) {
+    $this->authorize('admin', Auth::user());
+    
     $product = New Product;
-
     $product->prodname = $request->new_product_name;
     $product->price = $request->new_product_price;
     $product->proddescription = $request->new_product_description;

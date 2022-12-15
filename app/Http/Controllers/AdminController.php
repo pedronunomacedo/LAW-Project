@@ -12,15 +12,15 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller {
   public function showAllOrders() {
+    $this->authorize('admin', Auth::user());
+
     $allOrderStates = ["In process", "Preparing", "Dispatched", "Delivered", "Cancelled"];
-
     $allOrders = Order::paginate(20);
-
     $allOrders = $allOrders->sortBy('id');
-
     $allOrderWithUser = DB::table('orders')
                             ->join('users', function ($join) {
                                 $join->on('orders.idusers', '=', 'users.id');
@@ -46,26 +46,28 @@ class AdminController extends Controller {
   }
 
   public function showAllFAQs() {
-    $allFAQs = Faq::all();
+    $this->authorize('admin', Auth::user());
 
+    $allFAQs = Faq::all();
     $allFAQs = $allFAQs->sortBy('id');
 
     return view('pages.adminManageFAQs', ['allFAQs' => $allFAQs]);
   }
 
   public function saveOrderInfo(Request $request) {
+    $this->authorize('admin', Auth::user());
+
     $order = Order::findOrFail($request->id);
-
     $order->orderstate = $request->new_order_state;
-
     $order->save();
 
     return response('', 200);
   }
 
   public function updateFAQ(Request $request) {
-    $faq = Faq::findOrFail($request->id);
+    $this->authorize('admin', Auth::user());
 
+    $faq = Faq::findOrFail($request->id);
     $faq->question = $request->new_faq_question;
     $faq->answer = $request->new_faq_answer;
 
@@ -73,12 +75,15 @@ class AdminController extends Controller {
   }
 
   public static function destroyFAQ(Request $request) {
+    $this->authorize('admin', Auth::user());
+
     Faq::where('id', $request->id)->delete();
   }
 
   public function addFAQ(Request $request) {
-    $newFAQ = new Faq;
+    $this->authorize('admin', Auth::user());
 
+    $newFAQ = new Faq;
     $newFAQ->question = $request->new_faq_question;
     $newFAQ->answer = $request->new_faq_answer;
 
