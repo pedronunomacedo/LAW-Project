@@ -10,7 +10,7 @@
         <?php
         for ($x = 0; $x <= 4 - $product->score; $x++) {?> 
             <i class="fa fa-star"></i>
-        <?php } ?><span>{{ $product->score }}</span>
+        <?php } ?>
     </div>
     <p class="product_card_price mb-1"><strong>{{ $product->price }} €</strong></p>
     <div class="product_card_btn my-2">
