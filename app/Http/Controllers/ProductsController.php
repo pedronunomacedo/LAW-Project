@@ -99,11 +99,13 @@ class ProductsController extends Controller {
     return response()->json(array('product' => $product), 200);
   }
 
-  public function showCategoryProducts($id) {
-    $categoryProducts = Product::where('categoryname', $id)->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+  public function showCategoryProducts($category, $orderByOptionSel) {
+    $categoryProducts = Product::where('categoryname', $category)->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                                                             $join->on('product.id', '=', 'img.idproduct');
-                                                        })->paginate(20);
+                                                        })
+                                                        ->orderBy($orderByOptionSel)
+                                                        ->paginate(20);
 
-    return view('pages.category', ['categoryProducts' => $categoryProducts, 'category' => $id]);
+    return view('pages.category', ['categoryProducts' => $categoryProducts, 'category' => $category]);
   }
 }

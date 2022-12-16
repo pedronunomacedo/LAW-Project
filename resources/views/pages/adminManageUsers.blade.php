@@ -69,7 +69,7 @@
 
     <div class="text-center">
         {!! $allUsers->links(); !!}
-    </span>
+    </div>
 </div>
 
 @endsection
