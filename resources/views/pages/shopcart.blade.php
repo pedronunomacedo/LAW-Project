@@ -31,9 +31,9 @@
                     </li>
                 </ul>
                 <hr class="my-4" />
-                <button type="button" class="btn btn-primary btn-lg">
-                    Buy
-                </button>
+                <a class="btn btn-primary btn-lg" href="/checkout">
+                    Checkout ->
+                </a>
             </div>
         </div>
     </div>

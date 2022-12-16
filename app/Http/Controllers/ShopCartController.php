@@ -59,4 +59,15 @@ class ShopCartController extends Controller {
         }
         return response(401);
     }
+
+    public function showCheckout(Request $request) {
+
+        if (Auth::check()) {
+            $user = Auth::user();
+            //$this->authorize('edit', $user);
+            $products = $user->shopcart()->get();
+        }
+
+        return view('pages.checkout', ['products' => $products]);
+    }
 }
