@@ -62,6 +62,9 @@ Route::get('shopcart', 'ShopCartController@showShopcart');
 Route::post('shopcart/addToShopCart', 'ShopCartController@addShopCartProduct') -> name('addToShopCart');
 Route::post('shopcart/removeFromShopCart', 'ShopCartController@removeShopCartProduct') -> name('removeFromShopCart');
 
+//Checkout
+Route::get('checkout', 'ShopCartController@showCheckout');
+
 // Order
 Route::get('orders', 'OrdersController@showOrders');
 Route::post('orders/addToOrders', 'OrdersController@addOrdersProduct') -> name('addToOrders');

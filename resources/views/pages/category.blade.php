@@ -352,38 +352,38 @@
                             <h5><strong>Price range</strong></h5>
                             <hr class="mb-3"/>
                             <div class="form-check">
-                                <input class="form-check-input price_check_box" type="checkbox" value="0_199.99" onClick="getProductsFilteredByDate(this)">
-                                <label class="form-check-label" for="2022Check">
+                                <input class="form-check-input price_check_box" type="checkbox" id="0_200" value="0_199.99" onClick="getProductsFilteredByDate(this)">
+                                <label class="form-check-label" for="0_200">
                                     €0 - €200
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input price_check_box" type="checkbox" value="200_399.99" onClick="getProductsFilteredByDate(this)">
-                                <label class="form-check-label" for="2021Check">
+                                <input class="form-check-input price_check_box" type="checkbox" id="200_400" value="200_399.99" onClick="getProductsFilteredByDate(this)">
+                                <label class="form-check-label" for="200_400">
                                     €200 - €400
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input price_check_box" type="checkbox" value="400_599.99" onClick="getProductsFilteredByDate(this)">
-                                <label class="form-check-label" for="2020Check">
+                                <input class="form-check-input price_check_box" type="checkbox" id="400_600" value="400_599.99" onClick="getProductsFilteredByDate(this)">
+                                <label class="form-check-label" for="400_600">
                                     €400 - €600
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input price_check_box" type="checkbox" value="600_799.99" onClick="getProductsFilteredByDate(this)">
-                                <label class="form-check-label" for="lt2020Check">
+                                <input class="form-check-input price_check_box" type="checkbox" id="600_800" value="600_799.99" onClick="getProductsFilteredByDate(this)">
+                                <label class="form-check-label" for="600_800">
                                     €600 - €800
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input price_check_box" type="checkbox" value="800_1000" onClick="getProductsFilteredByDate(this)">
-                                <label class="form-check-label" for="lt2020Check">
+                                <input class="form-check-input price_check_box" type="checkbox" id="800_1000" value="800_1000" onClick="getProductsFilteredByDate(this)">
+                                <label class="form-check-label" for="800_1000">
                                     €800 - €1000
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input price_check_box" type="checkbox" value="1001" onClick="getProductsFilteredByDate(this)">
-                                <label class="form-check-label" for="lt2020Check">
+                                <input class="form-check-input price_check_box" type="checkbox" id="gt1000" value="1001" onClick="getProductsFilteredByDate(this)">
+                                <label class="form-check-label" for="gt1000">
                                     > €1000
                                 </label>
                             </div>
