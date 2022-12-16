@@ -8,7 +8,7 @@
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="{{ route('category_page', ['category_id'=> $product->categoryname]) }}">{{ $product->categoryname }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('category_page', ['category'=> $product->categoryname]) }}">{{ $product->categoryname }}</a></li>
             <li class="breadcrumb-item" style="color: black;"><strong>{{ $product->prodname }}</strong></li>
         </ol>
     </nav>

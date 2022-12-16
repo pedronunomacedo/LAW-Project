@@ -24,10 +24,6 @@
         // console.log(yearCheckboxes);
         // console.log(priceCheckboxes);
 
-
-        
-
-
         var allYearCheckboxesUnchecked = true;
         for (var i = 0; i < yearCheckboxes.length; i++) {
             if (yearCheckboxes[i].checked) {
@@ -173,8 +169,6 @@
                         break;
                     }
                 }
-
-                // console.log("----------------------------------------------------------------");
 
                 // console.log("product_" + productID + " productMeetsPriceChecked: " + productMeetsPriceChecked);
                 if (productMeetsPriceChecked && productMeetsYearChecked) {
