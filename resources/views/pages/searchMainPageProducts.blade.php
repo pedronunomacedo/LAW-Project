@@ -43,9 +43,11 @@
         // console.log(productsListElem);
         
         var yearCheckboxes = document.getElementsByClassName('year_check_box'); // Get all the year yearCheckboxes
-        var priceCheckboxes = document.getElementsByClassName('price_check_box'); // Get all the year yearCheckboxes
+        var priceCheckboxes = document.getElementsByClassName('price_check_box'); // Get all the year priceCheckboxes
+        var categoryCheckboxes = document.getElementsByClassName('category_check_box'); // Get all the year categoryCheckboxes
         // console.log(yearCheckboxes);
         // console.log(priceCheckboxes);
+        // console.log(categoryCheckboxes);
 
         var allYearCheckboxesUnchecked = true;
         for (var i = 0; i < yearCheckboxes.length; i++) {
@@ -63,8 +65,16 @@
         }
         // console.log(allPriceCheckBoxesUnchecked);
 
+        var allCategoryCheckBoxesUnchecked = true;
+        for (var i = 0; i < categoryCheckboxes.length; i++) {
+            if (categoryCheckboxes[i].checked) {
+                allCategoryCheckBoxesUnchecked = false;
+            }
+        }
+        // console.log(allCategoryCheckBoxesUnchecked);
 
-        if (allYearCheckboxesUnchecked && allPriceCheckBoxesUnchecked) {
+
+        if (allYearCheckboxesUnchecked && allPriceCheckBoxesUnchecked && allCategoryCheckBoxesUnchecked) {
             for (var i = 0; i < productsFilteredList.length; i++) {
                 productsFilteredList[i].style.display = 'block';
             }
@@ -75,6 +85,7 @@
                 var productID = allIDs[1];
                 var productDate = allIDs[2];
                 var productPrice = allIDs[3];
+                var productCategory = allIDs[4];
                 var productDateSplited = productDate.split('-');
                 var productYear = parseInt(productDateSplited[0]);
                 // console.log("productID: " + productID + " | Year: " + productYear + " | Price: " + productPrice);
@@ -91,7 +102,30 @@
                         break;
                     }
                 }
-            }  
+
+                // var productMeetsCategoryChecked = false;
+                // for (var j = 0; j < categoryCheckboxes.length; j++) {
+                //     var checkBoxCategory = yearCheckboxes[j].getAttribute('value');
+                //     if (productsFilteredList[i].style.display == "block") {
+                //         if (productCategory == checkBoxCategory && categoryCheckboxes[k].checked) {
+                //             productsFilteredList[i].style.display = 'block';
+                //             productMeetsCategoryChecked = true;
+                //             break;
+                //         }
+                //         else if (productCategory == checkBoxCategory && !categoryCheckboxes[k].checked){
+                //             productsFilteredList[i].style.display = 'none';
+                //             break;
+                //         }
+                //     }
+                // }
+
+                // if (productMeetsCategoryChecked) {
+                //     productsFilteredList[i].style.display = 'block';
+                // }
+                // else {
+                //     productsFilteredList[i].style.display = 'none';
+                // }
+            }
         }
         else if (allYearCheckboxesUnchecked && !allPriceCheckBoxesUnchecked) {
             console.log("allYearCheckboxesUnchecked = " + allYearCheckboxesUnchecked + " and allPriceCheckBoxesUnchecked = " + allPriceCheckBoxesUnchecked);
@@ -139,6 +173,29 @@
                 else {
                     productsFilteredList[i].style.display = 'none';
                 }
+
+                // var productMeetsCategoryChecked = false;
+                // for (var j = 0; j < categoryCheckboxes.length; j++) {
+                //     var checkBoxCategory = yearCheckboxes[j].getAttribute('value');
+                //     if (productsFilteredList[i].style.display == "block") {
+                //         if (productCategory == checkBoxCategory && categoryCheckboxes[k].checked) {
+                //             productsFilteredList[i].style.display = 'block';
+                //             productMeetsCategoryChecked = true;
+                //             break;
+                //         }
+                //         else if (productCategory == checkBoxCategory && !categoryCheckboxes[k].checked){
+                //             productsFilteredList[i].style.display = 'none';
+                //             break;
+                //         }
+                //     }
+                // }
+
+                // if (productMeetsCategoryChecked) {
+                //     productsFilteredList[i].style.display = 'block';
+                // }
+                // else {
+                //     productsFilteredList[i].style.display = 'none';
+                // }
             }
         }
         else { // (!allYearCheckboxesUnchecked && !allPriceCheckBoxesUnchecked)
@@ -200,6 +257,29 @@
                 else {
                     productsFilteredList[i].style.display = 'none';
                 }
+
+                // var productMeetsCategoryChecked = false;
+                // for (var j = 0; j < categoryCheckboxes.length; j++) {
+                //     var checkBoxCategory = yearCheckboxes[j].getAttribute('value');
+                //     if (productsFilteredList[i].style.display == "block") {
+                //         if (productCategory == checkBoxCategory && categoryCheckboxes[k].checked) {
+                //             productsFilteredList[i].style.display = 'block';
+                //             productMeetsCategoryChecked = true;
+                //             break;
+                //         }
+                //         else if (productCategory == checkBoxCategory && !categoryCheckboxes[k].checked){
+                //             productsFilteredList[i].style.display = 'none';
+                //             break;
+                //         }
+                //     }
+                // }
+
+                // if (productMeetsCategoryChecked) {
+                //     productsFilteredList[i].style.display = 'block';
+                // }
+                // else {
+                //     productsFilteredList[i].style.display = 'none';
+                // }
             }
         }
 
@@ -346,46 +426,6 @@
                 <div class="filter_sidebar">
                     <h4 class="mb-4"><strong>Filters</strong></h4>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item align-items-center border-0 p-0 mb-2">
-                            <h5><strong>Categories</strong></h5>
-                            <hr class="mb-3"/>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="SmartphonesCheck">
-                                <label class="form-check-label" for="SmartphonesCheck">
-                                    Smartphones
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="ComponentsCheck">
-                                <label class="form-check-label" for="ComponentsCheck">
-                                    Components
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="TVsCheck">
-                                <label class="form-check-label" for="TVsCheck">
-                                    TVs
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="LaptopsCheck">
-                                <label class="form-check-label" for="LaptopsCheck">
-                                    Laptops
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="DesktopsCheck">
-                                <label class="form-check-label" for="DesktopsCheck">
-                                    Desktops
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="OtherCheck">
-                                <label class="form-check-label" for="OtherCheck">
-                                    Other
-                                </label>
-                            </div>
-                        </li>
                         <li class="list-group-item align-items-center border-0 p-0 mb-2">
                             <h5><strong>Release Year</strong></h5>
                             <hr class="mb-3"/>
