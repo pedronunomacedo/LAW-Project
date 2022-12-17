@@ -347,6 +347,46 @@
                     <h4 class="mb-4"><strong>Filters</strong></h4>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item align-items-center border-0 p-0 mb-2">
+                            <h5><strong>Categories</strong></h5>
+                            <hr class="mb-3"/>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="SmartphonesCheck">
+                                <label class="form-check-label" for="SmartphonesCheck">
+                                    Smartphones
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="ComponentsCheck">
+                                <label class="form-check-label" for="ComponentsCheck">
+                                    Components
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="TVsCheck">
+                                <label class="form-check-label" for="TVsCheck">
+                                    TVs
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="LaptopsCheck">
+                                <label class="form-check-label" for="LaptopsCheck">
+                                    Laptops
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="DesktopsCheck">
+                                <label class="form-check-label" for="DesktopsCheck">
+                                    Desktops
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="OtherCheck">
+                                <label class="form-check-label" for="OtherCheck">
+                                    Other
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-group-item align-items-center border-0 p-0 mb-2">
                             <h5><strong>Release Year</strong></h5>
                             <hr class="mb-3"/>
                             <div class="form-check">
