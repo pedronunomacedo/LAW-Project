@@ -95,10 +95,12 @@
       </nav>
     </header>
     <section id="content" class="min-vh-100">
-      <div class="alert alert-success show fade" id="wishlist-success" style="display: none; position: fixed; z-index: 5"></div>
-      <div class="alert alert-warning show fade" id="wishlist-error" style="display: none; position: fixed; z-index: 5"></div>
-      <div class="alert alert-success show fade" id="shopcart-success" style="display: none; position: fixed; z-index: 5"></div>
-      <div class="alert alert-warning show fade" id="shopcart-error" style="display: none; position: fixed; z-index: 5"></div>
+      <div class="alert alert-success show fade align-items-center" id="wishlist-success" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-check-circle"></i><div></div></div>
+      <div class="alert alert-warning show fade align-items-center" id="wishlist-error" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-exclamation-circle"></i><div></div></div>
+      <div class="alert alert-success show fade align-items-center" id="shopcart-success" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-check-circle"></i><div></div></div>
+      <div class="alert alert-warning show fade align-items-center" id="shopcart-error" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-exclamation-circle"></i><div></div></div>
+      <div class="alert alert-success show fade align-items-center" id="order-success" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-check-circle"></i><div></div></div>
+      <div class="alert alert-warning show fade align-items-center" id="order-error" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-exclamation-circle"></i><div></div></div>
       @yield('content')
     </section>
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mx-5">

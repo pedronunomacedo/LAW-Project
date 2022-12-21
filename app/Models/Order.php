@@ -28,4 +28,8 @@ class Order extends Model {
 
         return $orderProducts;
     }
+
+    public function productOrder() {
+        return $this->belongsToMany(Product::Class, 'productorder', 'idproduct', 'idorders')->withPivot('quantity', 'totalprice');
+    }
 }

@@ -78,12 +78,27 @@
             </div>
         </div>
         <div class="col-md-5">
-            <div class="mb-4 product_page_info">
+            <div class="mb-4 product_page_info position-relative">
                 <h4 class="mb-3"><strong>{{$product->prodname}}</strong></h4>
-                <h5 class="mb-3" style="color: red"><strong>{{ $product->price }} €</strong></h5>
-                <button type="button" class="btn btn-danger" onclick="addToShopCart({{ $product->id }})">
-                    <i class="fas fa-shopping-bag"></i>  Add to Shopcart
-                </button>
+                <div class="product_card_ratings mb-3">
+                    <?php
+                    for ($x = 0; $x < $product->score; $x++) {?> 
+                        <i class="fa fa-star rating-color"></i>
+                    <?php } ?>
+                    <?php
+                    for ($x = 0; $x <= 4 - $product->score; $x++) {?> 
+                        <i class="fa fa-star"></i>
+                    <?php } ?>
+                </div>
+                <h2 class="mb-3" style="color: red"><strong>{{ $product->price }} €</strong></h2>
+                <div style="position: absolute; bottom: 1rem; right: 1rem;">
+                    <button type="button" class="btn btn-success" onclick="addToWishlist({{ $product->id }})">
+                        <i class="fas fa-heart"></i>  Add to Wishlist
+                    </button>
+                    <button type="button" class="btn btn-danger" onclick="addToShopCart({{ $product->id }})">
+                        <i class="fas fa-shopping-cart"></i>  Add to Shopcart
+                    </button>
+                </div>
             </div>
         </div>
     </div>

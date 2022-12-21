@@ -251,8 +251,8 @@ function addToWishlist(id) {
     dataType: 'text',
     success: function (data) {
         $("#wishlist-error").css('display','none');            
-        $("#wishlist-success").css('display','block');
-        $("#wishlist-success").text(data);
+        $("#wishlist-success").css('display','flex');
+        $("#wishlist-success div").text(data);
         console.log(data);
         setTimeout(() => {
           $("#wishlist-success").css('display','none');
@@ -260,8 +260,8 @@ function addToWishlist(id) {
     },
     error: function (data) {
         $("#wishlist-success").css('display','none');            
-        $("#wishlist-error").css('display','block');
-        $("#wishlist-error").text(data.responseText);
+        $("#wishlist-error").css('display','flex');
+        $("#wishlist-error div").text(data.responseText);
         console.log(data.responseText);
         setTimeout(() => {
           $("#wishlist-error").css('display','none');
@@ -313,8 +313,8 @@ function addToShopCart(id) {
     dataType: 'text',
     success: function (data) {
         $("#shopcart-error").css('display','none');            
-        $("#shopcart-success").css('display','block');
-        $("#shopcart-success").text(data);
+        $("#shopcart-success").css('display','flex');
+        $("#shopcart-success div").text(data);
         //console.log(data);
         setTimeout(() => {
           $("#shopcart-success").css('display','none');
@@ -322,8 +322,8 @@ function addToShopCart(id) {
     },
     error: function (data) {
         $("#shopcart-success").css('display','none');            
-        $("#shopcart-error").css('display','block');
-        $("#shopcart-error").text(data.responseText);
+        $("#shopcart-error").css('display','flex');
+        $("#shopcart-error div").text(data.responseText);
         //console.log(data.responseText);
         setTimeout(() => {
           $("#shopcart-error").css('display','none');
@@ -356,7 +356,47 @@ function removeFromShopCart(id) {
   return false;
 }
 
-function addToOrders(id) {
-  console.log(id);
-  sendAjaxRequest("POST", "orders/addToOrders", {id : id});
+function addToOrders() {
+  //console.log(products);
+  let id;
+  let x = document.getElementsByClassName('form-check-input');
+  for (let i = 0; i < x.length; i++) {
+    if (x[i].checked) id = x[i].value;
+  }
+  
+  let product_data = {};
+  product_data.id = id;
+  
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  $.ajax({
+    type: "POST",
+    url: '/orders/addToOrders',
+    data: (product_data),
+    dataType: 'text',
+    success: function (data) {
+        //window.location = '/';
+        $("#order-error").css('display','none');            
+        $("#order-success").css('display','flex');
+        $("#order-success div").text(data);
+        //console.log(data);
+        setTimeout(() => {
+          $("#order-success").css('display','none');
+        }, 1000);
+    },
+    error: function (data) {
+        //window.location = '/checkout';
+        $("#order-success").css('display','none');            
+        $("#order-error").css('display','flex');
+        $("#order-error div").text(data.responseText);
+        //console.log(data.responseText);
+        setTimeout(() => {
+          $("#order-error").css('display','none');
+        }, 1000);
+    }
+  });
+  return false;
 }

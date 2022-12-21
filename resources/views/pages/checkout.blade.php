@@ -33,7 +33,9 @@
                     </h2>
                     <div id="collapseBillingAddress" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                         <div class="accordion-body">
-                            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            <div style="display: flex; gap: 2rem">
+                                @each('partials.address_card', Auth::user()->address()->get(), 'address')
+                            </div>
                             <button class="btn btn-success" onclick="document.querySelector('#headingPaymentMethod > button:nth-child(1)').click(); document.getElementById('billingAddress').classList.add('completed'); document.getElementById('billingAddress').classList.remove('active'); document.getElementById('paymentMethod').classList.add('active');">Next</button>
                         </div>
                     </div>
@@ -82,9 +84,9 @@
                     </li>
                 </ul>
                 <hr class="my-4" />
-                <button type="button" class="btn btn-primary btn-lg">
-                    more details
-                </button>
+                @foreach($products as $product)
+                    <p><strong>{{$product->prodname}}</strong> | {{$product->pivot->quantity}} | {{$product->price}}<p>
+                @endforeach
             </div>
         </div>
     </div>
@@ -100,7 +102,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" onclick="">Buy</button>
+                    <button type="button" class="btn btn-danger" onclick="addToOrders()">Buy</button>
                 </div>
             </div>
         </div>

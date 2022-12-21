@@ -58,4 +58,8 @@ class User extends Authenticatable {
     public function orders(){
         return $this->belongsToMany(Order::Class, 'order', 'idusers')->withPivot('id');//not working
     }
+
+    public function address() {
+        return $this->belongsToMany(Address::Class, 'authuseraddress', 'idusers', 'idaddress');
+    }
 }

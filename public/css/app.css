@@ -68,20 +68,10 @@ div.text-center > nav * {
   color: rgb(228, 228, 1);
 }
 
-.wishlist_summary, .filter_sidebar, .filter_orderby_bar, .product_wishlist_card, .checkout_state_bar {
+.wishlist_summary, .filter_sidebar, .filter_orderby_bar, .product_wishlist_card, .checkout_state_bar, .product_page_img, .product_page_tabs, .product_page_info {
   background-color: white;
   padding: 1rem;
   border-radius: 10px;
-}
-
-.product_page_info {
-  background-color: white;
-  padding: 1rem;
-}
-
-.product_page_img {
-  background-color: white;
-  padding: 1rem;
 }
 
 .product_page_img img {
@@ -90,9 +80,8 @@ div.text-center > nav * {
   margin: 0 auto;
 }
 
-.product_page_tabs {
-  background-color: white;
-  padding: 1rem;
+.product_page_info {
+  height: 16rem;
 }
 
 
@@ -294,4 +283,38 @@ div.text-center > nav * {
   #user_shopcart_icon {
     display: none;
   }
+}
+
+#pills-description-tab, #pills-reviews-tab {
+  color:#c0c0c0;
+  border-bottom: 4px solid #d5d5d5;
+  border-radius: 0;
+}
+
+#pills-description-tab.active, #pills-reviews-tab.active {
+  border-bottom: 4px solid red;
+  color: black;
+  font-weight: bold;
+  background-color: white;
+  border-radius: 0;
+}
+
+#pills-description-tab:hover, #pills-reviews-tab:hover {
+  color: red;
+  transition: .1s;
+}
+
+.address_card {
+  border-radius: 10px;
+  position: relative;
+  border: 1px dotted black;
+  padding: 1rem;
+  width: 22rem;
+  height: 10rem;
+}
+
+.address_card input {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
 }
