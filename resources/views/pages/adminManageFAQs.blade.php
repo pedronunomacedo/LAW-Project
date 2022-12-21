@@ -4,10 +4,12 @@
 
 @section('content')
 
-<ol class="breadcrumb" style="margin: 0px 100px">
-  <li class="breadcrumb-item"><a href="/">Home</a></li>
-  <li class="breadcrumb-item active">ManageFAQs</li>
-</ol>
+<nav class="path" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb" style="margin: 0px 100px">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active">ManageFAQs</li>
+    </ol>
+</nav>
 
 <script src="extensions/editable/bootstrap-table-editable.js"></script>
 

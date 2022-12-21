@@ -32,13 +32,15 @@
     }
 </script>
 
-<ol class="breadcrumb" style="margin: 0px 100px">
-  <li class="breadcrumb-item"><a href="/">Home</a></li>
-  <li class="breadcrumb-item active"><a href="/adminManageUsers">SearchUsers</a></li>
-  <li class="breadcrumb-item active">search({{ $searchStr }})</li>
-</ol>
-
 <script src="extensions/editable/bootstrap-table-editable.js"></script>
+
+<nav class="path" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb path" style="margin: 0px 100px">
+    <li class="breadcrumb-item"><a href="/">Home</a></li>
+    <li class="breadcrumb-item active"><a href="/adminManageUsers">SearchUsers</a></li>
+    <li class="breadcrumb-item active">search({{ $searchStr }})</li>
+    </ol>
+</nav>
 
 <div style="margin: 0px 100px">
     @if($searchUsers->total() == 0)

@@ -1,0 +1,12 @@
+@media only screen and (max-width: 560px) {
+    .carousel-inner {
+        position: relative;
+    }
+    
+    .carousel-item {
+        position: absolute;
+        margin: 0px;
+        top: 50%;
+        left: 0%;
+    }
+}

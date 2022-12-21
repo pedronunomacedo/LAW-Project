@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container py-5">
-    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <nav class="path" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{{ route('category_page', ['category'=> $product->categoryname]) }}">{{ $product->categoryname }}</a></li>
@@ -23,7 +23,7 @@
                         <?php } ?>
                     </div>
                     <div class="carousel-inner">
-                        <div class="carousel-item active">
+                        <div class="carousel-item active" style="">
                             <img src="<?= $productImages[0]->imgpath ?>" class="d-block ">
                         </div>
                         <?php for ($y = 1; $y < count($productImages); $y++) { ?>

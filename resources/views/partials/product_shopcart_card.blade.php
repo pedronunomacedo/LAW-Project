@@ -9,28 +9,22 @@
             onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
             <i class="fas fa-minus"></i>
             </button>
-
             <div class="form-outline">
                 <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
             </div>
-
             <button class="btn btn-primary px-3 ms-2"
             onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-            <i class="fas fa-plus"></i>
+                <i class="fas fa-plus"></i>
             </button>
         </div>
-        <div class="product_card_btn" style="position:absolute; bottom: 0;">
+        <div class="col-lg-2 col-md-6 my-4" style="position:relative; right: -250px; bottom: 25px; width: 120px;">
+            <p class="m-0" style="position:absolute; bottom: 0; color: red; font-size: 1.3rem">
+                <strong>{{$product->price}} €</strong>
+            </p>
+        </div>
+        <div class="product_card_btn" style="position:absolute;">
             <button class="btn p-0" data-bs-toggle="modal" data-bs-target="#removeShopCartProduct{{$product->id}}"><i class="fas fa-times"></i> Remove</button>
         </div>
-    </div>
-    <div class="col-lg-2 col-md-6 my-4" style="position:relative">
-        <p class="m-0">
-            <strong>{{$product->price}} € <span style="font-size: small">x{{$product->quantity}}</span></strong>
-        </p>
-        <p class="m-0" style="position:absolute; bottom: 0; color: red; font-size: 1.3rem">
-            <strong>{{$product->price}} €</strong>
-        </p>
-        
     </div>
     <div class="modal fade" id="removeShopCartProduct{{$product->id}}" tabindex="-1" aria-labelledby="removeShopCartProductLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">

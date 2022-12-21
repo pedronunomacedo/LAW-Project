@@ -250,3 +250,48 @@ div.text-center > nav * {
 .stepper-item:last-child::after {
   content: none;
 }
+
+#user_wishlist_dropdown,
+  #user_wishlist_shopcart {
+    display: none;
+  }
+
+  #user_wishlist_icon, 
+  #user_shopcart_icon {
+    display: block;
+  }
+
+
+
+@media only screen and (max-width: 600px) {
+  main {
+    margin: 0 20px;
+  }
+
+  .path > li:last-child {
+    max-width: 150px;
+    white-space: nowrap;
+    object-fit: cover;
+  }
+
+  .dropdown {
+    position: relative;
+  }
+
+  .dropdown-menu {
+    position: absolute;
+  }
+}
+
+/* Header */
+@media only screen and (max-width: 991px) {
+  #user_wishlist_dropdown,
+  #user_wishlist_shopcart {
+    display: inline-block;
+  }
+
+  #user_wishlist_icon, 
+  #user_shopcart_icon {
+    display: none;
+  }
+}

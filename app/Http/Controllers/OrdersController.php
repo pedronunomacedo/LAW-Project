@@ -12,11 +12,14 @@ use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller {
     public function showOrders() {
-
         if (Auth::check()) {
             // $this->authorize('show', Auth::id());
             $user = Auth::user();
-            $userOrders = Order::where('idusers', Auth::id())->get();
+            $userOrders = Order::where('idusers', Auth::id())
+                                ->join('productorder', function ($join) {
+                                    $join->on('id', '=', 'productorder.idorders');
+                                })
+                                ->get();
         }
 
         return view('pages.orders', ['userOrders' => $userOrders]);

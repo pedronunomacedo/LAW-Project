@@ -15,10 +15,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@800&display=swap" rel="stylesheet"> 
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/admin.css" rel="stylesheet">
     <link href="/css/profile.css" rel="stylesheet">
     <link href="/css/loginAndregister.css" rel="stylesheet">
     <link href="/css/categoryPage.css" rel="stylesheet">
     <link href="/css/userOrders.css" rel="stylesheet">
+    <link href="/css/productPage.css" rel="stylesheet">
+    <link href="/css/wishlist.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -33,7 +36,7 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="{{ url('/') }}"><h1 class="display-6">Tech4You</h1></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse position-absolute end-0" id="navbarColor02">
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{ url('mainPageSearch/products') }}" method="GET" role="search">
@@ -54,7 +57,7 @@
                     </div>
                   </li>
                 @else
-                  <li class="nav-item">
+                  <li class="nav-item" style="display: block" id="user_wishlist_icon">
                     <a class="nav-link position-relative" href="/wishlist">
                       <i class="far fa-heart fa-2x"></i>
                       @if (Auth::user()->wishlist()->count() > 0)
@@ -62,7 +65,7 @@
                       @endif
                     </a>
                   </li>
-                  <li class="nav-item">
+                  <li class="nav-item" style="display: block" id="user_shopcart_icon">
                     <a class="nav-link position-relative" href="/shopcart">
                       <i class="fas fa-shopping-cart fa-2x"></i>
                       @if (Auth::user()->shopcart()->count() > 0)
@@ -74,6 +77,8 @@
                     <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="{{route('profile', [Auth::id()])}}">Profile</a>
                       <a class="dropdown-item" href="/orders">Orders</a>
+                      <a class="dropdown-item" href="/wishlist" style="display: none" id="user_wishlist_dropdown">Wishlist</a>
+                      <a class="dropdown-item" href="/orders" style="display: none" id="user_wishlist_shopcart">ShopCart</a>
                       <div><hr class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{route('logout')}}">Logout</a>
                     </div>
