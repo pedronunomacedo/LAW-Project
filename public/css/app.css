@@ -291,7 +291,7 @@ div.text-center > nav * {
   border-radius: 0;
 }
 
-#pills-description-tab.active, #pills-reviews-tab.active {
+#pills-description-tab.active, #pills-reviews-tab.active, #pills-address-tab.active, #pills-pay-tab.active, #pills-confirm-tab.active {
   border-bottom: 4px solid red;
   color: black;
   font-weight: bold;
@@ -299,7 +299,7 @@ div.text-center > nav * {
   border-radius: 0;
 }
 
-#pills-description-tab:hover, #pills-reviews-tab:hover {
+#pills-description-tab:hover, #pills-reviews-tab:hover, #pills-address-tab:hover, #pills-pay-tab:hover, #pills-confirm-tab:hover {
   color: red;
   transition: .1s;
 }
@@ -317,4 +317,18 @@ div.text-center > nav * {
   position: absolute;
   top: 1rem;
   right: 1rem;
+}
+
+#pills-address-tab, #pills-pay-tab, #pills-confirm-tab {
+  color:#c0c0c0;
+  border-radius: 0;
+}
+
+
+#pills-tabContentCheckout {
+  border-radius: 10px;
+  padding: 1rem;
+  background-color: white;
+  height: 30rem;
+  position: relative;
 }

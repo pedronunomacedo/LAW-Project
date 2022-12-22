@@ -55,29 +55,29 @@
                     <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
                         <p class="mb-0">{{ $product->proddescription }}</p>
                     </div>
-                    @if (count($productReviews) == 0)
-                        <span>No reviews found...</span>
-                    @else
-                        <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
-                            @foreach($productReviews as $review)
-                                <hr class="my-4" />
-                                <div id="review{{ $review->id }}">
-                                    <p style="font-weight:normal"><strong>{{ $review->name }}</strong>, {{ $review->reviewdate }}</p>
-                                    <p style="font-weight:normal">{{ $review->content }}</p>
-                                    <div class="ratings">
-                                        <?php
-                                        for ($x = 0; $x < $review->rating; $x++) {?> 
-                                            <i class="fa fa-star rating-color"></i>
-                                        <?php } ?>
-                                        <?php
-                                        for ($x = 0; $x <= 4 - $review->rating; $x++) {?> 
-                                            <i class="fa fa-star"></i>
-                                        <?php } ?>
-                                    </div>
+                    <div class="tab-pane fade" id="pills-reviews" role="tabpanel" aria-labelledby="pills-reviews-tab">
+                        @if (count($productReviews) == 0)
+                            <span>No reviews found...</span>
+                        @else
+                        @foreach($productReviews as $review)
+                            <hr class="my-4" />
+                            <div id="review{{ $review->id }}">
+                                <p style="font-weight:normal"><strong>{{ $review->name }}</strong>, {{ $review->reviewdate }}</p>
+                                <p style="font-weight:normal">{{ $review->content }}</p>
+                                <div class="ratings">
+                                    <?php
+                                    for ($x = 0; $x < $review->rating; $x++) {?> 
+                                        <i class="fa fa-star rating-color"></i>
+                                    <?php } ?>
+                                    <?php
+                                    for ($x = 0; $x <= 4 - $review->rating; $x++) {?> 
+                                        <i class="fa fa-star"></i>
+                                    <?php } ?>
                                 </div>
-                            @endforeach
-                        </div>
-                    @endif
+                            </div>
+                        @endforeach
+                        @endif
+                    </div>
                 </div>
             </div>
         </div>
