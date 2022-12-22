@@ -219,8 +219,8 @@ function deleteFAQ(id) {
 }
 
 function updateFAQ(id) {
-  var newFAQquestion = document.querySelector("#faq_question" + id).value;
-  var newFAQanswer = document.querySelector("#faq_answer" + id).value;
+  var newFAQquestion = document.querySelector("#faq_question" + id).innerHTML;
+  var newFAQanswer = document.querySelector("#faq_answer" + id).innerHTML;
 
   sendAjaxRequest("POST", "adminManageFAQS/saveChanges", {id : id, new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
 }

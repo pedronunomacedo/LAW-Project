@@ -11,53 +11,6 @@
     </ol>
 </nav>
 
-<script src="extensions/editable/bootstrap-table-editable.js"></script>
-
-<script>
-    function encodeForAjax(data) {
-        if (data == null) return null;
-        
-        return Object.keys(data).map(function(k){
-            return encodeURIComponent(k) + '=' + encodeURIComponent(data[k])
-        }).join('&');
-    }
-
-    function sendAjaxRequest(method, url, data, handler) {
-        let request = new XMLHttpRequest();
-
-        request.open(method, url, true);
-        request.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]').content);
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.addEventListener('load', handler);
-        request.send(encodeForAjax(data));
-    }
-
-    function deleteFAQ(id) {
-        sendAjaxRequest("POST", "adminManageFAQS/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
-        document.querySelector("#faqForm" + id).remove();
-    }
-
-    function addFAQ() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var newFAQquestion = document.getElementById("newQuestion").value;
-        var newFAQanswer = document.getElementById("newAnswer").value;
-
-        sendAjaxRequest("POST", "adminManageFAQS/addFAQ", {new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
-    }
-
-    function updateFAQ(id) {
-        var newFAQquestion = document.querySelector("#faq_question" + id).innerHTML;
-        var newFAQanswer = document.querySelector("#faq_answer" + id).innerHTML;
-
-        sendAjaxRequest("POST", "adminManageFAQS/saveChanges", {id : id, new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
-    }
-</script>
-
 <style>
     .contentEditable:read-write:focus {
         outline: none;
@@ -72,11 +25,11 @@
         @foreach($allFAQs as $faq)
             <div class="card userCard" style="margin-top: 30px; display: flex;" id="faqForm{{ $faq->id }}">
                 <div class="card-header">
-                    <strong class="contentEditable" id="faq_question{{ $faq->id }}" contentEditable="true">{{ $faq->question }}</strong>
+                    <span class="contentEditable" id="faq_question{{ $faq->id }}" contentEditable="true">{{ $faq->question }}</span>
                 </div>
                 <div class="card_body">
                     <div class="card-body" style="display: inline-block;">
-                        <p class="card-text contentEditable" id="faq_answer{{ $faq->id }}" contentEditable="true">{{ $faq->answer }}</p>    
+                        <span class="card-text contentEditable" id="faq_answer{{ $faq->id }}" contentEditable="true">{{ $faq->answer }}</span>    
                     </div>
                     <div class="div_buttons" style="display: inline-block; float: right; align-items: center;">
                         <a class="btn" onClick="updateFAQ({{ $faq->id }})" style="text-align: center; justify-content: center;">
