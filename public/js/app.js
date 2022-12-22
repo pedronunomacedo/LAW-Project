@@ -401,3 +401,39 @@ function addToOrders() {
   });
   return false;
 }
+
+function tabAddress() {
+  document.getElementById('billingAddress').classList.add('active'); 
+  document.getElementById('billingAddress').classList.remove('completed');
+  document.getElementById('paymentMethod').classList.remove('active'); 
+  document.getElementById('paymentMethod').classList.remove('completed');
+  document.getElementById('confirmCheckout').classList.remove('active'); 
+  document.getElementById('confirmCheckout').classList.remove('completed');
+}
+
+function tabPayment() {
+  document.getElementById('paymentMethod').classList.add('active'); 
+  document.getElementById('paymentMethod').classList.remove('completed');
+  document.getElementById('billingAddress').classList.remove('active'); 
+  document.getElementById('billingAddress').classList.add('completed');
+  document.getElementById('confirmCheckout').classList.remove('active'); 
+  document.getElementById('confirmCheckout').classList.remove('completed');
+}
+
+function tabConfirm() {
+  document.getElementById('confirmCheckout').classList.add('active'); 
+  document.getElementById('confirmCheckout').classList.remove('completed');
+  document.getElementById('billingAddress').classList.remove('active'); 
+  document.getElementById('billingAddress').classList.add('completed');
+  document.getElementById('paymentMethod').classList.remove('active'); 
+  document.getElementById('paymentMethod').classList.add('completed');
+}
+
+function tabAll() {
+  document.getElementById('confirmCheckout').classList.add('active'); 
+  document.getElementById('confirmCheckout').classList.add('completed');
+  document.getElementById('billingAddress').classList.remove('active'); 
+  document.getElementById('billingAddress').classList.add('completed');
+  document.getElementById('paymentMethod').classList.remove('active'); 
+  document.getElementById('paymentMethod').classList.add('completed');
+}

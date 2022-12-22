@@ -9,62 +9,36 @@
     <div class="row d-flex justify-content-center my-4">
         <div class="col-md-9">
             <div class="checkout_state_bar mb-3 d-flex align-items-center justify-content-center py-2">
-                <div class="stepper-wrapper">
-                    <div class="stepper-item active" id="billingAddress">
+                <ul class="nav nav-pills nav-justified stepper-wrapper" id="pills-tab" role="tablist">
+                    <li class="nav-item stepper-item active" id="billingAddress" role="presentation">
                         <div class="step-counter"></div>
-                        <div class="step-name">Billing Address</div>
-                    </div>
-                    <div class="stepper-item" id="paymentMethod">
+                        <div class="step-name nav-link active" onclick="tabAddress()" id="pills-address-tab" data-bs-toggle="pill" data-bs-target="#pills-address" type="button" role="tab" aria-controls="pills-address" aria-selected="true">Billing Address</div>
+                    </li>
+                    <li class="nav-item stepper-item" id="paymentMethod" role="presentation">
                         <div class="step-counter"></div>
-                        <div class="step-name">Payment Method</div>
-                    </div>
-                    <div class="stepper-item" id="confirmCheckout">
+                        <div class="step-name nav-link" onclick="tabPayment()" id="pills-pay-tab" data-bs-toggle="pill" data-bs-target="#pills-pay" type="button" role="tab" aria-controls="pills-pay" aria-selected="false">Payment Method</div>
+                    </li>
+                    <li class="nav-item stepper-item" id="confirmCheckout" role="presentation">
                         <div class="step-counter"></div>
-                        <div class="step-name">Confirm Checkout</div>
-                    </div>
-                </div>
+                        <div class="step-name nav-link" onclick="tabConfirm()" id="pills-confirm-tab" data-bs-toggle="pill" data-bs-target="#pills-confirm" type="button" role="tab" aria-controls="pills-confirm" aria-selected="false">Confirm Checkout</div>
+                    </li>
+                </ul>
             </div>
-            <div class="accordion" id="accordionExample">
-                <div class="accordion-item my-3" style="border: 0; border-radius: 10px;">
-                    <h2 class="accordion-header" id="headingBillingAddress">
-                    <button style="border: 0; border-radius: 10px;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBillingAddress" aria-expanded="true" aria-controls="collapseBillingAddress">
-                        Billing Address
-                    </button>
-                    </h2>
-                    <div id="collapseBillingAddress" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div style="display: flex; gap: 2rem">
-                                @each('partials.address_card', Auth::user()->address()->get(), 'address')
-                            </div>
-                            <button class="btn btn-success" onclick="document.querySelector('#headingPaymentMethod > button:nth-child(1)').click(); document.getElementById('billingAddress').classList.add('completed'); document.getElementById('billingAddress').classList.remove('active'); document.getElementById('paymentMethod').classList.add('active');">Next</button>
-                        </div>
+            <div class="tab-content" id="pills-tabContentCheckout">
+                <div class="tab-pane fade show active" id="pills-address" role="tabpanel" aria-labelledby="pills-address-tab">
+                    <p>Choose a billing address from the following:</p>
+                    <div style="display: flex; gap: 2rem;">
+                        @each('partials.address_card', Auth::user()->address()->get(), 'address')
                     </div>
+                    <button style="position: absolute; bottom: 1rem; right: 1rem;" class="btn btn-success" onclick="document.getElementById('pills-pay-tab').click()">Continue -></button>
                 </div>
-                <div class="accordion-item my-3" style="border: 0; border-radius: 10px">
-                    <h2 class="accordion-header" id="headingPaymentMethod">
-                    <button style="border: 0; border-radius: 10px;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePaymentMethod" aria-expanded="false" aria-controls="collapsePaymentMethod">
-                        Payment Method
-                    </button>
-                    </h2>
-                    <div id="collapsePaymentMethod" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            <button class="btn btn-success" onclick="document.querySelector('#headingConfirmCheckout > button:nth-child(1)').click(); document.getElementById('paymentMethod').classList.add('completed'); document.getElementById('paymentMethod').classList.remove('active'); document.getElementById('confirmCheckout').classList.add('active');">Next</button>
-                        </div>
-                    </div>
+                <div class="tab-pane fade" id="pills-pay" role="tabpanel" aria-labelledby="pills-pay-tab">
+                    <p>Generator of iban to pay for the order:</p>
+                    <button style="position: absolute; bottom: 1rem; right: 1rem;" class="btn btn-success" onclick="document.getElementById('pills-confirm-tab').click()">Continue -></button>
                 </div>
-                <div class="accordion-item my-3" style="border: 0; border-radius: 10px">
-                    <h2 class="accordion-header" id="headingConfirmCheckout">
-                    <button style="border: 0; border-radius: 10px;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseConfirmCheckout" aria-expanded="false" aria-controls="collapseConfirmCheckout">
-                        Confirm Checkout
-                    </button>
-                    </h2>
-                    <div id="collapseConfirmCheckout" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <strong>This is the first item's accordion body.</strong> It is shown by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-                            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutModal" onclick="document.getElementById('confirmCheckout').classList.add('completed'); document.getElementById('confirmCheckout').classList.remove('active');">Finish</button>
-                        </div>
-                    </div>
+                <div class="tab-pane fade" id="pills-confirm" role="tabpanel" aria-labelledby="pills-confirm-tab">
+                    <p>Resume of the order address/payment/and info:</p>
+                    <button style="position: absolute; bottom: 1rem; right: 1rem;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutModal" onclick="tabAll()">Finish Checkout</button>
                 </div>
             </div>
         </div>
