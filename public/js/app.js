@@ -369,16 +369,17 @@ function addToOrders() {
   
   $.ajaxSetup({
     headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
   });
+
   $.ajax({
     type: "POST",
     url: '/orders/addToOrders',
-    data: (product_data),
+    data: product_data,
     dataType: 'text',
     success: function (data) {
-        //window.location = '/';
+        window.location = '/';
         $("#order-error").css('display','none');            
         $("#order-success").css('display','flex');
         $("#order-success div").text(data);
@@ -388,7 +389,7 @@ function addToOrders() {
         }, 1000);
     },
     error: function (data) {
-        //window.location = '/checkout';
+        window.location = '/checkout';
         $("#order-success").css('display','none');            
         $("#order-error").css('display','flex');
         $("#order-error div").text(data.responseText);

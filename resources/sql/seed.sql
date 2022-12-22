@@ -202,6 +202,7 @@ CREATE INDEX orderProductsDESC ON Product USING btree(price);
 -- End create transactions --
 */
 
+
 -- Start create tables --
 CREATE TABLE users (
   id serial PRIMARY KEY, 
@@ -275,8 +276,7 @@ CREATE TABLE ProductOrder (
   quantity INTEGER CHECK (quantity > 0), 
   totalPrice FLOAT NOT NULL, 
   idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
-	idOrders INTEGER REFERENCES Orders(id) ON DELETE CASCADE, 
-  PRIMARY KEY (idOrders, idProduct)
+	idOrders INTEGER REFERENCES Orders(id) ON DELETE CASCADE
 );
 
 CREATE TABLE ShopCart (

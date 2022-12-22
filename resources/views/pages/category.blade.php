@@ -311,7 +311,7 @@
                 <li class="breadcrumb-item active" style="color: black;">{{ $category }}</li>
             </ol>
         </nav>
-        @if($categoryProducts->total() == 0)
+        @if(count($categoryProducts) == 0)
             <h3>Sorry, we could not find any product with name <i>{{ $category }}</i></h3>
         @else
         <div class="row" style="border-left: 0.5rem solid red; margin-bottom: 2rem;"><h2>{{ $category }}</h2></div>
