@@ -17,11 +17,8 @@ class OrdersController extends Controller {
         if (Auth::check()) {
             // $this->authorize('show', Auth::id());
             $user = Auth::user();
-            $userOrders = Order::where('idusers', Auth::id())
-                                ->join('productorder', function ($join) {
-                                    $join->on('id', '=', 'productorder.idorders');
-                                })
-                                ->get();
+            $userOrders = Order::where('idusers', '=', $user->id)->get();
+            //error_log($userOrders);
         }
 
         return view('pages.orders', ['userOrders' => $userOrders]);

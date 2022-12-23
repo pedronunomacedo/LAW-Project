@@ -332,3 +332,10 @@ div.text-center > nav * {
   height: 30rem;
   position: relative;
 }
+
+
+.order_card {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+}
