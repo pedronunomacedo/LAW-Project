@@ -1,16 +1,14 @@
-<div class="card user_order">
-    <div class="card-body">
-        <h4 class="card-title">Order {{ $order->id }}</h4>
-        <div class="order_info">
-            <p>{{ $order->orderdate }} | {{ $order->products()->get()->sum('pivot.totalprice') }} € | {{ $order->orderstate }}</p>
-        </div>
-        <div class="order_products">
-            <h5>Products</h5>
-            @foreach($order->products()->get() as $product)
-                <div id="order{{ $order->id }}Product{{ $product->id }}">
-                    <p>{{ $product->prodname }} | {{ $product->pivot->quantity }} | {{ $product->pivot->totalprice }}</p>
-                </div>
-            @endforeach
-        </div>
+<div class="d-flex justify-content-between align-items-center order_card mb-4">
+    <div class="col-md-3">
+        <h4 class="m-0">Order <span style="color: red">#{{ $order->id }}</span></h4>
+    </div>
+    <div class="col-md-3" style="font-size: 1.1em">
+        <span><strong>Date: </strong>{{ $order->orderdate }}</span>
+    </div>
+    <div class="col-md-3" style="font-size: 1.1em">
+        <span><strong>State: </strong>{{ $order->orderstate }}</span>
+    </div>
+    <div class="col-md-3" style="text-align: end;">
+        <a href="{{ route('order', ['order_id'=> $order->id]) }}" class="btn btn-warning">More Info</a>
     </div>
 </div>

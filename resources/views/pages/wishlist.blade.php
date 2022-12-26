@@ -31,9 +31,11 @@
                         </li>
                     </ul>
                     <hr class="my-4" />
-                    <button type="button" class="btn btn-primary btn-lg">
-                        Add All To ShopCart
-                    </button>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-info btn-lg" onclick="addAllToShopCart({{$products}})">
+                            Add All To ShopCart
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

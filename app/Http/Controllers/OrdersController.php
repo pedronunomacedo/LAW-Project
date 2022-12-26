@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Address;
 use App\Models\Faq;
 use App\Models\User;
 use App\Models\ProductOrder;
@@ -17,14 +18,21 @@ class OrdersController extends Controller {
         if (Auth::check()) {
             // $this->authorize('show', Auth::id());
             $user = Auth::user();
-            $userOrders = Order::where('idusers', Auth::id())
-                                ->join('productorder', function ($join) {
-                                    $join->on('id', '=', 'productorder.idorders');
-                                })
-                                ->get();
+            $userOrders = Order::where('idusers', '=', $user->id)->get();
+            //error_log($userOrders);
         }
 
         return view('pages.orders', ['userOrders' => $userOrders]);
+    }
+
+    public function showOrder($id) {
+        if (Auth::check()) {
+            // $this->authorize('show', Auth::id());
+            $order = Order::findOrFail($id);
+            $address = Address::findOrFail($order->idaddress);
+        }
+
+        return view('pages.order', ['order' => $order, 'address' => $address]);
     }
 
     public function addOrdersProduct(Request $request) {
@@ -41,7 +49,7 @@ class OrdersController extends Controller {
                 $order->products()->attach($product, array('quantity' => $product->pivot->quantity, 'totalprice' => $product->pivot->quantity * $product->price));
             }
 
-            return response(json_encode("Added new Order"), 200);
+            return response(json_encode("Added Order #".$order->id." to your orders"), 200);
         } else {
             return response(json_encode("Something went wrong with the order"), 401);
         }
@@ -51,19 +59,14 @@ class OrdersController extends Controller {
     public function searchOrders(Request $search_request) {
         $this->authorize('admin', Auth::user());
 
-        $allOrdersWithUsername = ($this)->getAllOrdersWithUsername();
-        
+        $searchedOrders = DB::table('orders')
+                        ->join('users', 'users.id', '=', 'orders.idusers')
+                        ->distinct('orders.idusers')
+                        ->paginate(20);
 
-        $searchOrders = $allOrdersWithUsername->filter(function($item) use ($search_request) {
-            return str_contains($item->name, $search_request->search);
-        });
-
-        // dd($searchOrders);
-
-        // $searchOrders = Order::where('name','LIKE','%' . $search_request->search . '%')->orderBy('prodname')->paginate(20);
         $allOrderStates = ["In process", "Preparing", "Dispatched", "Delivered", "Cancelled"];
         
-        return view('pages.searchOrders', ['searchOrders' => $searchOrders, 'searchStr' => $search_request->search, 'allOrderStates' => $allOrderStates] );
+        return view('pages.searchOrders', ['searchOrders' => $searchedOrders, 'searchStr' => $search_request->search, 'allOrderStates' => $allOrderStates] );
     }
 
     public static function getAllOrdersWithUsername () {

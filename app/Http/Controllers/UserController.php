@@ -34,16 +34,16 @@ class UserController extends Controller {
     User::where('id', $request->id)->delete();
   }
 
-  public static function updateProfileData($id, Request $request) {
+  public function updateProfileData($id, Request $request) {
     $user = User::findOrFail($id); // get the user
 
     $this->authorize('editProfile', $user);
 
     if ($request->phonenumber == "") {
-      User::where('id', $id)->update(['name'=> $request->username, 'password' => $request->password , 'email' => $request->email]);
+      User::where('id', $id)->update(['name'=> $request->username, 'email' => $request->email]);
     }
     else {
-      User::where('id', $id)->update(['name'=> $request->username, 'password' => $request->password , 'email' => $request->email, 'phonenumber' => $request->phonenumber]);
+      User::where('id', $id)->update(['name'=> $request->username, 'email' => $request->email, 'phonenumber' => $request->phonenumber]);
     }
 
     return redirect('profile/' . $id);
