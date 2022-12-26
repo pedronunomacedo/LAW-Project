@@ -31,9 +31,11 @@
                         </li>
                     </ul>
                     <hr class="my-4" />
-                    <a class="btn btn-primary btn-lg" href="/checkout">
-                        Checkout ->
-                    </a>
+                    <div class="text-center">
+                        <a class="btn btn-info btn-lg" href="/checkout">
+                            Checkout
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

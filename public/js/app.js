@@ -356,6 +356,12 @@ function removeFromShopCart(id) {
   return false;
 }
 
+function addAllToShopCart(products) {
+  for (let i = 0; i < products.length; i++) {
+    addToShopCart(products[i].idproduct);
+  }
+}
+
 function addToOrders() {
   //console.log(products);
   let id;

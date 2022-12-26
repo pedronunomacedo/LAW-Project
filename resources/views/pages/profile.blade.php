@@ -16,7 +16,7 @@
 		<div class="row" style="border-left: 0.5rem solid red; margin-bottom: 2rem;"><h2>My Profile</h2></div>
 		<form action="{{ route('saveUserProfile', ['id' => $user->id]) }}"  method="POST" class="row d-flex justify-content-center my-4" style="background-color: white; padding: 1rem; border-radius:10px;">
 		@csrf
-			<h4 class="mb-4">Personal Info</h4>
+			<h4 class="mb-4" style="text-decoration: underline 4px red">Personal Info</h4>
 			<div class="col-md-6">
 				<div class="form-group mb-4">
 					<label class="profile_details_text">Name:</label>
@@ -36,7 +36,7 @@
 			<button class="btn btn-danger btn-lg" onclick="" type="submit" style="width: 10rem">Save</button>
 		</form>
 		<div class="row d-flex justify-content-center my-4" style="background-color: white; padding: 1rem; border-radius:10px;">
-			<h4 class="mb-4">Change Password</h4>
+			<h4 class="mb-4" style="text-decoration: underline 4px red">Change Password</h4>
 			<div class="col-md-6">
 				<div class="form-group mb-4">
 					<label class="profile_details_text">Old Password:</label>
@@ -56,7 +56,7 @@
 			<button class="btn btn-danger btn-lg" onclick="" style="width: 10rem">Save</button>
 		</div>
 		<div class="row d-flex justify-content-center my-4" style="background-color: white; padding: 1rem; border-radius:10px;">
-			<h4 class="mb-4">Billing Address</h4>
+			<h4 class="mb-4" style="text-decoration: underline 4px red">Billing Address</h4>
 			<div class="mb-4" style="display: flex; justify-content: space-evenly; flex-wrap: wrap; gap: 2rem">
 				@foreach(Auth::user()->address()->get() as $address)
 					<div class="address_card">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Address;
 use App\Models\Faq;
 use App\Models\User;
 use App\Models\ProductOrder;
@@ -24,6 +25,16 @@ class OrdersController extends Controller {
         return view('pages.orders', ['userOrders' => $userOrders]);
     }
 
+    public function showOrder($id) {
+        if (Auth::check()) {
+            // $this->authorize('show', Auth::id());
+            $order = Order::findOrFail($id);
+            $address = Address::findOrFail($order->idaddress);
+        }
+
+        return view('pages.order', ['order' => $order, 'address' => $address]);
+    }
+
     public function addOrdersProduct(Request $request) {
         if (Auth::check()) {
             $user = Auth::user();
@@ -38,7 +49,7 @@ class OrdersController extends Controller {
                 $order->products()->attach($product, array('quantity' => $product->pivot->quantity, 'totalprice' => $product->pivot->quantity * $product->price));
             }
 
-            return response(json_encode("Added new Order"), 200);
+            return response(json_encode("Added Order #".$order->id." to your orders"), 200);
         } else {
             return response(json_encode("Something went wrong with the order"), 401);
         }

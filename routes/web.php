@@ -68,6 +68,7 @@ Route::get('checkout', 'ShopCartController@showCheckout');
 
 // Order
 Route::get('orders', 'OrdersController@showOrders');
+Route::get('orders/{order_id}', 'OrdersController@showOrder')->name('order');
 Route::post('orders/addToOrders', 'OrdersController@addOrdersProduct') -> name('addToOrders');
 Route::post('orders/removeFromOrders', 'OrdersController@removeOrdersProduct') -> name('removeFromOrders');
 
