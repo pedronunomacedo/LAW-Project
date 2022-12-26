@@ -10,3 +10,14 @@
         left: 0%;
     }
 }
+
+@media only screen and (max-width: 1000px) {
+    #two_main_divs {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #two_main_divs > * {
+        width: 100%;
+    }
+}

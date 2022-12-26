@@ -422,7 +422,7 @@
             <h3>Sorry, we could not find any product with name <i>{{ $searchStr }}</i></h3>
         @else
         <div class="row d-flex justify-content-center my-4">
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-bottom: 20px">
                 <div class="filter_sidebar">
                     <h4 class="mb-4"><strong>Filters</strong></h4>
                     <ul class="list-group list-group-flush">

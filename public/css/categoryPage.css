@@ -15,3 +15,7 @@
 #productsFilteredList > :last-child {
   justify-self: left;
 }
+
+#products_div > div {
+  width: 100%;
+}

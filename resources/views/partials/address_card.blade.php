@@ -1,4 +1,4 @@
-<div class="form-check address_card">
+<div class="form-check address_card" style="height: auto">
     <input class="form-check-input" type="radio" value="{{$address->id}}" name="flexRadioDefault" id="flexRadioAddress{{$address->id}}">
     <label class="form-check-label d-block" for="flexRadioAddress{{$address->id}}">
         <p><strong>Street: </strong>{{$address->street}}<p>

@@ -1,7 +1,3 @@
-CREATE SCHEMA IF NOT EXISTS lbaw2284;
-SET SEARCH_PATH TO lbaw2284;
-
--- Start create tables --
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS AuthenticatedUser CASCADE;
 DROP TABLE IF EXISTS Administrator CASCADE;
@@ -18,192 +14,21 @@ DROP TABLE IF EXISTS Wishlist CASCADE;
 DROP TABLE IF EXISTS Review CASCADE;
 DROP TABLE IF EXISTS FAQ CASCADE;
 
--- Types --
+
+/* Types */
 DROP TYPE IF EXISTS ORDER_STATE CASCADE;
 DROP type if EXISTS PRODUCT_CATEGORY CASCADE;
 CREATE TYPE ORDER_STATE AS ENUM ('In process', 'Preparing', 'Dispatched', 'Delivered', 'Cancelled');
 CREATE TYPE PRODUCT_CATEGORY AS ENUM ('Smartphones', 'Components', 'TVs', 'Laptops', 'Desktops', 'Other');
 
--- Domains --
+
+/* Domains */
 DROP DOMAIN IF EXISTS EMAIL_FORMAT CASCADE;
 CREATE DOMAIN EMAIL_FORMAT AS TEXT CHECK(VALUE LIKE '_%@_%.__%');
 
-/*
--- Start create triggers --
-DROP TRIGGER IF EXISTS updateProductRating ON Review CASCADE;
--- TRIGGER 01 (Update product score with the new Review added)
-CREATE OR REPLACE FUNCTION logUpdateProductRating() RETURNS TRIGGER AS 
-$BODY$
-BEGIN
-   -- trigger logic
-   IF TG_OP = 'INSERT' THEN
-     UPDATE Product
-     SET score = ROUND((SELECT AVG(rating) FROM Review WHERE New.idProduct = Product.id),1)
-     WHERE Product.id = NEW.idProduct;
-   END IF;
-   --RETURN coalesce(NEW, OLD);
-   RETURN New;
-END
-$BODY$
-LANGUAGE plpgsql;
 
-CREATE TRIGGER updateProductRating
-  AFTER INSERT OR UPDATE
-  ON Review
-  FOR EACH ROW
-  EXECUTE PROCEDURE logUpdateProductRating();
+/* Start create tables */
 
-DROP FUNCTION IF EXISTS logDeleteProductFromShopCart CASCADE;
-DROP TRIGGER IF EXISTS deleteProductFromShopCart ON Review CASCADE;
--- TRIGGER 02 (delete a product from the shop cart)
-CREATE OR REPLACE FUNCTION logDeleteProductFromShopCart() RETURNS TRIGGER AS 
-$BODY$
-BEGIN
-   -- trigger logic
-   IF TG_OP = 'INSERT' THEN
-       DELETE FROM ShopCart
-       where (ShopCart.idusers = (SELECT idusers FROM Orders WHERE Orders.id = NEW.idOrders)) AND (idProduct = NEW.idProduct);
-   END IF;
-   
-   RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER deleteProductFromShopCart
-  AFTER INSERT OR UPDATE
-  ON ProductOrder
-  FOR EACH ROW
-  EXECUTE PROCEDURE logDeleteProductFromShopCart();
-
-DROP FUNCTION IF EXISTS logAddReview CASCADE;
-DROP TRIGGER IF EXISTS addReview ON Review CASCADE;
--- TRIGGER 03 (A user can only review products that he bought)
-CREATE FUNCTION logAddReview() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-    IF NOT EXISTS (SELECT ProductOrder.idProduct from (SELECT Orders.id as orderID FROM Orders WHERE Orders.idusers = NEW.idusers) as UserOrders, ProductOrder WHERE UserOrders.orderID = ProductOrder.idOrders AND ProductOrder.idProduct = NEW.idProduct) THEN 
-        RAISE EXCEPTION 'User can only review products he had bought (%,%)!', NEW.idusers, NEW.idProduct;
-    END IF;
-    RETURN New;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER addReview BEFORE INSERT
-ON Review
-FOR EACH ROW
-EXECUTE PROCEDURE logAddReview();
-
-DROP FUNCTION IF EXISTS logUpdateProductStock CASCADE;
-DROP TRIGGER IF EXISTS updateProductStock ON Review CASCADE;
--- TRIGGER 04 (When a product is bough its stock is reduced)
-CREATE FUNCTION logUpdateProductStock() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-    UPDATE Product
-    SET stock = Product.stock - New.quantity
-    WHERE Product.id = New.idProduct;
-    RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER updateProductStock AFTER INSERT
-ON ProductOrder
-FOR EACH ROW
-EXECUTE PROCEDURE logUpdateProductStock();
-
-DROP FUNCTION IF EXISTS logVerifyProductStock CASCADE;
-DROP TRIGGER IF EXISTS verifyProductStock ON Review CASCADE;
--- TRIGGER 05 (A user can't buy more than the available quantity)
-CREATE FUNCTION logVerifyProductStock() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-    IF (((SELECT stock FROM Product WHERE id = NEW.idProduct) - NEW.quantity) < 0) THEN
-        RAISE EXCEPTION 'There is not enough stock of this product!';
-    END IF;
-    RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER verifyProductStock BEFORE INSERT
-ON ProductOrder
-FOR EACH ROW
-EXECUTE PROCEDURE logVerifyProductStock();
-
--- End create triggers --
-
-
--- Start create indexes --
-CREATE INDEX usersUsername ON users USING hash (name); -- user name
--- 1) CREATE INDEX userAddresses ON Address USING hash (id); -- userID
--- 2) CREATE INDEX userPurchases ON Order USING hash (id); -- userID
-CREATE INDEX productReviews ON Review USING hash (id); -- productID
-CREATE INDEX productsCategory ON Product USING hash (id); -- categoryID
-CREATE INDEX searchProducts ON Product USING hash (prodName); -- Product name
-CREATE INDEX orderProductsDESC ON Product USING btree(price);
-
--- End create indexes --
-
-
--- Start create transactions --
--- Product info
-
--- BEGIN TRANSACTION;
-
--- SET TRANSACTION ISOLATION LEVEL READ COMMITTED READ ONLY;
-
--- SELECT prodName, prodDescription, prodImageID, price, stock, avg(rating) FROM Product
--- WHERE id=$id;
-
--- SELECT avg(rating) FROM Review
--- WHERE idProduct=$idProduct;
-
--- SELECT content, rating, reviewDate FROM Review
--- WHERE idProduct=$idProduct
--- ORDER BY rating desc
--- LIMIT 7;
-
--- COMMIT;
--- Product Info end
-
--- ALTER TABLE product ADD COLUMN tsvectors TSVECTOR;
-
--- CREATE FUNCTION productSearchUpdate() RETURNS TRIGGER AS $$
--- DECLARE newName text = (SELECT name from product where id = NEW.id);
--- DECLARE oldName text = (SELECT name from product where id = OLD.id);
--- BEGIN
---     IF TG_OP = ‘INSERT’ THEN
---         NEW.tsvectors = (
---             setweitght(to_tsvector(‘english’,New.title), ‘A’) ||                setweitght(to_tsvector(‘english’,newName), ‘B’)
---         );
---     END IF;
-
---     IF TG_OP = ‘UPDATE’ THEN
---         IF (NEW.name <> OLD.name OR newName <> oldName) THEN
---             setweitght(to_tsvector(‘english’,New.title), ‘A’) ||                setweitght(to_tsvector(‘english’,newName), ‘B’)
---         );
---         END IF;
---     END IF;
-    
---     RETURN NEW;
--- END $$
--- LANGUAGE plpgsql;
-
--- CREATE TRIGGER productSearchUpdate
---     BEFORE INSERT OR UPDATE ON product
---     FOR EACH ROW
---     EXECUTE PROCEDURE productSearchUpdate();
-
--- CREATE INDEX product_search ON product UNSING GIST(tsvectors);
-
--- End create transactions --
-*/
-
-
--- Start create tables --
 CREATE TABLE users (
   id serial PRIMARY KEY, 
   name VARCHAR(255) NOT NULL, 
@@ -304,9 +129,128 @@ CREATE TABLE FAQ (
 	question VARCHAR(500) NOT NULL, 
   answer VARCHAR(500) NOT NULL
 );
--- End create tables --
 
--- Start povoate databse --
+/* End create tables */
+
+
+/* Start create triggers */
+
+-- TRIGGER 01 (Update product score with the new Review added)
+DROP FUNCTION IF EXISTS logUpdateProductRating CASCADE;
+DROP TRIGGER IF EXISTS updateAvg ON Review CASCADE;
+CREATE OR REPLACE FUNCTION logUpdateProductRating() RETURNS TRIGGER AS 
+$BODY$
+BEGIN
+  WITH cte_avg AS (
+    SELECT SUM(rating::numeric) / COUNT(id) AS avg
+    FROM Review
+    WHERE New.idProduct = Review.idProduct
+  )
+  UPDATE Product SET score = cte_avg.avg
+  FROM cte_avg, Review
+  WHERE Product.id = Review.idProduct ;
+  RETURN New;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER updateAvg
+AFTER INSERT OR UPDATE ON Review
+FOR EACH ROW 
+EXECUTE PROCEDURE logUpdateProductRating();
+
+-- TRIGGER 02 (delete a product from the shop cart)
+DROP FUNCTION IF EXISTS logDeleteProductFromShopCart CASCADE;
+DROP TRIGGER IF EXISTS deleteProductFromShopCart ON Review CASCADE;
+
+CREATE OR REPLACE FUNCTION logDeleteProductFromShopCart() RETURNS TRIGGER AS 
+$BODY$
+BEGIN
+   -- trigger logic
+   IF TG_OP = 'INSERT' THEN
+       DELETE FROM ShopCart
+       where (ShopCart.idusers = (SELECT idusers FROM Orders WHERE Orders.id = NEW.idOrders)) AND (idProduct = NEW.idProduct);
+   END IF;
+   
+   RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER deleteProductFromShopCart
+  AFTER INSERT OR UPDATE
+  ON ProductOrder
+  FOR EACH ROW
+  EXECUTE PROCEDURE logDeleteProductFromShopCart();
+
+
+-- TRIGGER 03 (A user can only review products that he bought)
+DROP FUNCTION IF EXISTS logAddReview CASCADE;
+DROP TRIGGER IF EXISTS addReview ON Review CASCADE;
+
+CREATE FUNCTION logAddReview() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF NOT EXISTS (SELECT ProductOrder.idProduct from (SELECT Orders.id as orderID FROM Orders WHERE Orders.idusers = NEW.idusers) as UserOrders, ProductOrder WHERE UserOrders.orderID = ProductOrder.idOrders AND ProductOrder.idProduct = NEW.idProduct) THEN 
+        RAISE EXCEPTION 'User can only review products he had bought (%,%)!', NEW.idusers, NEW.idProduct;
+    END IF;
+    RETURN New;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER addReview BEFORE INSERT
+ON Review
+FOR EACH ROW
+EXECUTE PROCEDURE logAddReview();
+
+
+-- TRIGGER 04 (When a product is bough its stock is reduced)
+DROP FUNCTION IF EXISTS logUpdateProductStock CASCADE;
+DROP TRIGGER IF EXISTS updateProductStock ON Review CASCADE;
+
+CREATE FUNCTION logUpdateProductStock() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    UPDATE Product
+    SET stock = Product.stock - New.quantity
+    WHERE Product.id = New.idProduct;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER updateProductStock AFTER INSERT
+ON ProductOrder
+FOR EACH ROW
+EXECUTE PROCEDURE logUpdateProductStock();
+
+
+-- TRIGGER 05 (A user can't buy more than the available quantity)
+DROP FUNCTION IF EXISTS logVerifyProductStock CASCADE;
+DROP TRIGGER IF EXISTS verifyProductStock ON Review CASCADE;
+
+CREATE FUNCTION logVerifyProductStock() RETURNS TRIGGER AS
+$BODY$
+BEGIN
+    IF (((SELECT stock FROM Product WHERE id = NEW.idProduct) - NEW.quantity) < 0) THEN
+        RAISE EXCEPTION 'There is not enough stock of this product!';
+    END IF;
+    RETURN NEW;
+END
+$BODY$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER verifyProductStock BEFORE INSERT
+ON ProductOrder
+FOR EACH ROW
+EXECUTE PROCEDURE logVerifyProductStock();
+
+/* End create triggers */
+
+
+/* Start povoate database */
+
 -- Address start (38) --
 insert into Address (street, postalCode, city, country) values ('888 Bartillon Hill', 'SN1', 'Swindon', 'United Kingdom');
 insert into Address (street, postalCode, city, country) values ('40444 Northwestern Parkway', 'NG22', 'Milton', 'United Kingdom');
@@ -1069,3 +1013,5 @@ insert into FAQ (question, answer) values ('integer ac neque duis bibendum morbi
 insert into FAQ (question, answer) values ('ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur?', 'sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae');
 insert into FAQ (question, answer) values ('mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus?', 'faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui');
 -- FAQ end --
+
+/* End povoate database */

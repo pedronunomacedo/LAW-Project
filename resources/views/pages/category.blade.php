@@ -316,7 +316,7 @@
         @else
         <div class="row" style="border-left: 0.5rem solid red; margin-bottom: 2rem;"><h2>{{ $category }}</h2></div>
         <div class="row d-flex justify-content-center my-4">
-            <div class="col-md-3">
+            <div class="col-md-3" style="margin-bottom: 20px">
                 <div class="filter_sidebar">
                     <h4 class="mb-4"><strong>Filters</strong></h4>
                     <ul class="list-group list-group-flush">
@@ -416,7 +416,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9" id="products_div">
                 <div class="filter_orderby_bar mb-3 d-flex align-items-center justify-content-end py-2">
                     <span>Order By: </span>
                     <select class="form-select" id="option_selected" onchange="getProductsFilteredByDate()">

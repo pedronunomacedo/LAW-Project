@@ -12,7 +12,7 @@
             <li class="breadcrumb-item" style="color: black;"><strong>{{ $product->prodname }}</strong></li>
         </ol>
     </nav>
-    <div class="row d-flex justify-content-center my-4">
+    <div class="row d-flex justify-content-center my-4" id="two_main_divs">
         <div class="col-md-7">
             <div class="product_page_img mb-4">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="false">
@@ -82,7 +82,7 @@
             </div>
         </div>
         <div class="col-md-5">
-            <div class="mb-4 product_page_info position-relative">
+            <div class="mb-4 product_page_info position-relative" id="product_info_div">
                 <h4 class="mb-3"><strong>{{$product->prodname}}</strong></h4>
                 <div class="product_card_ratings mb-3">
                     <?php

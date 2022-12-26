@@ -20,7 +20,6 @@ class AdminController extends Controller {
 
     $allOrderStates = ["In process", "Preparing", "Dispatched", "Delivered", "Cancelled"];
     $allOrders = Order::paginate(20);
-    //$allOrders = $allOrders->sortBy('id');
     $allOrderWithUser = DB::table('orders')
                             ->join('users', function ($join) {
                                 $join->on('orders.idusers', '=', 'users.id');
@@ -30,10 +29,10 @@ class AdminController extends Controller {
                             })
                             ->orderBy('orderdate', 'DESC')
                             ->get();
-    
+
     $data = $this->paginate($allOrderWithUser);
 
-    return view('pages.adminManageOrders', ['allOrders' => $allOrders, 'allOrderStates' => $allOrderStates]);
+    return view('pages.adminManageOrders', ['allOrders' => $data, 'allOrderStates' => $allOrderStates]);
   }
 
   public function paginate($items, $perPage = 20, $page = null, $options = []) {
