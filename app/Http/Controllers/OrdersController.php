@@ -59,19 +59,14 @@ class OrdersController extends Controller {
     public function searchOrders(Request $search_request) {
         $this->authorize('admin', Auth::user());
 
-        $allOrdersWithUsername = ($this)->getAllOrdersWithUsername();
-        
+        $searchedOrders = DB::table('orders')
+                        ->join('users', 'users.id', '=', 'orders.idusers')
+                        ->distinct('orders.idusers')
+                        ->paginate(20);
 
-        $searchOrders = $allOrdersWithUsername->filter(function($item) use ($search_request) {
-            return str_contains($item->name, $search_request->search);
-        });
-
-        // dd($searchOrders);
-
-        // $searchOrders = Order::where('name','LIKE','%' . $search_request->search . '%')->orderBy('prodname')->paginate(20);
         $allOrderStates = ["In process", "Preparing", "Dispatched", "Delivered", "Cancelled"];
         
-        return view('pages.searchOrders', ['searchOrders' => $searchOrders, 'searchStr' => $search_request->search, 'allOrderStates' => $allOrderStates] );
+        return view('pages.searchOrders', ['searchOrders' => $searchedOrders, 'searchStr' => $search_request->search, 'allOrderStates' => $allOrderStates] );
     }
 
     public static function getAllOrdersWithUsername () {
