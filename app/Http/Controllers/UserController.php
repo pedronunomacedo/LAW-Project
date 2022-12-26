@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller {
   public function showProfile($id) {
       $user = User::findOrFail($id); // get the user
-
-      $this->authorize('show', $user);
+      
+      if (!Auth()->user()->isAdmin()){
+        $this->authorize('show', $user);
+      }
 
       return view('pages.profile', ['user' => $user]);
   }
@@ -23,15 +25,15 @@ class UserController extends Controller {
   public function showAllUsers() {
     $this->authorize('admin', Auth::user());
 
-    $allUsers = User::orderBy('name')->paginate(20);
+    $allUsers = User::orderBy('id')->where('id', '!=',  Auth::user()->id)->paginate(20);
 
     return view('pages.adminManageUsers', ['allUsers' => $allUsers]);
   }
 
-  public static function destroy(Request $request) {
+  public function destroy(Request $request) {
     $this->authorize('admin', Auth::user());
-
     User::where('id', $request->id)->delete();
+    return response(200);
   }
 
   public function updateProfileData($id, Request $request) {

@@ -63,8 +63,8 @@ CREATE TABLE Product (
 	id SERIAL PRIMARY KEY, 
   prodName VARCHAR(255) NOT NULL, 
   price FLOAT NOT NULL CHECK (price >= 0), 
-  prodDescription VARCHAR(500) NOT NULL, 
-  launchDate DATE NOT NULL, 
+  prodDescription VARCHAR(500), 
+  launchDate DATE,
   stock INTEGER NOT NULL, 
   categoryName PRODUCT_CATEGORY NOT NULL DEFAULT 'Other', 
   score FLOAT NOT NULL DEFAULT 0 CHECK (score >= 0 AND score <= 5)
@@ -381,8 +381,7 @@ insert into Product (prodName, price, prodDescription, launchDate, stock, catego
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Aspirador Robô Ecovacs Deebot X1 OMNI 5000Pa Preto', '1699.00', 'O DEEBOT X1 OMNI proporciona-lhe uma experiência totalmente livre de mãos com a primeira estação OMNI All-in-One da indústria.', '2021-11-14', 200, 'Other');
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Máquina de Café Automática DeLonghi PrimaDonna Elite Experience ECAM650.85.MS 1450W 19 Bar', '1479.90', 'Eleve a preparação de café a um novo patamar com a PrimaDonna Elite Experience. O acabamento elegante em aço inoxidável e o ecrã tátil vibrante chamará primeiro a sua atenção, seguindo-se as suas funcionalidades inovadoras. Ligue-se via Bluetooth à App Coffee Link para criar e personalizar novas receitas. Escolha entre uma grande variedade de bebidas para desfrutar do seu café favorito em casa.', '2022-09-01', 200, 'Other');
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Impressora Multifunções Epson EcoTank ET-16600', '1199.00', 'Esta impressora EcoTank com várias funcionalidades facilita as tarefas em formato A3+ e oferece um custo por página reduzido. Os trabalhos em formato A3+ podem ser realizados rapidamente graças às velocidades de impressão e digitalização rápidas, dois tabuleiros de papel com alimentação frontal com capacidade para 250 folhas, alimentação posterior de 50 folhas e ADF de 50 folhas A3. Imprima como quiser com a impressão móvel, Ethernet e um ecrã tátil LCD de 10,9 cm com teclas.', '2021-09-08', 200, 'Other');
-insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Impressora Monocromática HP LaserJet Tank 2504dw Wireless', '329.99', 'Obtenha o menor custo de operação com toner pré-carregado que permite imprimir até 5000 páginas e poupe com o Kit de Recarga de Toner HP.', '2022-11-06', 200, 'Other');insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('ElFlores Gaming Desktop Special Edition', '2018.57', 'in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin', '2021-05-04', 200, 'Desktops');
--- Product end --
+insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Impressora Monocromática HP LaserJet Tank 2504dw Wireless', '329.99', 'Obtenha o menor custo de operação com toner pré-carregado que permite imprimir até 5000 páginas e poupe com o Kit de Recarga de Toner HP.', '2022-11-06', 200, 'Other');
 
 -- prodImage start (92) --
 INSERT INTO ProductImages (idProduct, imgPath) VALUES (1, '/img/1a.png');

@@ -15,15 +15,15 @@ class ProductsController extends Controller {
   public function showHighlights() {
 
     $newProducts = Product::orderBy('launchdate', 'desc')->take(5)
-                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+                                                      ->leftJoin(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                                                         $join->on('product.id', '=', 'img.idproduct');
                                                     })->get();
     $bestSmartphones = Product::where('categoryname', 'Smartphones')->orderBy('score', 'desc')->take(5)
-                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+                                                      ->leftJoin(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                                                         $join->on('product.id', '=', 'img.idproduct');
                                                     })->get();
     $bestLaptops = Product::where('categoryname', 'Laptops')->orderBy('score', 'desc')->take(5)
-                                                      ->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+                                                      ->leftJoin(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                                                         $join->on('product.id', '=', 'img.idproduct');
                                                     })->get();
 
@@ -33,22 +33,33 @@ class ProductsController extends Controller {
   }
   
   public function showAllProducts() {
-    $allProducts = Product::orderBy('prodname', 'ASC')->paginate(20);
-    $allCategories = ["Smartphones", "Components", "TVs", "Laptops", "Desktops", "Others"];
+    $allProducts = Product::orderBy('id', 'ASC')
+                                                  ->leftJoin(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+                                                    $join->on('product.id', '=', 'img.idproduct');
+                                                })->paginate(20);
+    $allCategories = ["Smartphones", "Components", "TVs", "Laptops", "Desktops", "Other"];
 
     return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
   }
 
-  public static function destroy(Request $request) { 
+  public function destroy(Request $request) { 
     $this->authorize('admin', Auth::user());
 
     Product::where('id', $request->id)->delete();
+    return response(200);
   }
 
-  public static function updateProduct(Request $request) {
+  public function updateProduct(Request $request) {
     $this->authorize('admin', Auth::user());
-
-    Product::where('id', $request->product_id)->update(['prodname' => $request->product_name, 'price' => $request->product_price, 'proddescription' => $request->product_description, 'launchdate' => $request->product_launchdate, 'stock' => $request->product_stock, 'categoryname' => $request->product_category]);
+    $product = Product::findOrFail($request->product_id);
+    $product->prodname = $request->product_name;
+    $product->price = $request->product_price;
+    $product->proddescription = $request->product_description;
+    $product->launchdate = $request->product_launchdate;
+    $product->stock = $request->product_stock;
+    $product->categoryname = $request->product_category;
+    $product->save();
+    return response(200);
   }
 
   public static function showProduct($id) {
@@ -94,13 +105,17 @@ class ProductsController extends Controller {
     $product->stock = $request->new_product_stock;
     $product->categoryname = $request->new_product_category;
 
+    error_log($product);
+
     $product->save();
 
-    return response()->json(array('product' => $product), 200);
+    error_log('1');
+
+    return response(200);
   }
 
   public function showCategoryProducts($category) {
-    $categoryProducts = Product::where('categoryname', $category)->join(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+    $categoryProducts = Product::where('categoryname', $category)->leftJoin(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                                                             $join->on('product.id', '=', 'img.idproduct');
                                                         })
                                                         ->orderBy('prodname', 'asc')

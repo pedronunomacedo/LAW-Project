@@ -182,54 +182,63 @@ addEventListeners();
 
 
 
+function addProduct() {
 
+  var newProductName = document.getElementById("prod_name").value;
+  var newProductPrice = document.getElementById("prod_price").value;
+  var newProdDescription = document.getElementById("prod_descp").value;
+  var newProductLaunchdate = document.getElementById("prod_date").value;
+  var newProductStock = document.getElementById("prod_stock").value;
+  var newProductCategory = document.getElementById("prod_cat").value;
+
+  sendAjaxRequest("POST", "adminManageProducts/addProduct", {new_product_name : newProductName, new_product_price : newProductPrice, new_product_description : newProdDescription, new_product_launchdate : newProductLaunchdate, new_product_stock : newProductStock, new_product_category : newProductCategory}, ()=> {window.location = '/adminManageProducts';});
+}
 
 function deleteProduct(id) {
-  sendAjaxRequest("POST", "adminManageProducts/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+  sendAjaxRequest("POST", "adminManageProducts/delete", {id : id}, ()=> {window.location = '/adminManageProducts';}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
 
-  document.querySelector("#productForm" + id).remove();
+  //document.querySelector("#productForm" + id).remove();
 }
 
 function updateProduct(id) {
-  var newName = document.querySelector("#product_name" + id).value;
-  var newPrice = document.querySelector("#product_price" + id).value;
-  var newStock = document.querySelector("#product_stock" + id).value;
-  var newLaunchDate = document.querySelector("#product_launchDate" + id).value;
-  var newCategory = document.querySelector("#product_category" + id).value;
-  var newDescription = document.querySelector("#product_description" + id).value;
+  var newName = document.querySelector("#prod_name" + id).value;
+  var newPrice = document.querySelector("#prod_price" + id).value;
+  var newStock = document.querySelector("#prod_stock" + id).value;
+  var newLaunchDate = document.querySelector("#prod_date" + id).value;
+  var newCategory = document.querySelector("#prod_cat" + id).value;
+  var newDescription = document.querySelector("#prod_descp" + id).value;
 
-  sendAjaxRequest("POST", "adminManageProducts/saveChanges", {product_id : id, product_name : newName, product_price : newPrice, product_description: newDescription, product_launchdate : newLaunchDate, product_stock : newStock, product_category : newCategory}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+  sendAjaxRequest("POST", "adminManageProducts/saveChanges", {product_id : id, product_name : newName, product_price : newPrice, product_description: newDescription, product_launchdate : newLaunchDate, product_stock : newStock, product_category : newCategory}, ()=> {window.location = '/adminManageProducts';}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
 }
 
 function deleteUser(id) {
-  sendAjaxRequest("POST", "adminManageUsers/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
-
-  document.querySelector("#userForm" + id).remove();
+  sendAjaxRequest("POST", "adminManageUsers/delete", {id : id}, ()=> {window.location = '/adminManageUsers';}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+  //document.querySelector("#userForm" + id).remove();
 }
 
 function updateOrder(id) {
   var newOrderState = document.querySelector("#order_state" + id).value;
 
-  sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState});
+  sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState},()=> {window.location = '/adminManageOrders';});
 }
 
 function deleteFAQ(id) {
-  sendAjaxRequest("POST", "adminManageFAQS/delete", {id : id}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
-  document.querySelector("#faqForm" + id).remove();
+  sendAjaxRequest("POST", "adminManageFAQS/delete", {id : id}, ()=> {window.location = '/adminManageFAQs';}); // request sent to adminManageProducts/delete with out id {parameter : myVariable}
+  //document.querySelector("#faqForm" + id).remove();
 }
 
 function updateFAQ(id) {
-  var newFAQquestion = document.querySelector("#faq_question" + id).textContent;
-  var newFAQanswer = document.querySelector("#faq_answer" + id).textContent;
+  var newFAQquestion = document.querySelector("#faq_question" + id).value;
+  var newFAQanswer = document.querySelector("#faq_answer" + id).value;
 
-  sendAjaxRequest("POST", "adminManageFAQS/saveChanges", {id : id, new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
+  sendAjaxRequest("POST", "adminManageFAQS/saveChanges", {id : id, new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer}, ()=> {window.location = '/adminManageFAQs';});
 }
 
 function addFAQ() {
-  var newFAQquestion = document.querySelector("#newQuestionID").value;
-  var newFAQanswer = document.querySelector("#newAnswerID").value;
+  var newFAQquestion = document.querySelector("#faq_question").value;
+  var newFAQanswer = document.querySelector("#faq_answer").value;
 
-  sendAjaxRequest("POST", "adminManageFAQS/addFAQ", {new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer});
+  sendAjaxRequest("POST", "adminManageFAQS/addFAQ", {new_faq_question : newFAQquestion, new_faq_answer : newFAQanswer}, ()=> {window.location = '/adminManageFAQs';});
 }
 
 function addToWishlist(id) {

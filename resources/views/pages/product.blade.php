@@ -22,16 +22,24 @@
                             <button class="bg-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="<?= $x ?>" aria-label="Slide <?= $x + 1 ?>"></button>
                         <?php } ?>
                     </div>
-                    <div class="carousel-inner">
-                        <div class="carousel-item active" style="">
-                            <img src="<?= $productImages[0]->imgpath ?>" class="d-block ">
-                        </div>
-                        <?php for ($y = 1; $y < count($productImages); $y++) { ?>
-                            <div class="carousel-item">
-                                <img src="<?= $productImages[$y]->imgpath ?>" class="d-block ">
+                    @if (count($productImages) > 0)
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" style="">
+                                <img src="<?= $productImages[0]->imgpath ?>" class="d-block ">
                             </div>
-                        <?php } ?>
-                    </div>
+                            <?php for ($y = 1; $y < count($productImages); $y++) { ?>
+                                <div class="carousel-item">
+                                    <img src="<?= $productImages[$y]->imgpath ?>" class="d-block ">
+                                </div>
+                            <?php } ?>
+                        </div>
+                    @else
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" style="">
+                                <img src="#" class="d-block ">
+                            </div>
+                        </div>
+                    @endif
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" style="background-color: black; border-radius: 5px" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>

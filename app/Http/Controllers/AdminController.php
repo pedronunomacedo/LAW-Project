@@ -73,10 +73,10 @@ class AdminController extends Controller {
     $faq->save();
   }
 
-  public static function destroyFAQ(Request $request) {
+  public function destroyFAQ(Request $request) {
     $this->authorize('admin', Auth::user());
-
     Faq::where('id', $request->id)->delete();
+    return response(200);
   }
 
   public function addFAQ(Request $request) {
@@ -87,5 +87,6 @@ class AdminController extends Controller {
     $newFAQ->answer = $request->new_faq_answer;
 
     $newFAQ->save();
+    return response(200);
   }
 }

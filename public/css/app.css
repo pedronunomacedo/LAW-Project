@@ -134,6 +134,10 @@ div.text-center > nav * {
   font-size: 26px;
 }
 
+.product_card_price1, .product_card_date, .product_card_stock, .product_card_category {
+  font-size: 1.1em;
+}
+
 .product_card_btn button:hover {
   color: red;
 }
@@ -338,4 +342,37 @@ div.text-center > nav * {
   padding: 1rem;
   background-color: white;
   border-radius: 10px;
+}
+
+.user_card {
+  padding: 1rem;
+  background-color: white;
+  border-radius: 10px;
+  width: 12rem;
+  font-size: 1.2em;
+  position: relative;
+}
+
+.user_card a {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  color: black;
+  text-decoration: none;
+}
+
+.user_card a:hover {
+  transition: .1s;
+  color: red;
+}
+
+.edit_del_btn {
+  top: -1.5rem;
+  right: 0;
+  position: absolute;
+  z-index: 5;
+}
+
+.edit_del_btn button {
+  border-radius: 50%;
 }

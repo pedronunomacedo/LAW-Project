@@ -53,6 +53,7 @@
                       <a class="dropdown-item" href="/adminManageProducts">Manage Products</a>
                       <a class="dropdown-item" href="/adminManageOrders">Manage Orders</a>
                       <a class="dropdown-item" href="/adminManageFAQs">Manage FAQs</a>
+                      <div><hr class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>
                   </li>
