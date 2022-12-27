@@ -63,9 +63,26 @@
         </div>
         @endforeach
         <div class="text-center">
-            {!! $allOrders->links(); !!}
+            {{ $allOrders->links(); }}
         </div>
+        <!--<nav aria-label="Page navigation example">
+            <ul class="pagination pagination-lg">
+                <li class="page-item">
+                    <a class="page-link" style="background-color: red; color: white; " href="{{$allOrders->previousPageUrl()}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                @for($i = 1; $i <= $allOrders->lastPage(); $i++)
+                    <li class="page-item"><a class="page-link" style="color:red" href="{{$allOrders->url($i)}}">{{ $i }}</a></li>
+                @endfor
+                <li class="page-item">
+                    <a class="page-link" style="background-color: red; color: white; border: 0;" href="{{$allOrders->nextPageUrl()}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>-->
     </div>
-<main>
+</main>
 
 @endsection

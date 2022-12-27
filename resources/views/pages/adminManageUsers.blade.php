@@ -50,6 +50,6 @@
             {!! $allUsers->links(); !!}
         </div>
     </div>
-<main>
+</main>
 
 @endsection

@@ -152,5 +152,5 @@
     <div class="text-center">
         {!! $allProducts->links(); !!}
     </div>
-<main>
+</main>
 @endsection

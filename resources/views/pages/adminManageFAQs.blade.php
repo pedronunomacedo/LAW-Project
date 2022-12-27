@@ -98,5 +98,5 @@
         @endforeach
         </div>
     </div>
-<main>
+</main>
 @endsection

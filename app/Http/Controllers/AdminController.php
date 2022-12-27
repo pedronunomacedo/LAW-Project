@@ -31,8 +31,8 @@ class AdminController extends Controller {
                             ->get();
 
     $data = $this->paginate($allOrderWithUser);
-
-    return view('pages.adminManageOrders', ['allOrders' => $data, 'allOrderStates' => $allOrderStates]);
+    error_log($data);
+    return view('pages.adminManageOrders', ['allOrders' => $allOrders, 'allOrderStates' => $allOrderStates]);
   }
 
   public function paginate($items, $perPage = 20, $page = null, $options = []) {

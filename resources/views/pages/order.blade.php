@@ -9,7 +9,11 @@
         <nav class="path" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/">Home</a></li>
-                <li class="breadcrumb-item"><a href="/orders">My orders</a></li>
+                @if(Auth::user()->isAdmin())
+                <li class="breadcrumb-item"><a href="/adminManageOrders">Manage Orders</a></li>
+                @else
+                <li class="breadcrumb-item"><a href="/orders">My Orders</a></li>
+                @endif
                 <li class="breadcrumb-item active" style="color: black;">Order #{{$order->id}}</li>
             </ol>
         </nav>
