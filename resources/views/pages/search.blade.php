@@ -48,25 +48,31 @@
     @else
     <h2>We have found the following users:</h2>
     <p id="paragraph_num_users_found">({{ $searchUsers->total() }} user(s) found)</p>
-    <div class="data_div">
+    <div class="data_div d-flex flex-wrap justify-content-between" style="gap: 2rem">
         @foreach($searchUsers as $user)
-            <div class="card userCard" style="margin-top: 30px; display: flex;" id="userForm{{ $user->id }}">
-                <div class="card-header">
-                    <strong>{{ $user->name }}</strong>
+            <div class="user_card" style="margin-top: 30px; display: flex;" id="userCard{{ $user->id }}">
+                    <a href="{{route('profile', $user->id)}}"><span>{{ $user->name }}</span><span>#{{ $user->id }}</span></a>
+                    <div class="edit_del_btn">
+                        <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeUser{{$user->id}}"><i class="fas fa-trash"></i></button>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text userEmail">Email: {{ $user->email }}</p>
-                    <p class="card-text userEmail">Phone number: {{ $user->phonenumber }}</p>    
+                <div class="modal fade" id="removeUser{{$user->id}}" tabindex="-1" aria-labelledby="removeUserLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="removeUser{{$user->id}}Header">Remove User #{{ $user->id }}</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                After this action user <strong>{{$user->name}}</strong> will be removed from this website.
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger" onclick="deleteUser({{$user->id}})">Remove</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card_buttons">
-                    <a class="btn" onClick="deleteUser({{ $user->id }}, {{ $searchUsers->total() }})" style="text-align: center; justify-content: center;">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
         @endforeach
     </div>
     <div class="text-center">
