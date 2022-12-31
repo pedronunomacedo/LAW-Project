@@ -1,256 +1,4 @@
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS AuthenticatedUser CASCADE;
-DROP TABLE IF EXISTS Administrator CASCADE;
-DROP TABLE IF EXISTS Address CASCADE;
-DROP TABLE IF EXISTS AuthUserAddress CASCADE;
-DROP TABLE IF EXISTS Orders CASCADE;
-DROP TABLE IF EXISTS Notification CASCADE;
-DROP TABLE IF EXISTS Product CASCADE;
-DROP TABLE IF EXISTS ProductImages CASCADE;
-DROP TABLE IF EXISTS OrderStateHistory CASCADE;
-DROP TABLE IF EXISTS ProductOrder CASCADE;
-DROP TABLE IF EXISTS ShopCart CASCADE;
-DROP TABLE IF EXISTS Wishlist CASCADE;
-DROP TABLE IF EXISTS Review CASCADE;
-DROP TABLE IF EXISTS FAQ CASCADE;
-
-
-/* Types */
-DROP TYPE IF EXISTS ORDER_STATE CASCADE;
-DROP type if EXISTS PRODUCT_CATEGORY CASCADE;
-CREATE TYPE ORDER_STATE AS ENUM ('In process', 'Preparing', 'Dispatched', 'Delivered', 'Cancelled');
-CREATE TYPE PRODUCT_CATEGORY AS ENUM ('Smartphones', 'Components', 'TVs', 'Laptops', 'Desktops', 'Other');
-
-
-/* Domains */
-DROP DOMAIN IF EXISTS EMAIL_FORMAT CASCADE;
-CREATE DOMAIN EMAIL_FORMAT AS TEXT CHECK(VALUE LIKE '_%@_%.__%');
-
-
-/* Start create tables */
-
-CREATE TABLE users (
-  id serial PRIMARY KEY, 
-  name VARCHAR(255) NOT NULL, 
-  email VARCHAR(255) UNIQUE NOT NULL, 
-  phoneNumber VARCHAR(255) UNIQUE, 
-  password VARCHAR(255) NOT NULL, 
-  google_id VARCHAR(255) 
-);
-
-CREATE TABLE AuthenticatedUser (
-  id INTEGER REFERENCES users(id) ON DELETE CASCADE
-);
-
-CREATE TABLE Administrator (
-  id INTEGER REFERENCES users(id) ON DELETE CASCADE
-);
-
-CREATE TABLE Address (
-  id SERIAL PRIMARY KEY, 
-  street VARCHAR(255) NOT NULL, 
-  postalCode VARCHAR(255) NOT NULL, 
-  city VARCHAR(255) NOT NULL, 
-  country VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE AuthUserAddress (
-	idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
-  idAddress INTEGER REFERENCES Address(id) ON DELETE CASCADE
-);
-
-CREATE TABLE Product (
-	id SERIAL PRIMARY KEY, 
-  prodName VARCHAR(255) NOT NULL, 
-  price FLOAT NOT NULL CHECK (price >= 0), 
-  prodDescription VARCHAR(500), 
-  launchDate DATE, 
-  stock INTEGER NOT NULL, 
-  categoryName PRODUCT_CATEGORY NOT NULL DEFAULT 'Other', 
-  score FLOAT NOT NULL DEFAULT 0 CHECK (score >= 0 AND score <= 5)
-);
-
-CREATE TABLE Orders (
-	id SERIAL PRIMARY KEY, 
-  idAddress INTEGER REFERENCES Address(id) ON DELETE CASCADE,  
-  idusers INTEGER REFERENCES users(id)  ON DELETE CASCADE, 
-  orderDate DATE NOT NULL DEFAULT CURRENT_DATE, 
-  orderState ORDER_STATE NOT NULL DEFAULT 'In process'
-);
-
-CREATE TABLE Notification (
-	content VARCHAR(255) NOT NULL, 
-  notifDate DATE NOT NULL DEFAULT CURRENT_DATE, 
-  idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
-  idOrders INTEGER REFERENCES Orders(id) ON DELETE CASCADE
-);
-
-CREATE TABLE ProductImages (
-	idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
-  imgPath VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE OrderStateHistory(
-	id SERIAL PRIMARY KEY, 
-  idOrders INTEGER REFERENCES Orders(id) ON DELETE CASCADE, 
-  stateDate DATE NOT NULL DEFAULT CURRENT_DATE, 
-  orderState ORDER_STATE NOT NULL DEFAULT 'In process'
-);
-
-CREATE TABLE ProductOrder (
-  quantity INTEGER CHECK (quantity > 0), 
-  totalPrice FLOAT NOT NULL, 
-  idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
-	idOrders INTEGER REFERENCES Orders(id) ON DELETE CASCADE
-);
-
-CREATE TABLE ShopCart (
-	idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
-  idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
-  quantity INTEGER CHECK (quantity > 0)
-);
-
-CREATE TABLE Wishlist (
-	idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
-  idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE
-);
-
-CREATE TABLE Review (
-	id SERIAL PRIMARY KEY, 
-  idusers INTEGER REFERENCES users(id) ON DELETE CASCADE, 
-  idProduct INTEGER REFERENCES Product(id) ON DELETE CASCADE, 
-  reviewDate DATE NOT NULL DEFAULT CURRENT_DATE, 
-  content VARCHAR(500) NOT NULL, 
-  rating INTEGER NOT NULL CHECK (rating >= 0 AND rating <= 5)
-);
-
-CREATE TABLE FAQ (
-  id SERIAL NOT NULL,
-	question VARCHAR(500) NOT NULL, 
-  answer VARCHAR(500) NOT NULL
-);
-
-/* End create tables */
-
-
-/* Start create triggers */
-
--- TRIGGER 01 (Update product score with the new Review added)
-DROP FUNCTION IF EXISTS logUpdateProductRating CASCADE;
-DROP TRIGGER IF EXISTS updateAvg ON Review CASCADE;
-CREATE OR REPLACE FUNCTION logUpdateProductRating() RETURNS TRIGGER AS 
-$BODY$
-BEGIN
-  WITH cte_avg AS (
-    SELECT SUM(rating::numeric) / COUNT(id) AS avg
-    FROM Review
-    WHERE New.idProduct = Review.idProduct
-  )
-  UPDATE Product SET score = cte_avg.avg
-  FROM cte_avg, Review
-  WHERE Product.id = Review.idProduct ;
-  RETURN New;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER updateAvg
-AFTER INSERT OR UPDATE ON Review
-FOR EACH ROW 
-EXECUTE PROCEDURE logUpdateProductRating();
-
--- TRIGGER 02 (delete a product from the shop cart)
-DROP FUNCTION IF EXISTS logDeleteProductFromShopCart CASCADE;
-DROP TRIGGER IF EXISTS deleteProductFromShopCart ON Review CASCADE;
-
-CREATE OR REPLACE FUNCTION logDeleteProductFromShopCart() RETURNS TRIGGER AS 
-$BODY$
-BEGIN
-   -- trigger logic
-   IF TG_OP = 'INSERT' THEN
-       DELETE FROM ShopCart
-       where (ShopCart.idusers = (SELECT idusers FROM Orders WHERE Orders.id = NEW.idOrders)) AND (idProduct = NEW.idProduct);
-   END IF;
-   
-   RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER deleteProductFromShopCart
-  AFTER INSERT OR UPDATE
-  ON ProductOrder
-  FOR EACH ROW
-  EXECUTE PROCEDURE logDeleteProductFromShopCart();
-
-
--- TRIGGER 03 (A user can only review products that he bought)
-DROP FUNCTION IF EXISTS logAddReview CASCADE;
-DROP TRIGGER IF EXISTS addReview ON Review CASCADE;
-
-CREATE FUNCTION logAddReview() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-    IF NOT EXISTS (SELECT ProductOrder.idProduct from (SELECT Orders.id as orderID FROM Orders WHERE Orders.idusers = NEW.idusers) as UserOrders, ProductOrder WHERE UserOrders.orderID = ProductOrder.idOrders AND ProductOrder.idProduct = NEW.idProduct) THEN 
-        RAISE EXCEPTION 'User can only review products he had bought (%,%)!', NEW.idusers, NEW.idProduct;
-    END IF;
-    RETURN New;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER addReview BEFORE INSERT
-ON Review
-FOR EACH ROW
-EXECUTE PROCEDURE logAddReview();
-
-
--- TRIGGER 04 (When a product is bough its stock is reduced)
-DROP FUNCTION IF EXISTS logUpdateProductStock CASCADE;
-DROP TRIGGER IF EXISTS updateProductStock ON Review CASCADE;
-
-CREATE FUNCTION logUpdateProductStock() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-    UPDATE Product
-    SET stock = Product.stock - New.quantity
-    WHERE Product.id = New.idProduct;
-    RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER updateProductStock AFTER INSERT
-ON ProductOrder
-FOR EACH ROW
-EXECUTE PROCEDURE logUpdateProductStock();
-
-
--- TRIGGER 05 (A user can't buy more than the available quantity)
-DROP FUNCTION IF EXISTS logVerifyProductStock CASCADE;
-DROP TRIGGER IF EXISTS verifyProductStock ON Review CASCADE;
-
-CREATE FUNCTION logVerifyProductStock() RETURNS TRIGGER AS
-$BODY$
-BEGIN
-    IF (((SELECT stock FROM Product WHERE id = NEW.idProduct) - NEW.quantity) < 0) THEN
-        RAISE EXCEPTION 'There is not enough stock of this product!';
-    END IF;
-    RETURN NEW;
-END
-$BODY$
-LANGUAGE plpgsql;
-
-CREATE TRIGGER verifyProductStock BEFORE INSERT
-ON ProductOrder
-FOR EACH ROW
-EXECUTE PROCEDURE logVerifyProductStock();
-
-/* End create triggers */
-
-
-/* Start povoate database */
-
+-- Start povoate databse --
 -- Address start (38) --
 insert into Address (street, postalCode, city, country) values ('888 Bartillon Hill', 'SN1', 'Swindon', 'United Kingdom');
 insert into Address (street, postalCode, city, country) values ('40444 Northwestern Parkway', 'NG22', 'Milton', 'United Kingdom');
@@ -293,26 +41,26 @@ insert into Address (street, postalCode, city, country) values ('666 Norway Mapl
 -- Address end --
 
 -- User start (20) --
-insert into users (name, email, phoneNumber, password) values ('lordfarquaad', 'prince@shrek.org', '912345678', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('lbaw2284', 'lbaw2284@fe.up.pt', '923456789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('kliddall0', 'tbamforth0@hubpages.com', '954637283', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('fdradey1', 'istiller1@fastcompany.com', '923456278', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('eburnell2', 'ekupec2@nih.gov', '945362783', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('dadamovicz3', 'ltwaits3@jiathis.com', '943452789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('sashdown4', 'rhillatt4@arizona.edu', '934456278', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('mgatling5', 'icleaves5@dedecms.com', '923417824', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('kbarsam6', 'oadiscot6@oracle.com', '945173845', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('bdibdall7', 'glaydon7@paginegialle.it', '925367183', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('tchaston8', 'ctollerfield8@miitbeian.gov.cn', '911627831', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('wlandeg9', 'icharlon9@discovery.com', '913552789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('lhairyesa', 'anairnsa@qq.com', '932634512', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('hsiviourb', 'awillb@tiny.cc', '934156372', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('omoranc', 'pellinsc@gnu.org', '945263541', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('alezemered', 'estanselld@bbc.co.uk', '924152684', '$2yy$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('tdealtrye', 'smeddowse@home.pl', '943516273', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('laxcelf', 'tbonerf@tiny.cc', '945361723', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('sleavoldg', 'cwoodwing@de.vu', '925167321', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('ckestevenh', 'lwonforh@altervista.org', '917426353', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('lordfarquaad', 'prince@shrek.org', '+92 429 170 4978', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('lbaw2284', 'lbaw2284@fe.up.pt', '+590 924 446 0548', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('kliddall0', 'tbamforth0@hubpages.com', '+351 587 845 8283', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('fdradey1', 'istiller1@fastcompany.com', '+375 436 535 6078', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('eburnell2', 'ekupec2@nih.gov', '+62 465 866 2365', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('dadamovicz3', 'ltwaits3@jiathis.com', '+7 180 134 5042', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('sashdown4', 'rhillatt4@arizona.edu', '+86 489 618 7891', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('mgatling5', 'icleaves5@dedecms.com', '+63 630 894 9270', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('kbarsam6', 'oadiscot6@oracle.com', '+353 708 972 1063', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('bdibdall7', 'glaydon7@paginegialle.it', '+62 506 790 6959', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('tchaston8', 'ctollerfield8@miitbeian.gov.cn', '+48 976 533 1934', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('wlandeg9', 'icharlon9@discovery.com', '+86 170 433 0322', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('lhairyesa', 'anairnsa@qq.com', '+62 169 232 9424', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('hsiviourb', 'awillb@tiny.cc', '+1 571 866 3243', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('omoranc', 'pellinsc@gnu.org', '+62 501 583 3578', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('alezemered', 'estanselld@bbc.co.uk', '+86 601 309 1186', '$2yy$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('tdealtrye', 'smeddowse@home.pl', '+380 910 659 0690', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('laxcelf', 'tbonerf@tiny.cc', '+86 870 414 8950', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('sleavoldg', 'cwoodwing@de.vu', '+48 276 614 4092', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('ckestevenh', 'lwonforh@altervista.org', '+55 856 486 1850', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
 --user end
 
 --authentificated user start (19) --
@@ -381,7 +129,7 @@ insert into Product (prodName, price, prodDescription, launchDate, stock, catego
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Aspirador Robô Ecovacs Deebot X1 OMNI 5000Pa Preto', '1699.00', 'O DEEBOT X1 OMNI proporciona-lhe uma experiência totalmente livre de mãos com a primeira estação OMNI All-in-One da indústria.', '2021-11-14', 200, 'Other');
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Máquina de Café Automática DeLonghi PrimaDonna Elite Experience ECAM650.85.MS 1450W 19 Bar', '1479.90', 'Eleve a preparação de café a um novo patamar com a PrimaDonna Elite Experience. O acabamento elegante em aço inoxidável e o ecrã tátil vibrante chamará primeiro a sua atenção, seguindo-se as suas funcionalidades inovadoras. Ligue-se via Bluetooth à App Coffee Link para criar e personalizar novas receitas. Escolha entre uma grande variedade de bebidas para desfrutar do seu café favorito em casa.', '2022-09-01', 200, 'Other');
 insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Impressora Multifunções Epson EcoTank ET-16600', '1199.00', 'Esta impressora EcoTank com várias funcionalidades facilita as tarefas em formato A3+ e oferece um custo por página reduzido. Os trabalhos em formato A3+ podem ser realizados rapidamente graças às velocidades de impressão e digitalização rápidas, dois tabuleiros de papel com alimentação frontal com capacidade para 250 folhas, alimentação posterior de 50 folhas e ADF de 50 folhas A3. Imprima como quiser com a impressão móvel, Ethernet e um ecrã tátil LCD de 10,9 cm com teclas.', '2021-09-08', 200, 'Other');
-insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Impressora Monocromática HP LaserJet Tank 2504dw Wireless', '329.99', 'Obtenha o menor custo de operação com toner pré-carregado que permite imprimir até 5000 páginas e poupe com o Kit de Recarga de Toner HP.', '2022-11-06', 200, 'Other');
+insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('Impressora Monocromática HP LaserJet Tank 2504dw Wireless', '329.99', 'Obtenha o menor custo de operação com toner pré-carregado que permite imprimir até 5000 páginas e poupe com o Kit de Recarga de Toner HP.', '2022-11-06', 200, 'Other');insert into Product (prodName, price, prodDescription, launchDate, stock, categoryName) values ('ElFlores Gaming Desktop Special Edition', '2018.57', 'in felis eu sapien cursus vestibulum proin eu mi nulla ac enim in tempor turpis nec euismod scelerisque quam turpis adipiscing lorem vitae mattis nibh ligula nec sem duis aliquam convallis nunc proin', '2021-05-04', 200, 'Desktops');
 -- Product end --
 
 -- prodImage start (92) --
@@ -1013,5 +761,3 @@ insert into FAQ (question, answer) values ('integer ac neque duis bibendum morbi
 insert into FAQ (question, answer) values ('ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur?', 'sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae');
 insert into FAQ (question, answer) values ('mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus?', 'faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui');
 -- FAQ end --
-
-/* End povoate database */

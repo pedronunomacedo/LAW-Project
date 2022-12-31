@@ -14,15 +14,11 @@
         // Year (integer): parseInt(checkbox.value)
 
         var productsFilteredList = document.getElementsByClassName('product_card');
-        // console.log(productsFilteredList);
 
         var productsListElem = document.getElementById('productsFilteredList');
-        // console.log(productsListElem);
         
         var yearCheckboxes = document.getElementsByClassName('year_check_box'); // Get all the year yearCheckboxes
         var priceCheckboxes = document.getElementsByClassName('price_check_box'); // Get all the year yearCheckboxes
-        // console.log(yearCheckboxes);
-        // console.log(priceCheckboxes);
 
         var allYearCheckboxesUnchecked = true;
         for (var i = 0; i < yearCheckboxes.length; i++) {
@@ -30,7 +26,6 @@
                 allYearCheckboxesUnchecked = false;
             }
         }
-        // console.log(allYearCheckboxesUnchecked);
 
         var allPriceCheckBoxesUnchecked = true;
         for (var i = 0; i < priceCheckboxes.length; i++) {
@@ -38,8 +33,6 @@
                 allPriceCheckBoxesUnchecked = false;
             }
         }
-        // console.log(allPriceCheckBoxesUnchecked);
-
 
         if (allYearCheckboxesUnchecked && allPriceCheckBoxesUnchecked) {
             for (var i = 0; i < productsFilteredList.length; i++) {
@@ -54,7 +47,6 @@
                 var productPrice = allIDs[3];
                 var productDateSplited = productDate.split('-');
                 var productYear = parseInt(productDateSplited[0]);
-                // console.log("productID: " + productID + " | Year: " + productYear + " | Price: " + productPrice);
 
                 for (var j = 0; j < yearCheckboxes.length; j++) {
                     var checkBoxYear = parseInt(yearCheckboxes[j].getAttribute('value'));
@@ -71,7 +63,6 @@
             }  
         }
         else if (allYearCheckboxesUnchecked && !allPriceCheckBoxesUnchecked) {
-            console.log("allYearCheckboxesUnchecked = " + allYearCheckboxesUnchecked + " and allPriceCheckBoxesUnchecked = " + allPriceCheckBoxesUnchecked);
             for (var i = 0; i < productsFilteredList.length; i++) {
                 var allIDs = (productsFilteredList[i].id).split(/\s+/);
                 var productID = allIDs[1];
@@ -79,18 +70,13 @@
                 var productPrice = parseFloat(allIDs[3]);
                 var productDateSplited = productDate.split('-');
                 var productYear = parseInt(productDateSplited[0]);
-                // console.log("productID: " + productID + " | Year: " + productYear + " | Price: " + productPrice);
 
                 var productMeetsPriceChecked = false;
                 for (var j = 0; j < 6; j++) {
-                    // console.log(priceCheckboxes[j]);
                     var checkboxPriceRange = (priceCheckboxes[j].value);
-                    // console.log(checkboxPriceRange);
                     var checkBoxPriceRange = (priceCheckboxes[j].value).split("_");
-                    // console.log(checkBoxPriceRange);
                     var minRangePrice = parseFloat(checkBoxPriceRange[0]);
                     var maxRangePrice = parseFloat(checkBoxPriceRange[1]);
-                    // console.log("minRangePrice : " + minRangePrice + " | maxRangePrice : " + maxRangePrice);
 
                     if (isNaN(maxRangePrice)) {
                         if (minRangePrice <= productPrice && priceCheckboxes[j].checked) {
@@ -99,17 +85,12 @@
                         }
                     }
                     
-                    // console.log("minRangePrice : " + minRangePrice + " | productPrice: " + productPrice + " | maxRangePrice : " + maxRangePrice);
-                    // console.log("[minRangePrice(" + minRangePrice + ") <= productPrice(" + productPrice + ")] = " + (minRangePrice <= productPrice) + " && [productPrice(" + productPrice + ") <= maxRangePrice(" + maxRangePrice + ")] = " + (productPrice <= maxRangePrice));
                     if (minRangePrice <= productPrice && productPrice <= maxRangePrice && priceCheckboxes[j].checked) {
-                        // console.log("productPrice = " + productPrice + " is between the range");
                         productMeetsPriceChecked = true;
                         break;
                     }
                 }
-                // console.log("----------------------------------------------------------------");
 
-                // console.log("product_" + productID + " productMeetsPriceChecked: " + productMeetsPriceChecked);
                 if (productMeetsPriceChecked) {
                     productsFilteredList[i].style.display = 'block';
                 }
@@ -119,7 +100,6 @@
             }
         }
         else { // (!allYearCheckboxesUnchecked && !allPriceCheckBoxesUnchecked)
-            console.log("allYearCheckboxesUnchecked = " + allYearCheckboxesUnchecked + " and allPriceCheckBoxesUnchecked = " + allPriceCheckBoxesUnchecked);
             for (var i = 0; i < productsFilteredList.length; i++) {
                 var allIDs = (productsFilteredList[i].id).split(/\s+/);
                 var productID = allIDs[1];
@@ -127,18 +107,13 @@
                 var productPrice = parseFloat(allIDs[3]);
                 var productDateSplited = productDate.split('-');
                 var productYear = parseInt(productDateSplited[0]);
-                // console.log("productID: " + productID + " | Year: " + productYear + " | Price: " + productPrice);
 
                 var productMeetsPriceChecked = false;
                 for (var j = 0; j < 6; j++) {
-                    // console.log(priceCheckboxes[j]);
                     var checkboxPriceRange = (priceCheckboxes[j].value);
-                    // console.log(checkboxPriceRange);
                     var checkBoxPriceRange = (priceCheckboxes[j].value).split("_");
-                    // console.log(checkBoxPriceRange);
                     var minRangePrice = parseFloat(checkBoxPriceRange[0]);
                     var maxRangePrice = parseFloat(checkBoxPriceRange[1]);
-                    // console.log("minRangePrice : " + minRangePrice + " | maxRangePrice : " + maxRangePrice);
 
                     if (isNaN(maxRangePrice)) {
                         if (minRangePrice <= productPrice && priceCheckboxes[j].checked) {
@@ -147,10 +122,7 @@
                         }
                     }
                     
-                    // console.log("minRangePrice : " + minRangePrice + " | productPrice: " + productPrice + " | maxRangePrice : " + maxRangePrice);
-                    // console.log("[minRangePrice(" + minRangePrice + ") <= productPrice(" + productPrice + ")] = " + (minRangePrice <= productPrice) + " && [productPrice(" + productPrice + ") <= maxRangePrice(" + maxRangePrice + ")] = " + (productPrice <= maxRangePrice));
                     if (minRangePrice <= productPrice && productPrice <= maxRangePrice && priceCheckboxes[j].checked) {
-                        // console.log("productPrice = " + productPrice + " is between the range");
                         productMeetsPriceChecked = true;
                         break;
                     }
@@ -170,7 +142,6 @@
                     }
                 }
 
-                // console.log("product_" + productID + " productMeetsPriceChecked: " + productMeetsPriceChecked);
                 if (productMeetsPriceChecked && productMeetsYearChecked) {
                     productsFilteredList[i].style.display = 'block';
                 }
@@ -184,7 +155,6 @@
 
 
         var optionSelected = document.getElementById('option_selected').value;
-        // console.log(optionSelected);
 
         var allElementsNotListed = [];
         for (var i = 0; i < productsListElem.children.length; i++) {
@@ -192,7 +162,6 @@
                 allElementsNotListed.push(productsListElem.children[i]);
             }
         }
-        // console.log(allElementsNotListed);
 
         var allElementsListed = [];
         for (var i = 0; i < productsListElem.children.length; i++) {
@@ -203,7 +172,6 @@
 
         if (optionSelected == "1") { // Order by product name
             if (allYearCheckboxesUnchecked && allPriceCheckBoxesUnchecked) {
-                // console.log(productsFilteredList);
                 allElementsListed.sort(function(prod1, prod2) {
                     if (prod1.children[1].children[0].childNodes[0].nodeValue < prod2.children[1].children[0].childNodes[0].nodeValue) {
                         return -1;
@@ -229,8 +197,6 @@
                     }
                 });
             }
-            
-            // console.log(elementsListed);
         }
         else if (optionSelected == "2") { // order by ascendent price
             allElementsListed.sort(function(prod1, prod2) {
@@ -289,7 +255,6 @@
         }
 
         var elementsListDiv = document.getElementById("productsFilteredList");
-        console.log(elementsListDiv);
 
         elementsListDiv.innerHTML = "";
 

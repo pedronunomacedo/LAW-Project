@@ -2,6 +2,7 @@
 <?php
 
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,10 +39,11 @@ Route::post('register', 'Auth\RegisterController@register');
 Route::get('profile', 'Auth\LoginController@login');
 Route::get('profile/{id}', 'UserController@showProfile')->name('profile')->where('id','[0-9]+');
 Route::post('adminUpdateUserProfile/saveChanges/{id}', 'UserController@updateProfileData')->name('saveUserProfile')->where('id','[0-9]+');
+Route::post('adminUpdateUserProfile/savePassword/{id}', 'UserController@updateUserPassword')->name('saveUserPassword')->where('id','[0-9]+');
 
 // Manage Users (admin)
 Route::get('adminManageUsers', 'UserController@showAllUsers');
-Route::post('adminManageUsers/delete', 'UserController@destroy')->name('adminManageUsers');
+Route::post('adminManageUsers/delete', 'UserController@destroy');
 Route::get('adminManageProducts', 'ProductsController@showAllProducts');
 Route::post('adminManageProducts/delete', 'ProductsController@destroy')->name('adminManageProducts');
 Route::post('adminManageProducts/saveChanges', 'ProductsController@updateProduct')->name('adminManageUpdateProducts');
@@ -90,3 +92,9 @@ Route::get('/auth/google/callback', [GoogleController::class, 'handle']);
 
 // Product Category
 Route::get('productCategory/{category}', 'ProductsController@showCategoryProducts')->name('category_page');
+
+// Users features
+Route::post('review/addReview', 'ReviewController@addOrdersProduct')->name('addReview');
+
+// Email feature
+Route::get('/send-email/{id}', [TestController::class, 'sendEmail'])->where('id','[0-9]+');

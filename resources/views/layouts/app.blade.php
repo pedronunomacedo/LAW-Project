@@ -15,13 +15,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@800&display=swap" rel="stylesheet"> 
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/header.css" rel="stylesheet">
     <link href="/css/admin.css" rel="stylesheet">
     <link href="/css/profile.css" rel="stylesheet">
+    <link href="/css/checkout.css" rel="stylesheet">
     <link href="/css/loginAndregister.css" rel="stylesheet">
     <link href="/css/categoryPage.css" rel="stylesheet">
     <link href="/css/userOrders.css" rel="stylesheet">
     <link href="/css/productPage.css" rel="stylesheet">
     <link href="/css/wishlist.css" rel="stylesheet">
+    <link href="/css/order.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
@@ -32,15 +35,17 @@
   </head>
   <body style="background-color: #f6f6f6;">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height: 5em">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-secondary bg-gradient" style="height: 5em">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{ url('/') }}"><h1 class="display-6">Tech4You</h1></a>
+          <a class="navbar-brand" href="{{ url('/') }}"><h1 class="display-6" style="color: white"><strong>Tech4You</strong></h1></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse position-absolute end-0" id="navbarColor02">
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" action="{{ url('mainPageSearch/products') }}" method="GET" role="search">
-              <input type="search" name="search" value="" class="form-control form-control-dark text-bg-dark" placeholder="Search for products" aria-label="Search">
+            <form class="navbar-form form-inline mx-auto my-0" id="search_bar" action="{{ url('mainPageSearch/products') }}" method="GET" role="search"> <!-- increase the search bar size: .col-lg-4 -->
+              <div class="form-group w-100">
+                <input type="search" name="search" value="" class="form-control form-control-dark text-bg-white" placeholder="Search for products" aria-label="Search">
+              </div>
             </form>
             <ul class="navbar-nav mx-2 align-items-center">
               @if (Auth::check())
@@ -53,13 +58,14 @@
                       <a class="dropdown-item" href="/adminManageProducts">Manage Products</a>
                       <a class="dropdown-item" href="/adminManageOrders">Manage Orders</a>
                       <a class="dropdown-item" href="/adminManageFAQs">Manage FAQs</a>
+                      <div><hr class="dropdown-divider"></div>
                       <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                     </div>
                   </li>
                 @else
                   <li class="nav-item" style="display: block" id="user_wishlist_icon">
                     <a class="nav-link position-relative" href="/wishlist">
-                      <i class="far fa-heart fa-2x"></i>
+                      <i class="far fa-heart fa-2x" style="color: black"></i> <!-- style="color: #54B4D3" -->
                       @if (Auth::user()->wishlist()->count() > 0)
                         <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>
                       @endif
@@ -67,9 +73,10 @@
                   </li>
                   <li class="nav-item" style="display: block" id="user_shopcart_icon">
                     <a class="nav-link position-relative" href="/shopcart">
-                      <i class="fas fa-shopping-cart fa-2x"></i>
+                      <i class="fas fa-shopping-cart fa-2x" style="color: black"></i> <!-- style="color: #54B4D3" -->
                       @if (Auth::user()->shopcart()->count() > 0)
-                      <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>                      @endif
+                        <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>                     
+                      @endif
                     </a>
                   </li>
                   <li class="nav-item dropdown">

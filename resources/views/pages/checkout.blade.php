@@ -33,19 +33,43 @@
                     </ul>
                 </div>
                 <div class="tab-content" id="pills-tabContentCheckout">
-                    <div class="tab-pane fade show active" id="pills-address" role="tabpanel" aria-labelledby="pills-address-tab">
-                        <p>Choose a billing address from the following:</p>
-                        <div style="display: flex; gap: 2rem;">
+                <div class="tab-pane fade show active p-2" id="pills-address" role="tabpanel" aria-labelledby="pills-address-tab">
+                        <p class="mb-5">Choose a billing address from the following:</p>
+                        <div id ="user_addresses" style="display: flex; gap: 2rem;">
                             @each('partials.address_card', Auth::user()->address()->get(), 'address')
                         </div>
-                        <button style="position: absolute; bottom: 1rem; right: 1rem;" class="btn btn-success" onclick="document.getElementById('pills-pay-tab').click()">Continue -></button>
+                        <button id="continue_button" class="btn btn-success" onclick="document.getElementById('pills-pay-tab').click()">Continue -></button>
                     </div>
-                    <div class="tab-pane fade" id="pills-pay" role="tabpanel" aria-labelledby="pills-pay-tab">
-                        <p>Generator of iban to pay for the order:</p>
-                        <button style="position: absolute; bottom: 1rem; right: 1rem;" class="btn btn-success" onclick="document.getElementById('pills-confirm-tab').click()">Continue -></button>
+                    <div class="tab-pane fade p-2" id="pills-pay" role="tabpanel" aria-labelledby="pills-pay-tab">
+                        <p class="mb-5">This are the available payment methods:</p>
+                        <div class="row" id="payment_options">
+                            <div class="col-md-4 py-1 px-5" id="payment_option1" style="word-wrap: break-word">
+                                <h5 class="mb-4 text-center">Transfer</h5>
+                                <p><strong>IBAN: </strong>1234567890987654321</p>
+                                <p><strong>Value: </strong>{{array_sum(array_column($products->toArray(), 'price'))}} €</p>
+                            </div>
+                            <div class="col-md-4 py-1 px-5" id="payment_option2">
+                                <h5 class="mb-4 text-center">MultiBanco</h5>
+                                <p><strong>Entidade: </strong>12345</p>
+                                <p><strong>Referência: </strong>123 456 789</p>
+                                <p><strong>Montante: </strong>{{array_sum(array_column($products->toArray(), 'price'))}} €</p>
+                            </div>
+                            <div class="col-md-4 py-1 px-5" id="payment_option3">
+                                <h5 class="mb-4 text-center">MBway</h5>
+                                <p><strong>Tel Number: </strong>912345678</p>
+                                <p><strong>Amount: </strong>{{array_sum(array_column($products->toArray(), 'price'))}} €</p>
+                            </div>
+                        </div>
+                        <div><button class="btn btn-success" id="continue_button" onclick="document.getElementById('pills-confirm-tab').click()">Continue -></button></div>
                     </div>
-                    <div class="tab-pane fade" id="pills-confirm" role="tabpanel" aria-labelledby="pills-confirm-tab">
-                        <p>Resume of the order address/payment/and info:</p>
+                    <div class="tab-pane fade p-2" id="pills-confirm" role="tabpanel" aria-labelledby="pills-confirm-tab">
+                        <h5 class="mb-5">Checkout Information</h5>
+                        <div class="row" id="payment_confirmation">
+                            <p>- Before finishing checkout confirm that all information is correct.</p>
+                            <p>- When checkout is confirmed an order will be created. Until the payment is completed the order is kept at "In Proccess" state.</p>
+                            <p>- You can keep track of the order states at 'My Orders' page.</p>
+                            <p>- For further questions or information Contact Us.</p>
+                        </div>
                         <button style="position: absolute; bottom: 1rem; right: 1rem;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#checkoutModal" onclick="tabAll()">Finish Checkout</button>
                     </div>
                 </div>

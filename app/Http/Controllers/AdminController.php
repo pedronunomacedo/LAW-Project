@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Faq;
+use Mail\MaitrapController;
+use TestController;
 
 use \Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -13,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
 
 class AdminController extends Controller {
   public function showAllOrders() {
@@ -32,7 +35,8 @@ class AdminController extends Controller {
 
     $data = $this->paginate($allOrderWithUser);
 
-    return view('pages.adminManageOrders', ['allOrders' => $data, 'allOrderStates' => $allOrderStates]);
+    error_log($data);
+    return view('pages.adminManageOrders', ['allOrders' => $allOrders, 'allOrderStates' => $allOrderStates]);
   }
 
   public function paginate($items, $perPage = 20, $page = null, $options = []) {
@@ -55,7 +59,7 @@ class AdminController extends Controller {
 
   public function saveOrderInfo(Request $request) {
     $this->authorize('admin', Auth::user());
-
+    
     $order = Order::findOrFail($request->id);
     $order->orderstate = $request->new_order_state;
     $order->save();
@@ -73,14 +77,15 @@ class AdminController extends Controller {
     $faq->save();
   }
 
-  public static function destroyFAQ(Request $request) {
-    $this->authorize('admin', Auth::user());
+  public function destroyFAQ(Request $request) {
+    $this->authorize('admin', Auth::user()); // ERRO: 500 Internal Server Error
 
     Faq::where('id', $request->id)->delete();
+    return response(200);
   }
 
   public function addFAQ(Request $request) {
-    $this->authorize('admin', Auth::user());
+    $this->authorize('admin', Auth::user()); // ERRO: 500 Internal Server Error
 
     $newFAQ = new Faq;
     $newFAQ->question = $request->new_faq_question;
