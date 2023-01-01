@@ -148,7 +148,7 @@ BEGIN
   )
   UPDATE Product SET score = cte_avg.avg
   FROM cte_avg, Review
-  WHERE Product.id = Review.idProduct ;
+  WHERE Product.id = NEW.idProduct ;
   RETURN New;
 END
 $BODY$
