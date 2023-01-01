@@ -40,7 +40,7 @@
         </div>
         <div class="accordion accordion-flush" id="accordionFlushExample">
         @foreach($allFAQs as $faq)
-            <div class="accordion-item mb-5" style="position: relative">
+            <div class="accordion-item mb-5" style="position: relative" id="faqForm{{ $faq->id }}">
                 <h2 class="accordion-header" id="flush-heading{{ $faq->id}}">
                     <button style="font-size: 1.2rem;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $faq->id}}" aria-expanded="false" aria-controls="flush-collapse{{ $faq->id}}">
                         <span><strong>#{{ $faq->id }} </strong> {{ $faq->question }}</span>

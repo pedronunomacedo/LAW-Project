@@ -34,9 +34,9 @@ class ProductsController extends Controller {
   
   public function showAllProducts() {
     $allProducts = Product::orderBy('id', 'ASC')
-                                                  ->leftJoin(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
-                                                    $join->on('product.id', '=', 'img.idproduct');
-                                                })->paginate(20);
+                          ->leftJoin(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
+                            $join->on('product.id', '=', 'img.idproduct');
+                        })->paginate(20);
     $allCategories = ["Smartphones", "Components", "TVs", "Laptops", "Desktops", "Other"];
 
     return view('pages.adminManageProducts', ['allProducts' => $allProducts, 'allCategories' => $allCategories]);
@@ -108,8 +108,6 @@ class ProductsController extends Controller {
     error_log($product);
 
     $product->save();
-
-    error_log('1');
 
     return response(200);
   }

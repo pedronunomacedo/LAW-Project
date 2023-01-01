@@ -38,23 +38,23 @@
                         <div style="display: flex; gap: 2rem;">
                             @each('partials.address_card', Auth::user()->address()->get(), 'address')
                         </div>
-                        <button style="position: absolute; bottom: 1rem; right: 1rem;" class="btn btn-success" onclick="document.getElementById('pills-pay-tab').click()">Continue -></button>
+                        <button id="continue_button" class="btn btn-success" onclick="document.getElementById('pills-pay-tab').click()">Continue -></button>
                     </div>
                     <div class="tab-pane fade p-2" id="pills-pay" role="tabpanel" aria-labelledby="pills-pay-tab">
                         <p class="mb-5">This are the available payment methods:</p>
                         <div class="row">
-                            <div class="col-md-4 py-1 px-5">
+                            <div class="col-md-4 py-1 px-5" id="payment_option1">
                                 <h5 class="mb-4 text-center">Transfer</h5>
                                 <p><strong>IBAN: </strong>1234567890987654321</p>
                                 <p><strong>Value: </strong>{{array_sum(array_column($products->toArray(), 'price'))}} €</p>
                             </div>
-                            <div class="col-md-4 py-1 px-5" style="border-left: 1px solid black; border-right: 1px solid black;">
+                            <div class="col-md-4 py-1 px-5" id="payment_option2">
                                 <h5 class="mb-4 text-center">MultiBanco</h5>
                                 <p><strong>Entidade: </strong>12345</p>
                                 <p><strong>Referência: </strong>123 456 789</p>
                                 <p><strong>Montante: </strong>{{array_sum(array_column($products->toArray(), 'price'))}} €</p>
                             </div>
-                            <div class="col-md-4 py-1 px-5">
+                            <div class="col-md-4 py-1 px-5" id="payment_option3">
                                 <h5 class="mb-4 text-center">MBway</h5>
                                 <p><strong>Tel Number: </strong>912345678</p>
                                 <p><strong>Amount: </strong>{{array_sum(array_column($products->toArray(), 'price'))}} €</p>

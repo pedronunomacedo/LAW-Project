@@ -103,14 +103,16 @@
                         <?php } ?>
                     </div>
                     <h2 class="mb-3" style="color: red"><strong>{{ $product->price }} €</strong></h2>
-                    <div style="position: absolute; bottom: 1rem; right: 1rem;">
-                        <button type="button" class="btn btn-success" onclick="addToWishlist({{ $product->id }})">
-                            <i class="fas fa-heart"></i>  Add to Wishlist
-                        </button>
-                        <button type="button" class="btn btn-danger" onclick="addToShopCart({{ $product->id }})">
-                            <i class="fas fa-shopping-cart"></i>  Add to Shopcart
-                        </button>
-                    </div>
+                    @if(Auth::check() && !Auth::user()->isAdmin())
+                        <div style="position: absolute; bottom: 1rem; right: 1rem;">
+                            <button type="button" class="btn btn-success" onclick="addToWishlist({{ $product->id }})">
+                                <i class="fas fa-heart"></i>  Add to Wishlist
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="addToShopCart({{ $product->id }})">
+                                <i class="fas fa-shopping-cart"></i>  Add to Shopcart
+                            </button>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

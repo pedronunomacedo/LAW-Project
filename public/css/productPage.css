@@ -21,3 +21,16 @@
         width: 100%;
     }
 }
+
+#addProductForm {
+    width: 100%;
+    text-align: center;
+}
+
+#addProductForm > div {
+    display: inline-block;
+}
+
+#product_rating > span:hover ~ span:before {
+    color: yellow !important;
+}

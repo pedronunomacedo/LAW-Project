@@ -13,9 +13,11 @@
         <?php } ?>
     </div>
     <p class="product_card_price mb-1"><strong>{{ $product->price }} €</strong></p>
-    <div class="product_card_btn my-2">
-        <button class="btn p-0" onclick="addToWishlist({{ $product->id }})"><i class="fas fa-heart"></i> Wishlist</button>
-        <button class="btn p-0 mx-4" onclick="addToShopCart({{ $product->id }})"><i class="fas fa-shopping-cart"></i> Cart</button>
-    </div>
+    @if(Auth::check() && !Auth::user()->isAdmin())
+        <div class="product_card_btn my-2">
+            <button class="btn p-0" onclick="addToWishlist({{ $product->id }})"><i class="fas fa-heart"></i> Wishlist</button>
+            <button class="btn p-0 mx-4" onclick="addToShopCart({{ $product->id }})"><i class="fas fa-shopping-cart"></i> Cart</button>
+        </div>
+    @endif
 </div>
 

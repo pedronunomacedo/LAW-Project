@@ -22,7 +22,6 @@ div.text-center > nav * {
     margin-top: 20px;
 }
 
-
 /* Main Search Page */
 
 #mainPageSearchedProducts {
@@ -324,7 +323,7 @@ div.text-center > nav * {
 }
 
 #pills-address-tab, #pills-pay-tab, #pills-confirm-tab {
-  color:#c0c0c0;
+  color: #c0c0c0;
   border-radius: 0;
 }
 
