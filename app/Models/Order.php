@@ -20,7 +20,7 @@ class Order extends Model {
 
     public static function getOrderProducts($id) {
         $orderProducts = DB::table('productorder')
-                        ->where('idproduct', $id)
+                        ->where('idorders', $id)
                         ->join('product', function ($join) {
                             $join->on('product.id', '=', 'productorder.idproduct');
                         })

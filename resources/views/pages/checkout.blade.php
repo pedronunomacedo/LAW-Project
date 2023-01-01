@@ -33,14 +33,14 @@
                     </ul>
                 </div>
                 <div class="tab-content" id="pills-tabContentCheckout">
-                    <div class="tab-pane fade show active p-2" id="pills-address" role="tabpanel" aria-labelledby="pills-address-tab">
+                    <div class="tab-pane fade show active p-2 checkout_tab" id="pills-address" role="tabpanel" aria-labelledby="pills-address-tab">
                         <p class="mb-5">Choose a billing address from the following:</p>
                         <div style="display: flex; gap: 2rem;">
                             @each('partials.address_card', Auth::user()->address()->get(), 'address')
                         </div>
-                        <button id="continue_button" class="btn btn-success" onclick="document.getElementById('pills-pay-tab').click()">Continue -></button>
+                        <div><button id="continue_button" class="btn btn-success" onclick="document.getElementById('pills-pay-tab').click()">Continue -></button></div>
                     </div>
-                    <div class="tab-pane fade p-2" id="pills-pay" role="tabpanel" aria-labelledby="pills-pay-tab">
+                    <div class="tab-pane fade p-2 checkout_tab" id="pills-pay" role="tabpanel" aria-labelledby="pills-pay-tab">
                         <p class="mb-5">This are the available payment methods:</p>
                         <div class="row">
                             <div class="col-md-4 py-1 px-5" id="payment_option1">
@@ -62,7 +62,7 @@
                         </div>
                         <button style="position: absolute; bottom: 1rem; right: 1rem;" class="btn btn-success" onclick="document.getElementById('pills-confirm-tab').click()">Continue -></button>
                     </div>
-                    <div class="tab-pane fade p-2" id="pills-confirm" role="tabpanel" aria-labelledby="pills-confirm-tab">
+                    <div class="tab-pane fade p-2 checkout_tab" id="pills-confirm" role="tabpanel" aria-labelledby="pills-confirm-tab">
                         <h5 class="mb-5">Checkout Information</h5>
                         <p>- Before finishing checkout confirm that all information is correct.</p>
                         <p>- When checkout is confirmed an order will be created. Until the payment is completed the order is kept at "In Proccess" state.</p>
