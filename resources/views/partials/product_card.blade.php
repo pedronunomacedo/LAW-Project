@@ -12,7 +12,6 @@
             <i class="fa fa-star"></i>
         <?php } ?>
     </div>
-    <p>Score: {{ $product->score }}</p>
     <p class="product_card_price mb-1"><strong>{{ $product->price }} €</strong></p>
     @if(Auth::check() && !Auth::user()->isAdmin())
         <div class="product_card_btn my-2">

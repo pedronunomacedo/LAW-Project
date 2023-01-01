@@ -452,3 +452,14 @@ function tabAll() {
   document.getElementById('paymentMethod').classList.remove('active'); 
   document.getElementById('paymentMethod').classList.add('completed');
 }
+
+function addReview(productID) {
+
+  var newReviewContent = document.getElementById("new_review_content").value;
+  var newReviewRating = document.getElementById("new_review_rating").value;
+
+  console.log("newReviewContent: " + newReviewContent);
+  console.log("newReviewRating: " + newReviewRating);
+
+  sendAjaxRequest("POST", "/review/addReview", {product_id: productID, new_review_content : newReviewContent, new_rating : newReviewRating}, ()=> {window.location = '/product/' + productID;});
+}

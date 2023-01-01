@@ -105,8 +105,6 @@ class ProductsController extends Controller {
     $product->stock = $request->new_product_stock;
     $product->categoryname = $request->new_product_category;
 
-    error_log($product);
-
     $product->save();
 
     return response(200);

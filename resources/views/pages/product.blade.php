@@ -68,23 +68,50 @@
                                 <span>No reviews found...</span>
                             @else
                             @foreach($productReviews as $review)
-                                <hr class="my-4" />
-                                <div id="review{{ $review->id }}">
-                                    <p style="font-weight:normal"><strong>{{ $review->name }}</strong>, {{ $review->reviewdate }}</p>
-                                    <p style="font-weight:normal">{{ $review->content }}</p>
-                                    <div class="ratings">
-                                        <?php
-                                        for ($x = 0; $x < $review->rating; $x++) {?> 
-                                            <i class="fa fa-star rating-color"></i>
-                                        <?php } ?>
-                                        <?php
-                                        for ($x = 0; $x <= 4 - $review->rating; $x++) {?> 
-                                            <i class="fa fa-star"></i>
-                                        <?php } ?>
+                                <div class="review">
+                                    <hr class="my-4" />
+                                    <div id="review{{ $review->id }}">
+                                        <p style="font-weight:normal"><strong>{{ $review->name }}</strong>, {{ $review->reviewdate }}</p>
+                                        <p style="font-weight:normal">{{ $review->content }}</p>
+                                        <div class="ratings">
+                                            <?php
+                                            for ($x = 0; $x < $review->rating; $x++) {?> 
+                                                <i class="fa fa-star rating-color"></i>
+                                            <?php } ?>
+                                            <?php
+                                            for ($x = 0; $x <= 4 - $review->rating; $x++) {?> 
+                                                <i class="fa fa-star"></i>
+                                            <?php } ?>
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
                             @endif
+                            
+                            @if(Auth::check() && $product->productBought(Auth::user()->id, $product->id) && !$product->userReviewedProduct(Auth::user()->id, $product->id))
+                                <form class="form-inline" method="POST" id="new_review">
+                                    @csrf
+                                    <div style="position: relative; display: flex;" id="new_comment_inputs">
+                                        <div class="form-group mx-sm-3 mb-2" style="display: flex">
+                                            <input type="text" class="form-control" name="new_review" placeholder="New review" id="new_review_content">  
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <select class="form-select" name="new_review_rating" style="width: 70%" id="new_review_rating">
+                                                <option selected disabled>Rating</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <div style="with: inherit">
+                                            <button type="button" class="btn btn-primary mb-2" onclick="addReview({{ $product->id }})">Post</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            @endif
+                            <h1></h1>
                         </div>
                     </div>
                 </div>

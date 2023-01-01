@@ -75,7 +75,7 @@ Route::post('orders/addToOrders', 'OrdersController@addOrdersProduct') -> name('
 Route::post('orders/removeFromOrders', 'OrdersController@removeOrdersProduct') -> name('removeFromOrders');
 
 // Product
-Route::get('product/{product_id}', 'ProductsController@showProduct') -> name('product');
+Route::get('product/{product_id}', 'ProductsController@showProduct')->name('product');
 
 // User search
 Route::get('search','UserController@searchUsers')->name('search_users');
@@ -94,7 +94,7 @@ Route::get('/auth/google/callback', [GoogleController::class, 'handle']);
 Route::get('productCategory/{category}', 'ProductsController@showCategoryProducts')->name('category_page');
 
 // Users features
-Route::post('review/addReview', 'ReviewController@addOrdersProduct')->name('addReview');
+Route::post('/review/addReview', 'ReviewController@addReview')->name('newReview');
 
 // Email feature
 Route::get('/send-email/{id}', [TestController::class, 'sendEmail'])->where('id','[0-9]+');
