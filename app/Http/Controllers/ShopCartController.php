@@ -68,8 +68,6 @@ class ShopCartController extends Controller {
             $products = $user->shopcart()->get();
         }
 
-        error_log($products);
-
         return view('pages.checkout', ['products' => $products]);
     }
 }

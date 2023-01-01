@@ -58,19 +58,21 @@
 				<button class="btn btn-danger btn-lg" onclick="" style="width: 10rem">Save</button>
 			</div>
 		</form>
-		<div class="row d-flex justify-content-center my-4" style="background-color: white; padding: 1rem; border-radius:10px;">
-			<h4 class="mb-4" style="text-decoration: underline 4px red">Billing Address</h4>
-			<div class="mb-4" style="display: flex; justify-content: space-evenly; flex-wrap: wrap; gap: 2rem;">
-				@foreach(Auth::user()->address()->get() as $address)
-					<div class="address_card" style="height: auto">
-						<p><strong>Street: </strong>{{$address->street}}<p>
-						<p><strong>City: </strong>{{$address->city}}, {{$address->country}}</p>
-						<p><strong>Postal Code: </strong>{{$address->postalcode}}</p>
-					</div>
-				@endforeach
+		@if(!Auth::user()->isAdmin())
+			<div class="row d-flex justify-content-center my-4" style="background-color: white; padding: 1rem; border-radius:10px;">
+				<h4 class="mb-4" style="text-decoration: underline 4px red">Billing Address</h4>
+				<div class="mb-4" style="display: flex; justify-content: space-evenly; flex-wrap: wrap; gap: 2rem;">
+					@foreach(Auth::user()->address()->get() as $address)
+						<div class="address_card" style="height: auto">
+							<p><strong>Street: </strong>{{$address->street}}<p>
+							<p><strong>City: </strong>{{$address->city}}, {{$address->country}}</p>
+							<p><strong>Postal Code: </strong>{{$address->postalcode}}</p>
+						</div>
+					@endforeach
+				</div>
+				<button class="btn btn-danger btn-lg" onclick="" style="width: 10rem">Add Address</button>
 			</div>
-			<button class="btn btn-danger btn-lg" onclick="" style="width: 10rem">Add Address</button>
-		</div>
+		@endif
 	</div>
 </main>
 

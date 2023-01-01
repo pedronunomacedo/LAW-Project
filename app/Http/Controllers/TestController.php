@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 // Added to support email sending.
 use Mail;
+use Illuminate\Http\Request;
 use App\Mail\MailtrapController;
+use App\Mail\MailtrapExample;
 use App\Models\Order;
 use App\Models\User;
 
@@ -18,12 +20,13 @@ class TestController extends Controller
         $mailData = [
             'name' => $user->name,
             'email' => $user->email,
-            'order' => $order, 
+            'order' => $order
         ];
 
-        Mail::to($mailData['email'])->send(new MailtrapController($mailData));
-           
-        // dd("Email was sent successfully.");
+        error_log('00');
+
+        Mail::to($mailData['email'])->send(new MailtrapExample($mailData));
     }
+
 }
 
