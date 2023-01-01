@@ -23,8 +23,6 @@ class TestController extends Controller
             'order' => $order
         ];
 
-        error_log('00');
-
         Mail::to($mailData['email'])->send(new MailtrapExample($mailData));
     }
 

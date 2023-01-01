@@ -220,8 +220,6 @@ function updateOrder(id) {
   var newOrderState = document.querySelector("#order_state" + id).value;
 
   sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState});
-
-  console.log(id);
   
   sendAjaxRequest("GET", "/send-email/" + id, {id : id});
 }
