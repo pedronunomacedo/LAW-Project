@@ -221,7 +221,7 @@ function updateOrder(id) {
 
   sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState});
   
-  sendAjaxRequest("GET", "/send-email/" + id, {id : id});
+  sendAjaxRequest("GET", "/send-email/" + id, {id : id}, ()=> {window.location = '/adminManageOrders';});
 }
 
 function deleteFAQ(id) {

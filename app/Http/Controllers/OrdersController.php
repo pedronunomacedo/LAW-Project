@@ -25,10 +25,11 @@ class OrdersController extends Controller {
         return view('pages.orders', ['userOrders' => $userOrders]);
     }
 
-    public function showOrder($id) {
+    public function showOrder(Request $request) {
+        error_log($request->order_id);
         if (Auth::check()) {
             // $this->authorize('show', Auth::id());
-            $order = Order::findOrFail($id);
+            $order = Order::findOrFail($request->order_id);
             $address = Address::findOrFail($order->idaddress);
         }
 

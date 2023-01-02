@@ -14,7 +14,7 @@
         </nav>
         <div class="row" style="border-left: 0.5rem solid red; margin-bottom: 2rem;"><h2>My Orders</h2></div>
         @if(count($userOrders) == 0)
-            <h3>Sorry, we could not find any product with name <i>{{ $category }}</i></h3>
+            <h3>Sorry, we could not find any orders</i></h3>
         @else
             @each('partials.order_card', $userOrders, 'order')
         @endif
