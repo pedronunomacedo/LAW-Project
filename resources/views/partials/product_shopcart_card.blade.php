@@ -7,19 +7,19 @@
         <div class="d-flex my-auto" style="max-width: 200px">
             <button class="btn btn-primary px-3 me-2"
             onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-            <i class="fas fa-minus"></i>
+                <i class="fas fa-minus" onclick="decrement(this, {{ $product->stock }}, {{ $product }})"></i>
             </button>
             <div class="form-outline">
-                <input id="form1" min="0" name="quantity" value="1" type="number" class="form-control" />
+                <input id="form{{ $product->id }}" min="0" name="quantity" value="{{ Auth::user()->shopcart()->where('idproduct', $product->id)->get()->first()->pivot->quantity }}" type="number" class="form-control" />
             </div>
             <button class="btn btn-primary px-3 ms-2"
             onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-plus" onclick="increment(this, {{ $product->stock }}, {{ $product }})"></i>
             </button>
         </div>
         <div class="col-lg-2 col-md-6 my-4" style="position:relative; right: -250px; bottom: 25px; width: 120px;">
             <p class="m-0" style="position:absolute; bottom: 0; color: red; font-size: 1.3rem">
-                <strong>{{$product->price}} €</strong>
+                <strong>{{ $product->price }} €</strong> x <span id="product_shopcart_quantity{{ $product->id }}">{{ $product->quantity }}</span>
             </p>
         </div>
         <div class="product_card_btn" style="position:absolute;">

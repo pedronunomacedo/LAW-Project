@@ -64,6 +64,7 @@ Route::post('wishlist/removeFromWishlist', 'WishlistController@removeWishlistPro
 Route::get('shopcart', 'ShopCartController@showShopcart');
 Route::post('shopcart/addToShopCart', 'ShopCartController@addShopCartProduct') -> name('addToShopCart');
 Route::post('shopcart/removeFromShopCart', 'ShopCartController@removeShopCartProduct') -> name('removeFromShopCart');
+Route::put('shopcart', 'ShopCartController@updateProductShopCart');
 
 //Checkout
 Route::get('checkout', 'ShopCartController@showCheckout');

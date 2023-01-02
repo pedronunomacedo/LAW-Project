@@ -23,9 +23,15 @@ class ShopCartController extends Controller {
                     ->join('productimages', 'shopcart.idproduct', 'productimages.idproduct')
                     ->distinct('productimages.idproduct')
                     ->get();
+
+            $user_shopcart = $user->shopcart()->get();
+
+            $shop_cart_totalPrice = $user_shopcart->sum(function($product) {
+                return $product->pivot->quantity * $product->price;
+            });
         }
 
-        return view('pages.shopcart', ['products' => $products]);
+        return view('pages.shopcart', ['products' => $products, 'shop_cart_totalPrice' => $shop_cart_totalPrice]);
     }
 
     public function addShopCartProduct(Request $request)
@@ -66,8 +72,47 @@ class ShopCartController extends Controller {
             $user = Auth::user();
             //$this->authorize('edit', $user);
             $products = $user->shopcart()->get();
+
+            $user_shopcart = $user->shopcart()->get();
+
+            $shop_cart_totalPrice = $user_shopcart->sum(function($product) {
+                return $product->pivot->quantity * $product->price;
+            });
         }
 
-        return view('pages.checkout', ['products' => $products]);
+        return view('pages.checkout', ['products' => $products, 'shop_cart_totalPrice' => $shop_cart_totalPrice]);
+    }
+
+    public function updateProductShopCart(Request $request) {
+        try {
+            $user = Auth::user();
+            // $this->authorize('edit', $user);
+
+            $product = $user->shopcart()->where('idproduct', $request->id)->first();
+        } catch (\Exception $e) {
+            return response(json_encode(array("Message" => "Error updating product from cart", "Price" => null)), 400);
+        }
+
+        if ($product != null) {
+            try {
+                if ($request->typeModification == "decrement") {
+                    $product->pivot->quantity = intval($request->quantity) - 1;
+                } else {
+                    $product->pivot->quantity = intval($request->quantity);
+                }
+                $product->pivot->update();
+                $products = $user->shopcart()->get();
+                $total = $products->sum(function ($t) {
+                    return $t->price * $t->pivot->quantity;
+                });
+                $total_products = $products->sum(function ($t) {
+                    return $t->pivot->quantity;
+                });
+                return response(json_encode(array("Message" => "Your product quantity was updated", "Price" => $total, "productID" => $request->id, "totalProducts" => $total_products, "productQuantity" => $product->pivot->quantity)), 200);
+            } catch (\Exception $e) {
+                return response(json_encode(array('Message' => "There is not enough available products", "Price" => null)), 500);
+            }
+
+        }
     }
 }

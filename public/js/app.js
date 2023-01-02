@@ -460,8 +460,75 @@ function addReview(productID) {
   var newReviewContent = document.getElementById("new_review_content").value;
   var newReviewRating = document.getElementById("new_review_rating").value;
 
-  console.log("newReviewContent: " + newReviewContent);
-  console.log("newReviewRating: " + newReviewRating);
-
   sendAjaxRequest("POST", "/review/addReview", {product_id: productID, new_review_content : newReviewContent, new_rating : newReviewRating}, ()=> {window.location = '/product/' + productID;});
+}
+
+
+function increment(obj, quantity_available, product) {
+  let new_quantity = parseInt(document.getElementById("form" + product.id).value) + 1;
+
+  if(new_quantity > quantity_available) return;
+
+  update_quantity(product, new_quantity, "increment");
+}
+
+function decrement(obj, quantity_available, product) {
+  let new_quantity = $(obj).parent().next().children(':first').val();
+
+  if(new_quantity < 1) return; 
+
+
+  update_quantity(product, new_quantity, "decrement");
+}
+
+function update_quantity(productObj, quantity, typeModification) {
+
+  $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+
+  let new_product_data = {};
+  new_product_data.id = productObj.id;
+  new_product_data.quantity = quantity;
+  new_product_data.idusers = productObj.idusers;
+  new_product_data.typeModification = typeModification;
+
+  $.ajax({
+    type: "PUT",
+    url: "shopcart",
+    data: new_product_data,
+    dataType: 'text',
+    success: function (data) {
+        let final = JSON.parse(data);
+        let total_price_span = document.getElementById("shop_cart_total_price");
+        let value1 = parseFloat(final.Price).toFixed(2);
+
+
+        total_price_span.innerHTML = value1 + " €";
+        let total_products_span = document.getElementById("total_products");
+        total_products_span.innerHTML = final.totalProducts;
+
+
+        let product_shopcart_quantity_span = document.getElementById("product_shopcart_quantity" + final.productID);
+        product_shopcart_quantity_span.innerHTML = final.productQuantity;
+
+
+        /* update subtotal variables */
+        // let value = parseFloat(final.Price).toFixed(2);
+        // $(".subtotal_price").text(value + " €");
+        // var subtotal = $(".subtotal_price:eq(1)").attr("value");
+        // if (typeof subtotal !== typeof undefined && subtotal !== false) {
+        //     $(".subtotal_price:eq(1)").attr('value', value);
+        // }
+        // $("#total_price").html(value+" €");
+        // $("#total_price_input").val(value);
+    },
+    error: function (data) {
+        alert("Error: updating product!");
+    }
+  });
+
+  return false;
 }

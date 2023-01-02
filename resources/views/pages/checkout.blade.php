@@ -84,7 +84,7 @@
                         <li
                         class="list-group-item d-flex justify-content-between align-items-center border-0 p-0 mb-3">
                         <strong>TOTAL</strong>
-                        <span><strong>{{array_sum(array_column($products->toArray(), 'price'))}} €</strong></span>
+                        <span><strong>{{ $shop_cart_totalPrice }} €</strong></span>
                         </li>
                     </ul>
                     <hr class="my-4" />

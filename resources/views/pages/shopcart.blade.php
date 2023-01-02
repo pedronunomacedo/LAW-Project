@@ -22,12 +22,12 @@
                         <li
                         class="list-group-item d-flex justify-content-between align-items-center border-0 p-0 mb-2">
                         Products
-                        <span>{{sizeof($products)}}</span>
+                        <span id="total_products">{{sizeof($products)}}</span>
                         </li>
                         <li
                         class="list-group-item d-flex justify-content-between align-items-center border-0 p-0 mb-3">
                         <strong>TOTAL</strong>
-                        <span><strong>{{array_sum(array_column($products->toArray(), 'price'))}} €</strong></span>
+                        <span><strong id="shop_cart_total_price">{{ $shop_cart_totalPrice }} €</strong></span>
                         </li>
                     </ul>
                     <hr class="my-4" />
