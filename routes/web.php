@@ -107,3 +107,6 @@ Route::get('/send-email/{id}', [TestController::class, 'sendEmail'])->where('id'
 
 // FAQs
 Route::get('/faqs', 'FaqController@showFaqs');
+
+// About us
+Route::get('/about', 'AboutController@showAbout');
