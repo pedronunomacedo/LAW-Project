@@ -35,19 +35,19 @@
   </head>
   <body style="background-color: #f6f6f6;">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-secondary bg-gradient" style="height: 5em">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="{{ url('/') }}"><h1 class="display-6" style="color: white"><strong>Tech4You</strong></h1></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse position-absolute end-0" id="navbarColor02">
+          <div class="collapse navbar-collapse text-bg-dark" id="navbarColor02">
             <form class="navbar-form form-inline mx-auto my-0" id="search_bar" action="{{ url('mainPageSearch/products') }}" method="GET" role="search"> <!-- increase the search bar size: .col-lg-4 -->
-              <div class="form-group w-100">
+              <div class="form-group">
                 <input type="search" name="search" value="" class="form-control form-control-dark text-bg-white" placeholder="Search for products" aria-label="Search">
               </div>
             </form>
-            <ul class="navbar-nav mx-2 align-items-center">
+            <ul class="navbar-nav align-items-center mb-2 mb-lg-0">
               @if (Auth::check())
                 @if (Auth::user()->isAdmin())
                   <li class="nav-item dropdown">
@@ -65,7 +65,7 @@
                 @else
                   <li class="nav-item" style="display: block" id="user_wishlist_icon">
                     <a class="nav-link position-relative" href="/wishlist">
-                      <i class="far fa-heart fa-2x" style="color: black"></i> <!-- style="color: #54B4D3" -->
+                      <i class="far fa-heart fa-2x" style="color: white"></i> <!-- style="color: #54B4D3" -->
                       @if (Auth::user()->wishlist()->count() > 0)
                         <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>
                       @endif
@@ -73,14 +73,14 @@
                   </li>
                   <li class="nav-item" style="display: block" id="user_shopcart_icon">
                     <a class="nav-link position-relative" href="/shopcart">
-                      <i class="fas fa-shopping-cart fa-2x" style="color: black"></i> <!-- style="color: #54B4D3" -->
+                      <i class="fas fa-shopping-cart fa-2x" style="color: white"></i> <!-- style="color: #54B4D3" -->
                       @if (Auth::user()->shopcart()->count() > 0)
                         <i class="fas fa-circle position-absolute" style="color: orangered; top: 0.2rem; right: 0.2rem;"></i>                     
                       @endif
                     </a>
                   </li>
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><strong style="color:white">{{Auth::user()->name}}</strong></a>
                     <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="{{route('profile', [Auth::id()])}}">Profile</a>
                       <a class="dropdown-item" href="/orders">Orders</a>
@@ -113,8 +113,8 @@
     <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top mx-5">
       <p class="col-md-4 mb-0 text-muted">&copy; 2022 Tech4You</p>
       <ul class="nav col-md-4 justify-content-end">
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="/faqs" class="nav-link px-2 text-muted">FAQs</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
         <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contacts</a></li>
       </ul>
