@@ -35,16 +35,17 @@
   </head>
   <body style="background-color: #f6f6f6;">
     <header>
-      <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-sm navbar-dark bg-dark" id="navbar">
         <div class="container-fluid">
           <a class="navbar-brand" href="{{ url('/') }}"><h1 class="display-6" style="color: white"><strong>Tech4You</strong></h1></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse text-bg-dark" id="navbarColor02">
-            <form class="navbar-form form-inline mx-auto my-0" id="search_bar" action="{{ url('mainPageSearch/products') }}" method="GET" role="search"> <!-- increase the search bar size: .col-lg-4 -->
-              <div class="form-group">
-                <input type="search" name="search" value="" class="form-control form-control-dark text-bg-white" placeholder="Search for products" aria-label="Search">
+            <form class="navbar-form form-inline w-50 mx-auto my-0" id="search_bar" action="{{ url('mainPageSearch/products') }}" method="GET" role="search"> <!-- increase the search bar size: .col-lg-4 -->
+              <div class="form-group position-relative">
+                <i class="fa fa-search" style="position: absolute; right:1rem; top: 0.6rem; color: black;"></i>
+                <input style="width: 100%;" type="search" name="search" value="" class="form-control form-control-dark text-bg-white" placeholder="Search for products" aria-label="Search">
               </div>
             </form>
             <ul class="navbar-nav align-items-center mb-2 mb-lg-0">
@@ -93,7 +94,7 @@
                 @endif
               @else
                 <li class="nav-item">
-                  <a class="nav-link" href="{{route('login')}}">Login</a>
+                  <a class="nav-link btn btn-info mx-3" style="color: black; width: 5rem;" href="{{route('login')}}">Login</a>
                 </li>
               @endif
             </ul>
@@ -101,7 +102,7 @@
         </div>
       </nav>
     </header>
-    <section id="content" class="min-vh-100">
+    <section id="content" class="min-vh-100" style="margin-top: 8rem;">
       <div class="alert alert-success show fade align-items-center" id="wishlist-success" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-check-circle"></i><div></div></div>
       <div class="alert alert-warning show fade align-items-center" id="wishlist-error" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-exclamation-circle"></i><div></div></div>
       <div class="alert alert-success show fade align-items-center" id="shopcart-success" style="display: none; position: fixed; z-index: 5; left: 50%; transform: translateX(-50%);"><i class="fas fa-check-circle"></i><div></div></div>

@@ -584,3 +584,14 @@ function addAddress(idUser) {
 
   sendAjaxRequest("POST", "/address/addAddress", { new_address_country : newAddressCountry, new_address_city : newAddressCity, new_address_street : newAddressStreet, new_address_postacode : newPostalCode }, ()=> {window.location = '/profile/' + idUser;});
 }
+
+var prevScrollpos = window.pageYOffset;
+window.onscroll = function() {
+  var currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("navbar").style.top = "0";
+  } else {
+    document.getElementById("navbar").style.top = "-10rem";
+  }
+  prevScrollpos = currentScrollPos;
+} 
