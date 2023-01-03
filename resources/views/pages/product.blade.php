@@ -72,8 +72,8 @@
                                     <hr class="my-4" />
                                     <div id="review{{ $review->idusers }}_{{ $review->idproduct }}">
                                         <div class="review_header">
-                                            <p style="font-weight: normal; font-size: 18px;"><strong>{{ $review->name }}</strong>, {{ $review->reviewdate }}</p>
-                                            @if(Auth::check() && Auth::user()->id == $review->idusers)
+                                            <p style="font-weight: normal; font-size: 18px;"><strong>{{ $review->name }}</strong>, {{ date('d-m-Y', strtotime($review->reviewdate)) }}</p>
+                                            @if(Auth::check() && (Auth::user()->id == $review->idusers || Auth::user()->isAdmin()))
                                                 <div class="header_buttons" id="review_buttons{{ $review->idusers }}_{{ $review->idproduct }}">
                                                     <button onclick="editReview({{ $review->idusers }}, {{ $review->idproduct }})" style="all: unset; margin-right: 8px; cursor: pointer;"><i class='fas fa-pencil-alt' style='font-size: 24px'></i></button>
                                                     <button onclick="deleteReview({{ $review->idusers }}, {{ $review->idproduct }})" style="all: unset; cursor: pointer;"><i class="fa fa-trash" aria-hidden="true" style='font-size: 24px'></i></button>
