@@ -15,6 +15,11 @@ class UserPolicy {
       return $user->id == $user2->id;
     }
 
+    public function edit(User $user, $user2) {
+      // Only an authenticated user can see it
+      return $user->id == $user2->id;
+    }
+
     public function editProfile(User $user, User $user2) {
       return $user->id == $user2->id;
     }

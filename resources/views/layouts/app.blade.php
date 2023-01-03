@@ -37,7 +37,7 @@
     <header>
       <nav class="navbar navbar-expand-sm navbar-dark bg-dark" id="navbar" style="z-index: 10">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{ url('/') }}"><h1 class="display-6" style="color: white"><strong>Tech4You</strong></h1></a>
+          <a class="navbar-brand" href="{{ url('/') }}"><h1 class="display-6" style="color: white"><strong>Tech<span style="color:red">4</span>You</strong></h1></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>

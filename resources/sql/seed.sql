@@ -294,25 +294,25 @@ insert into Address (street, postalCode, city, country) values ('666 Norway Mapl
 
 -- User start (20) --
 insert into users (name, email, phoneNumber, password) values ('admin', 'admin@tech4you.com', '912345678', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('lbaw2284', 'lbaw2284@fe.up.pt', '923456789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('kliddall0', 'tbamforth0@hubpages.com', '954637283', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('fdradey1', 'istiller1@fastcompany.com', '923456278', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('eburnell2', 'ekupec2@nih.gov', '945362783', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('dadamovicz3', 'ltwaits3@jiathis.com', '943452789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('sashdown4', 'rhillatt4@arizona.edu', '934456278', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('mgatling5', 'icleaves5@dedecms.com', '923417824', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('kbarsam6', 'oadiscot6@oracle.com', '945173845', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('bdibdall7', 'glaydon7@paginegialle.it', '925367183', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('tchaston8', 'ctollerfield8@miitbeian.gov.cn', '911627831', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('wlandeg9', 'icharlon9@discovery.com', '913552789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('lhairyesa', 'anairnsa@qq.com', '932634512', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('hsiviourb', 'awillb@tiny.cc', '934156372', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('omoranc', 'pellinsc@gnu.org', '945263541', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('alezemered', 'estanselld@bbc.co.uk', '924152684', '$2yy$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('tdealtrye', 'smeddowse@home.pl', '943516273', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('laxcelf', 'tbonerf@tiny.cc', '945361723', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('sleavoldg', 'cwoodwing@de.vu', '925167321', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
-insert into users (name, email, phoneNumber, password) values ('ckestevenh', 'lwonforh@altervista.org', '917426353', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('pedro', 'pedro@gmail.com', '923456789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('alice', 'alice@gmail.com', '954637283', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('joao', 'joao@gmail.com', '923456278', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('ruben', 'ruben@gmail.com', '945362783', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('tiago', 'tiago@gmail.com', '943452789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('guilherme', 'guilherme@gmail.com', '934456278', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('luis', 'luis@gmail.com', '923417824', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('gonzallito', 'gonzallito@gmail.com', '945173845', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('jose', 'jose@gmail.com', '925367183', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('ines', 'ines@gmail.com', '911627831', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('sara', 'sara@gmail.com', '913552789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('sofia', 'sofia@gmail.com', '932634512', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('bruno', 'bruno@gmail.com', '934156372', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('lopes', 'lopes@gmail.com', '945263541', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('david', 'david@gmail.com', '924152684', '$2yy$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('bala', 'bala@gmail.com', '943516273', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('maria', 'maria@gmail.com', '945361723', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('antonio', 'antonio@gmail.com', '925167321', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('roni', 'roni@gmail.com', '917426353', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
 --user end
 
 --authentificated user start (19) --
@@ -990,27 +990,11 @@ insert into Review (idusers, idProduct, reviewDate, content, rating) values (20,
 -- Review end --
 
 -- FAQ start -- 
-insert into FAQ (question, answer) values ('commodo vulputate justo in blandit?', 'donec pharetra magna vestibulum aliquet ultrices erat tortor sollicitudin mi sit amet lobortis sapien sapien non');
-insert into FAQ (question, answer) values ('orci vehicula condimentum curabitur in libero ut?', 'et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur');
-insert into FAQ (question, answer) values ('eget eleifend luctus ultricies eu nibh quisque id justo sit amet sapien dignissim vestibulum vestibulum ante ipsum primis?', 'eget tincidunt eget tempus vel pede morbi porttitor lorem id ligula suspendisse ornare consequat lectus in');
-insert into FAQ (question, answer) values ('sapien a libero nam dui proin leo odio porttitor id consequat in consequat ut nulla?', 'odio elementum eu interdum eu tincidunt in leo maecenas pulvinar lobortis');
-insert into FAQ (question, answer) values ('iaculis diam erat fermentum justo nec condimentum?', 'dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque aenean');
-insert into FAQ (question, answer) values ('vulputate elementum nullam varius nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt?', 'in faucibus orci luctus et ultrices posuere cubilia curae nulla dapibus dolor vel est donec odio justo sollicitudin ut');
-insert into FAQ (question, answer) values ('dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis?', 'suspendisse accumsan tortor quis turpis sed ante vivamus tortor duis mattis egestas metus aenean fermentum donec ut mauris eget massa');
-insert into FAQ (question, answer) values ('tristique est et tempus semper est quam pharetra magna?', 'maecenas leo odio condimentum id luctus nec molestie sed justo pellentesque viverra');
-insert into FAQ (question, answer) values ('curabitur at ipsum ac tellus semper interdum mauris?', 'nulla facilisi cras non velit nec nisi vulputate nonummy maecenas tincidunt lacus at velit vivamus vel nulla eget eros');
-insert into FAQ (question, answer) values ('penatibus et magnis dis parturient montes nascetur ridiculus mus etiam vel augue vestibulum rutrum rutrum neque?', 'mauris morbi non lectus aliquam sit amet diam in magna bibendum imperdiet');
-insert into FAQ (question, answer) values ('mi in porttitor pede justo eu massa donec dapibus duis at velit eu est?', 'in leo maecenas pulvinar lobortis est phasellus sit amet erat nulla tempus vivamus in felis eu sapien cursus');
-insert into FAQ (question, answer) values ('fusce lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac?', 'blandit lacinia erat vestibulum sed magna at nunc commodo placerat praesent blandit nam nulla integer pede justo');
-insert into FAQ (question, answer) values ('lorem quisque ut erat curabitur gravida nisi at nibh in hac habitasse platea dictumst aliquam augue quam sollicitudin vitae?', 'fusce posuere felis sed lacus morbi sem mauris laoreet ut rhoncus');
-insert into FAQ (question, answer) values ('massa id lobortis convallis tortor risus dapibus augue vel?', 'eget eros elementum pellentesque quisque porta volutpat erat quisque erat eros viverra eget congue eget semper rutrum nulla nunc purus');
-insert into FAQ (question, answer) values ('pede venenatis non sodales sed tincidunt eu felis fusce?', 'tortor risus dapibus augue vel accumsan tellus nisi eu orci mauris lacinia sapien quis libero nullam sit');
-insert into FAQ (question, answer) values ('maecenas ut massa quis augue?', 'lacus purus aliquet at feugiat non pretium quis lectus suspendisse potenti in eleifend quam a odio in hac habitasse platea');
-insert into FAQ (question, answer) values ('ac consequat metus sapien ut nunc vestibulum ante ipsum primis in faucibus?', 'est lacinia nisi venenatis tristique fusce congue diam id ornare imperdiet sapien urna pretium nisl ut volutpat');
-insert into FAQ (question, answer) values ('ac leo pellentesque ultrices mattis odio donec vitae nisi nam?', 'vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae donec');
-insert into FAQ (question, answer) values ('integer ac neque duis bibendum morbi?', 'congue eget semper rutrum nulla nunc purus phasellus in felis donec semper sapien a libero nam dui proin leo odio');
-insert into FAQ (question, answer) values ('ridiculus mus vivamus vestibulum sagittis sapien cum sociis natoque penatibus et magnis dis parturient montes nascetur?', 'sit amet sapien dignissim vestibulum vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae');
-insert into FAQ (question, answer) values ('mauris viverra diam vitae quam suspendisse potenti nullam porttitor lacus at turpis donec posuere metus?', 'faucibus orci luctus et ultrices posuere cubilia curae duis faucibus accumsan odio curabitur convallis duis consequat dui');
--- FAQ end --
+insert into FAQ (question, answer) values ('How to buy a product?', 'You can add a product to your shop cart by clicking on the cart icon or in the product page. Then, you go to your shop cart and click on the Checkout button.');
+insert into FAQ (question, answer) values ('How to filter the products?', 'You can go to a specific category page (on the home page) and then use the filters provided there.');
+insert into FAQ (question, answer) values ('How can I add/delete my delivery address?', 'Sign in to your account and go to your Profile. On "Billing Address" section you can manage your delievery addresses.');
+insert into FAQ (question, answer) values ('Can I cancel my order?', 'You cannot cancel our purchase after ordering it, it is the rules.');
+insert into FAQ (question, answer) values ('How to contact customer service?', 'You can go to the Contacts page (on the pages footer).');
+insert into FAQ (question, answer) values ('Why should I buy online?', 'Speeding up the process. By ordering online you will you will get prices faster and you will be able to go through order confirmation and payment process much faster. This could save days of your time.');-- FAQ end --
 
 /* End povoate database */

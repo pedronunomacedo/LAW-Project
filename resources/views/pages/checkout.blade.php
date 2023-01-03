@@ -79,7 +79,7 @@
                         <li
                         class="list-group-item d-flex justify-content-between align-items-center border-0 p-0 mb-2">
                         Products
-                        <span>{{sizeof($products)}}</span>
+                        <span>{{$shop_cart_totalProducts}}</span>
                         </li>
                         <li
                         class="list-group-item d-flex justify-content-between align-items-center border-0 p-0 mb-3">

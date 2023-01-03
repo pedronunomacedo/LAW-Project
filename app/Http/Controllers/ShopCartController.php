@@ -80,13 +80,18 @@ class ShopCartController extends Controller {
             $shop_cart_totalPrice = $user_shopcart->sum(function($product) {
                 return $product->pivot->quantity * $product->price;
             });
+
+            $shop_cart_totalProducts = $user_shopcart->sum(function($product) {
+                return $product->pivot->quantity;
+            });
         }
 
-        return view('pages.checkout', ['products' => $products, 'shop_cart_totalPrice' => $shop_cart_totalPrice]);
+        return view('pages.checkout', ['products' => $products, 'shop_cart_totalPrice' => $shop_cart_totalPrice, 'shop_cart_totalProducts' => $shop_cart_totalProducts]);
     }
 
     public function updateProductShopCart(Request $request) {
         $this->authorize('edit', Auth::user());
+
         try {
             $user = Auth::user();
 

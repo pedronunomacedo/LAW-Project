@@ -219,9 +219,9 @@ function deleteUser(id) {
 function updateOrder(id) {
   var newOrderState = document.querySelector("#order_state" + id).value;
 
-  sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState});
+  sendAjaxRequest("POST", "adminManageOrders/saveChanges", {id : id, new_order_state : newOrderState}, ()=> {window.location = '/adminManageOrders';});
   
-  sendAjaxRequest("GET", "/send-email/" + id, {id : id}, ()=> {window.location = '/adminManageOrders';});
+  sendAjaxRequest("GET", "/send-email/" + id, {id : id});
 }
 
 function deleteFAQ(id) {
