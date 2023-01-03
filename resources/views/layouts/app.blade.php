@@ -116,8 +116,8 @@
       <ul class="nav col-md-4 justify-content-end">
         <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
         <li class="nav-item"><a href="/faqs" class="nav-link px-2 text-muted">FAQs</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Contacts</a></li>
+        <li class="nav-item"><a href="/about" class="nav-link px-2 text-muted">About</a></li>
+        <li class="nav-item"><a href="/contactUs" class="nav-link px-2 text-muted">Contacts</a></li>
       </ul>
     </footer>
   </body>

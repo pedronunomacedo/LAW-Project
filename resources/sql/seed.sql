@@ -293,7 +293,7 @@ insert into Address (street, postalCode, city, country) values ('666 Norway Mapl
 -- Address end --
 
 -- User start (20) --
-insert into users (name, email, phoneNumber, password) values ('lordfarquaad', 'prince@shrek.org', '912345678', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
+insert into users (name, email, phoneNumber, password) values ('admin', 'admin@tech4you.com', '912345678', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
 insert into users (name, email, phoneNumber, password) values ('lbaw2284', 'lbaw2284@fe.up.pt', '923456789', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
 insert into users (name, email, phoneNumber, password) values ('kliddall0', 'tbamforth0@hubpages.com', '954637283', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');
 insert into users (name, email, phoneNumber, password) values ('fdradey1', 'istiller1@fastcompany.com', '923456278', '$2y$10$XHyBb/WRoAV4vAhXhIFKM.FGKgm.5Yn4Uz/bFjWYQUOe3H12w.KdC');

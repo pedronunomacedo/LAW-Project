@@ -110,3 +110,6 @@ Route::get('/faqs', 'FaqController@showFaqs');
 
 // About us
 Route::get('/about', 'AboutController@showAbout');
+
+// Contact us
+Route::get('/contactUs', 'ContactUsController@showContactUs');
