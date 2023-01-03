@@ -31,6 +31,7 @@ class ProductsController extends Controller {
   }
   
   public function showAllProducts() {
+    $this->authorize('admin', Auth::user());
     $allProducts = Product::orderBy('id', 'ASC')
                           ->leftJoin(DB::raw('(select distinct on (idproduct) * from productimages order by idproduct asc) as img'), function ($join) {
                             $join->on('product.id', '=', 'img.idproduct');

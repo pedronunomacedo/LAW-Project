@@ -31,8 +31,6 @@ class ReviewController extends Controller {
   }
 
   public function destroy(Request $request) { 
-    $this->authorize('edit', Auth::user());
-
     $review_iduser = $request->userID;
     $review_idproduct = $request->productID;
 
