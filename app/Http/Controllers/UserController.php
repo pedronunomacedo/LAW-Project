@@ -16,6 +16,7 @@ use Hash;
 
 class UserController extends Controller {
   public function showProfile($id) {
+      $this->authorize('show', Auth::user());
       $user = User::findOrFail($id);
       
       if (!Auth()->user()->isAdmin()){
