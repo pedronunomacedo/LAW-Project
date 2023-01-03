@@ -31,7 +31,7 @@ class ReviewController extends Controller {
   }
 
   public function destroy(Request $request) { 
-    $this->authorize('user', Auth::user());
+    $this->authorize('edit', Auth::user());
 
     $review_iduser = $request->userID;
     $review_idproduct = $request->productID;
@@ -69,7 +69,7 @@ class ReviewController extends Controller {
   }
 
   public function updateReview(Request $request) { 
-    $this->authorize('user', Auth::user());
+    $this->authorize('edit', Auth::user());
 
     $review = Review::where('idusers', $request->userID)
                     ->where('idproduct', $request->productID)

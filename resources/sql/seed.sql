@@ -977,16 +977,16 @@ insert into Wishlist(idProduct, idusers) values (18, 20);
 -- Wishlist end --
 
 -- Review start --
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (5, 15, '2022-08-13', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 2);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (6, 17, '2022-04-15', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 3);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (6, 19, '2022-10-12', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 4);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (7, 21, '2021-11-01', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 5);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (7, 23, '2022-05-23', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 2);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (12, 4, '2022-05-23', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 3);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (13, 6, '2022-06-14', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 4);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (13, 8, '2022-04-17', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 5);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (16, 18, '2022-06-28', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 5);
-insert into Review (idusers, idProduct, reviewDate, content, rating) values (20, 34, '2022-05-25', 'suspendisse potenti in eleifend quam a odio in hac habitasse platea dictumst maecenas ut massa quis augue luctus tincidunt nulla mollis molestie lorem', 5);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (5, 15, '2022-08-13', 'I did not like this at all. The sound it is terrible and the image quality could be much better.', 2);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (6, 17, '2022-04-15', 'A really good smatphone, but a little to big for me!', 3);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (6, 19, '2022-10-12', 'Awesome phone and the quality of the camera is insane,but the design could be more appealing!', 4);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (7, 21, '2021-11-01', 'The cameras are incredible and the withe color remimds me of seeing the starts at night!', 5);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (7, 23, '2022-05-23', 'A little slow, but so far is "ok", I guess!', 2);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (12, 4, '2022-05-23', 'Love the pencil, it is so useful to write reminder on the run, but it is a little heavy and massive.', 3);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (13, 6, '2022-06-14', 'I used this computer for gaming and it is insanely fast and the graphics are amazing!', 4);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (13, 8, '2022-04-17', 'Bought this monitor to start my university journey and was the best decision I have ever made.', 5);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (16, 18, '2022-06-28', 'I felt instantly in love with this smartphone, and specially with the back of it.', 5);
+insert into Review (idusers, idProduct, reviewDate, content, rating) values (20, 34, '2022-05-25', 'The sound it is formidable and the price I payed for it was totally worth it!', 5);
 -- Review end --
 
 -- FAQ start -- 
