@@ -74,7 +74,7 @@
                                         <div class="review_header">
                                             <p style="font-weight: normal; font-size: 18px;"><strong>{{ $review->name }}</strong>, {{ $review->reviewdate }}</p>
                                             <div class="header_buttons" id="review_buttons{{ $review->idusers }}_{{ $review->idproduct }}">
-                                                <button onclick="editReview({{ $review->idusers }}, {{ $review->idproduct }})" style="all: unset; margin-right: 8px; cursor: pointer;"><i class='fas fa-edit' style='font-size: 24px'></i></button>
+                                                <button onclick="editReview({{ $review->idusers }}, {{ $review->idproduct }})" style="all: unset; margin-right: 8px; cursor: pointer;"><i class='fas fa-pencil-alt' style='font-size: 24px'></i></button>
                                                 <button onclick="deleteReview({{ $review->idusers }}, {{ $review->idproduct }})" style="all: unset; cursor: pointer;"><i class="fa fa-trash" aria-hidden="true" style='font-size: 24px'></i></button>
                                             </div>
                                         </div>
@@ -95,24 +95,23 @@
                             @endif
                             
                             @if(Auth::check() && $product->productBought(Auth::user()->id, $product->id) && !$product->userReviewedProduct(Auth::user()->id, $product->id))
-                                <form class="form-inline" method="POST" id="new_review">
+                                <form class="form-inline mt-4" method="POST" id="new_review">
                                     @csrf
                                     <div style="position: relative; display: flex;" id="new_comment_inputs">
-                                        <div class="form-group mx-sm-3 mb-2" style="display: flex">
+                                        <div class="form-group mx-sm-3 mb-2" style="width: 70%">
                                             <input type="text" class="form-control" name="new_review" placeholder="New review" id="new_review_content">  
                                         </div>
-                                        <div class="form-group col-md-4">
-                                            <select class="form-select" name="new_review_rating" style="width: 70%" id="new_review_rating">
-                                                <option selected disabled>Rating</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                                <option value="5">5</option>
+                                        <div class="form-group mx-sm-3">
+                                            <select class="form-select" name="new_review_rating" id="new_review_rating" style="font-family: 'Lato', 'Font Awesome 5 Free';">
+                                                <option selected=selected" value="1">1 &#xf005;</option>
+                                                <option value="2">2 &#xf005;</option>
+                                                <option value="3">3 &#xf005;</option>
+                                                <option value="4">4 &#xf005;</option>
+                                                <option value="5">5 &#xf005;</option>
                                             </select>
                                         </div>
-                                        <div style="with: inherit">
-                                            <button type="button" class="btn btn-primary mb-2" onclick="addReview({{ $product->id }})">Post</button>
+                                        <div>
+                                            <button type="button" class="btn btn-success mb-2" onclick="addReview({{ $product->id }})">Post</button>
                                         </div>
                                     </div>
                                 </form>
