@@ -513,17 +513,6 @@ function update_quantity(productObj, quantity, typeModification) {
 
         let product_shopcart_quantity_span = document.getElementById("product_shopcart_quantity" + final.productID);
         product_shopcart_quantity_span.innerHTML = final.productQuantity;
-
-
-        /* update subtotal variables */
-        // let value = parseFloat(final.Price).toFixed(2);
-        // $(".subtotal_price").text(value + " €");
-        // var subtotal = $(".subtotal_price:eq(1)").attr("value");
-        // if (typeof subtotal !== typeof undefined && subtotal !== false) {
-        //     $(".subtotal_price:eq(1)").attr('value', value);
-        // }
-        // $("#total_price").html(value+" €");
-        // $("#total_price_input").val(value);
     },
     error: function (data) {
         alert("Error: updating product!");
@@ -531,4 +520,50 @@ function update_quantity(productObj, quantity, typeModification) {
   });
 
   return false;
+}
+
+function saveReview(idUser, idProduct) {
+  let reviewContent = document.getElementById("review_content" + idUser + "_" + idProduct); // {{ $review->idusers }}_{{ $review->idproduct }}
+  let newReviewContent = reviewContent.childNodes[1].value;
+
+  if (newReviewContent == "") return;
+
+  header_buttons = document.getElementById("review_buttons" + idUser + "_" + idProduct); // {{ $review->idusers }}_{{ $review->idproduct }}
+  header_buttons.innerHTML = `
+    <button onclick="editReview(` + idUser + `, ` + idProduct + `)" style="all: unset; margin-right: 8px; cursor: pointer;"><i class='fas fa-edit' style='font-size: 24px'></i></button>
+    <button onclick="deleteReview(` + idUser + `, ` + idProduct + `)" style="all: unset; cursor: pointer;"><i class="fa fa-trash" aria-hidden="true" style='font-size: 24px'></i></button>
+  `;
+
+  reviewContent.innerHTML = "";
+
+  reviewContent.innerHTML = newReviewContent;
+
+  sendAjaxRequest("POST", "/review/updateReview", { userID: idUser , productID: idProduct, newContent: newReviewContent});
+}
+
+
+function deleteReview(idUser, idProduct) {
+  let reviewDiv = document.getElementById("review" + idUser + "_" + idProduct); // {{ $review->idusers }}_{{ $review->idproduct }}
+  reviewDiv.parentNode.removeChild(reviewDiv);
+
+  sendAjaxRequest("POST", "/review/deleteReview", { userID: idUser, productID: idProduct });
+}
+
+function editReview(idUser, idProduct) {
+  let reviewContent = document.getElementById("review_content"+ idUser + "_" + idProduct); // {{ $review->idusers }}_{{ $review->idproduct }}
+
+  let content = reviewContent.innerHTML;
+
+  header_buttons = document.getElementById("review_buttons" + idUser + "_" + idProduct); // {{ $review->idusers }}_{{ $review->idproduct }}
+  header_buttons.innerHTML = `
+    <button onclick="saveReview(` + idUser + `, ` + idProduct + `)" style="all: unset; margin-right: 8px; cursor: pointer;">
+      <span>&#10003;</span>
+    </button>
+  `;
+
+  console.log(content);
+
+  reviewContent.innerHTML = `
+    <input type="text" value="` + content + `"></input>
+  `;
 }

@@ -27,4 +27,37 @@ class ReviewController extends Controller {
     
     return response(401);  
   }
+
+  public function destroy(Request $request) { 
+    // $this->authorize('user', Auth::user());
+    error_log("review_id: " . $request->userID);
+    error_log("review_id: " . $request->productID);
+
+    $review = Review::where('idusers', $request->userID)
+                    ->where('idproduct', $request->productID)
+                    ->get()
+                    ->first();
+    
+    error_log("review_before : " . $review);
+
+    $review->delete();
+
+    return response(200);
+  }
+
+  public function updateReview(Request $request) { 
+    // $this->authorize('user', Auth::user());
+    error_log("review_id: " . $request->userID);
+    error_log("review_id: " . $request->productID);
+
+    $review = Review::where('idusers', $request->userID)
+                    ->where('idproduct', $request->productID)
+                    ->get()
+                    ->first();
+
+    $review->content = $request->newContent;
+    $review->save();
+
+    return response(200);
+  }
 }

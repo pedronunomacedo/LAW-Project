@@ -96,6 +96,8 @@ Route::get('productCategory/{category}', 'ProductsController@showCategoryProduct
 
 // Users features
 Route::post('/review/addReview', 'ReviewController@addReview')->name('newReview');
+Route::post('/review/deleteReview', 'ReviewController@destroy');
+Route::post('/review/updateReview', 'ReviewController@updateReview');
 
 // Email feature
 Route::get('/send-email/{id}', [TestController::class, 'sendEmail'])->where('id','[0-9]+');

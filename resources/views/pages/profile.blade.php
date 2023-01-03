@@ -72,6 +72,13 @@
 				</div>
 				<button class="btn btn-danger btn-lg" onclick="" style="width: 10rem">Add Address</button>
 			</div>
+			<div class="row d-flex justify-content-center my-4" style="background-color: white; padding: 1rem; border-radius:10px;" id="delete_account">
+				<h4 class="mb-4" style="text-decoration: underline 4px red">Delete Account</h4>
+				<div class="mb-4" style="display: flex; justify-content: space-evenly; flex-wrap: wrap; gap: 2rem;">
+					<p>Your personal information will be deleted and you will lose your orders records! </p>
+				</div>
+				<button class="btn btn-danger btn-lg" onclick="" style="width: 15rem">Delete account</button>
+			</div>
 		@endif
 	</div>
 </main>

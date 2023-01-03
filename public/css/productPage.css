@@ -25,6 +25,16 @@
     margin-right: 16px;
 }
 
+.review_header {
+    display: flex;
+    flex-direction: row;
+}
+
+.header_buttons {
+    margin-left: 20px;
+    float: right;
+}
+
 @media only screen and (max-width: 600px) {
     #new_comment_inputs {
         display: flex;
