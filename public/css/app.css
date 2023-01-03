@@ -410,3 +410,8 @@ div.text-center > nav * {
 ::-webkit-scrollbar-thumb:horizontal:hover {
   background: #b30000; 
 }
+
+.text-center > nav {
+  display: flex;
+  justify-content: center;
+}
