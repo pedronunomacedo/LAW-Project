@@ -51,7 +51,7 @@
               @if (Auth::check())
                 @if (Auth::user()->isAdmin())
                   <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}}</a>
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><strong style="color:white">{{Auth::user()->name}}</strong></a>
                     <div class="dropdown-menu dropdown-menu-end">
                       <a class="dropdown-item" href="/profile/{{ Auth::user()->id }}">Profile</a>
                       <a class="dropdown-item" href="/adminManageUsers">Manage Users</a>
