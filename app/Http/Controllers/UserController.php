@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Address;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -82,5 +83,53 @@ class UserController extends Controller {
     }
 
     return redirect('profile/' . $id);
+  }
+
+  public function deleteAddress(Request $request) {
+    if (Auth::check()) {
+      $user = Auth::user();
+      $address = $user->address()->where('idaddress', $request->addressID)->first();
+    }
+    if($address != null){
+      $user->address()->detach([$address->id]);
+      return response(200);
+    }
+    return response(401);
+  }
+
+  public function addAddress(Request $request) {   
+
+    if (Auth::check()) {
+      $user = Auth::user();
+
+      $address = new Address;
+
+      $address->street = $request->new_address_city;
+      $address->postalcode = $request->new_address_postacode;
+      $address->city = $request->new_address_city;
+      $address->country = $request->new_address_country;
+
+      $address->save();
+
+      Auth::user()->address()->attach($address);
+
+      return response(200);
+    } else {
+      return response(401);
+    }
+  }
+
+
+
+
+
+
+  public function deleteAccount() {
+    if (Auth::check()) {
+      $user = Auth::user();
+      $user->delete();
+      return response(200);
+    }
+    return response(401);
   }
 }

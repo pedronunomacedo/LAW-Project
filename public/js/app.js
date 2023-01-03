@@ -567,3 +567,20 @@ function editReview(idUser, idProduct) {
     <input type="text" value="` + content + `"></input>
   `;
 }
+
+function removeAddress(addressID, userID) {
+  sendAjaxRequest("POST", "/address/deleteAddress", { addressID: addressID }, ()=> {window.location = '/profile/' + userID;});
+}
+
+function deleteAccount() {
+  sendAjaxRequest("POST", "/profile/deleteAccount", {}, ()=> {window.location = '/';});
+}
+
+function addAddress(idUser) {
+  var newAddressCountry = document.getElementById("address_country").value;
+  var newAddressCity = document.getElementById("address_city").value;
+  var newAddressStreet = document.getElementById("address_street").value;
+  var newPostalCode = document.getElementById("address_postalCode").value;
+
+  sendAjaxRequest("POST", "/address/addAddress", { new_address_country : newAddressCountry, new_address_city : newAddressCity, new_address_street : newAddressStreet, new_address_postacode : newPostalCode }, ()=> {window.location = '/profile/' + idUser;});
+}

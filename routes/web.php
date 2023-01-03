@@ -40,6 +40,9 @@ Route::get('profile', 'Auth\LoginController@login');
 Route::get('profile/{id}', 'UserController@showProfile')->name('profile')->where('id','[0-9]+');
 Route::post('adminUpdateUserProfile/saveChanges/{id}', 'UserController@updateProfileData')->name('saveUserProfile')->where('id','[0-9]+');
 Route::post('adminUpdateUserProfile/savePassword/{id}', 'UserController@updateUserPassword')->name('saveUserPassword')->where('id','[0-9]+');
+Route::post('/address/deleteAddress', 'UserController@deleteAddress');
+Route::post('/address/addAddress', 'UserController@addAddress');
+Route::post('/profile/deleteAccount', 'UserController@deleteAccount');
 
 // Manage Users (admin)
 Route::get('adminManageUsers', 'UserController@showAllUsers');
@@ -101,3 +104,6 @@ Route::post('/review/updateReview', 'ReviewController@updateReview');
 
 // Email feature
 Route::get('/send-email/{id}', [TestController::class, 'sendEmail'])->where('id','[0-9]+');
+
+// FAQs
+Route::get('/faqs', 'FaqController@showFaqs');

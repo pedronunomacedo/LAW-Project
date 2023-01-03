@@ -33,12 +33,35 @@ class ReviewController extends Controller {
     error_log("review_id: " . $request->userID);
     error_log("review_id: " . $request->productID);
 
+    $review_iduser = $request->userID;
+    $review_idproduct = $request->productID;
+
     $review = Review::where('idusers', $request->userID)
                     ->where('idproduct', $request->productID)
                     ->get()
                     ->first();
-    
-    error_log("review_before : " . $review);
+
+    $product = Product::findOrFail($request->productID);
+
+    $product_reviews = DB::table('review')
+                          ->where('idproduct', $request->productID)
+                          ->get();
+
+    $totalRating = $product_reviews->sum(function ($t) use ($review_iduser) {
+      if ($t->idusers == $review_iduser) {
+        return;
+      }
+      return $t->rating;
+    });
+
+
+    if (count($product_reviews) == 1) {
+      $product->score = 0;
+    } else {
+      $product->score = $totalRating / (count($product_reviews) - 1);
+    }
+
+    $product->save();
 
     $review->delete();
 

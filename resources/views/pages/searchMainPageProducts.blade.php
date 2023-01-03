@@ -297,9 +297,6 @@
     }
 </script>
 
-<link href="/css/rangeSlider.css" rel="stylesheet">
-<script type="text/javascript" src={{ asset('js/rangeSlider.js') }} defer></script>
-
 <main>
     <div class="mt-5 container">
         <nav class="path" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
