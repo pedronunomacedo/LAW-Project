@@ -5,8 +5,8 @@
 @section('content')
 
 
-<link href="/css/rangeSlider.css" rel="stylesheet">
-<script type="text/javascript" src={{ asset('js/rangeSlider.js') }} defer></script>
+
+
 
 <script>
     function getProductsFilteredByDate(checkbox) {

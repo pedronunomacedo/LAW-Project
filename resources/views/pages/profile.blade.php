@@ -83,7 +83,7 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-danger" onclick="removeAddress({{ $address->id }})">Remove</button>
+										<button type="button" class="btn btn-danger" onclick="removeAddress({{ $address->id }}, {{ Auth::user()->id }})">Remove</button>
 									</div>
 								</div>
 							</div>
@@ -97,7 +97,7 @@
 				<div class="mb-4" style="display: flex; justify-content: space-evenly; flex-wrap: wrap; gap: 2rem;">
 					<p>Your personal information will be deleted and you will lose your orders records! </p>
 				</div>
-				<button class="btn btn-danger btn-lg" onclick="" style="width: 15rem" data-bs-toggle="modal" data-bs-target="#deleteProfile{{$user->id}}">Delete account</button>
+				<button class="btn btn-danger btn-lg" style="width: 15rem" data-bs-toggle="modal" data-bs-target="#deleteProfile{{$user->id}}">Delete account</button>
 			</div>
 		@endif
 	</div>
@@ -113,7 +113,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-danger" onclick="deleteProfile({{ $user->id }})">Delete</button>
+					<button type="button" class="btn btn-danger" onclick="deleteAccount()">Delete</button>
 				</div>
 			</div>
 		</div>
@@ -145,7 +145,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-danger" onclick="addAddress({{ $user->id }})">Add</button>
+					<button type="button" class="btn btn-danger" onclick="addAddress({{$user->id}})">Add</button>
 				</div>
 			</div>
 		</div>
