@@ -375,3 +375,38 @@ div.text-center > nav * {
 .edit_del_btn button {
   border-radius: 50%;
 }
+
+#navbar {
+  position: fixed; /* Make it stick/fixed */
+  top: 0; /* Stay on top */
+  width: 100%; /* Full width */
+  transition: top 0.3s; /* Transition effect when sliding down (and up) */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  display: none;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb:horizontal {
+  background: red; 
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb:vertical {
+  background: grey; 
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:horizontal:hover {
+  background: #b30000; 
+}
