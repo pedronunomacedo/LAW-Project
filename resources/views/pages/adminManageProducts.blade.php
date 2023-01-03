@@ -148,9 +148,9 @@
             </div>
         @endforeach
         </div>
-    </div>
-    <div class="text-center">
-        {!! $allProducts->links(); !!}
+        <div class="text-center">
+            {!! $allProducts->links(); !!}
+        </div>
     </div>
 </main>
 @endsection
