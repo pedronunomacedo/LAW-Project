@@ -27,8 +27,6 @@ class ProductsController extends Controller {
                                                         $join->on('product.id', '=', 'img.idproduct');
                                                     })->get();
 
-
-    error_log($newProducts);
     return view('pages.home', ['newProducts' => $newProducts, 'bestSmartphones' => $bestSmartphones, 'bestLaptops' => $bestLaptops]);
   }
   
@@ -88,7 +86,6 @@ class ProductsController extends Controller {
     $searchProducts = Product::where('prodname','LIKE','%' . $search_request->search . '%')
                       ->join('productimages', 'product.id', 'productimages.idproduct')
                       ->distinct('productimages.idproduct')
-                      // ->orderBy('prodname', 'ASC')
                       ->paginate(20);
 
     return view('pages.searchMainPageProducts', ['searchProducts' => $searchProducts, 'searchStr' => $search_request->search] );

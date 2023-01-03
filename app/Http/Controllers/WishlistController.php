@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\DB;
 
 class WishlistController extends Controller
 {
-    public function showWishlist(Request $request)
-    {
+    public function showWishlist(Request $request) {
+        $this->authorize('show', Auth::user());
 
         if (Auth::check()) {
 
@@ -31,8 +31,9 @@ class WishlistController extends Controller
         return view('pages.wishlist', ['products' => $products]);
     }
 
-    public function addWishlistProduct(Request $request)
-    {
+    public function addWishlistProduct(Request $request) {
+        $this->authorize('edit', Auth::user());
+
         $product = Product::findOrFail($request->id);
         if ($product != NULL) {
 
@@ -49,8 +50,9 @@ class WishlistController extends Controller
         }
     }
 
-    public function removeWishlistProduct(Request $request)
-    {
+    public function removeWishlistProduct(Request $request) {
+        $this->authorize('edit', Auth::user());
+
         if (Auth::check()) {
             $user = Auth::user();
             $product = $user->wishlist()->where('idproduct', $request->id)->first();

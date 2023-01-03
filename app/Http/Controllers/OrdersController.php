@@ -15,28 +15,23 @@ use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller {
     public function showOrders() {
-        if (Auth::check()) {
-            // $this->authorize('show', Auth::id());
-            $user = Auth::user();
-            $userOrders = Order::where('idusers', '=', $user->id)->get();
-            //error_log($userOrders);
-        }
+        $this->authorize('show', Auth::user());
+        $user = Auth::user();
+        $userOrders = Order::where('idusers', '=', $user->id)->get();
 
         return view('pages.orders', ['userOrders' => $userOrders]);
     }
 
     public function showOrder(Request $request) {
-        error_log($request->order_id);
-        if (Auth::check()) {
-            // $this->authorize('show', Auth::id());
-            $order = Order::findOrFail($request->order_id);
-            $address = Address::findOrFail($order->idaddress);
-        }
+        $this->authorize('show', Auth::user());
+        $order = Order::findOrFail($request->order_id);
+        $address = Address::findOrFail($order->idaddress);
 
         return view('pages.order', ['order' => $order, 'address' => $address]);
     }
 
     public function addOrdersProduct(Request $request) {
+        $this->authorize('edit', Auth::user());
         if (Auth::check()) {
             $user = Auth::user();
             $order = new Order;
@@ -71,6 +66,8 @@ class OrdersController extends Controller {
     }
 
     public static function getAllOrdersWithUsername () {
+        $this->authorize('admin', Auth::user());
+        
         $allOrdersWithUsername = DB::table('orders')
                                 ->join('users', function ($join) {
                                     $join->on('orders.idusers', '=', 'users.id');

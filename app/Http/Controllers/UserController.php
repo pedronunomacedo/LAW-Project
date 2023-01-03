@@ -16,7 +16,7 @@ use Hash;
 
 class UserController extends Controller {
   public function showProfile($id) {
-      $user = User::findOrFail($id); // get the user
+      $user = User::findOrFail($id);
       
       if (!Auth()->user()->isAdmin()){
         $this->authorize('show', $user);
@@ -35,12 +35,13 @@ class UserController extends Controller {
 
   public function destroy(Request $request) {
     $this->authorize('admin', Auth::user());
+
     User::where('id', $request->id)->delete();
     return response(200);
   }
 
   public function updateProfileData($id, Request $request) {
-    $user = User::findOrFail($id); // get the user
+    $user = User::findOrFail($id);
 
     $this->authorize('editProfile', $user);
 
@@ -86,6 +87,7 @@ class UserController extends Controller {
   }
 
   public function deleteAddress(Request $request) {
+    $this->authorize('edit', Auth::user());
     if (Auth::check()) {
       $user = Auth::user();
       $address = $user->address()->where('idaddress', $request->addressID)->first();
@@ -119,12 +121,9 @@ class UserController extends Controller {
     }
   }
 
-
-
-
-
-
   public function deleteAccount() {
+    $this->authorize('edit', Auth::user());
+    
     if (Auth::check()) {
       $user = Auth::user();
       $user->delete();

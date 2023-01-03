@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class ShopCartController extends Controller {
     public function showShopCart(Request $request) {
+        $this->authorize('show', Auth::user());
 
         if (Auth::check()) {
             $user = Auth::user();
-            //$this->authorize('edit', $user);
             $products = ShopCart::where('idusers', $user->id)
                     ->join('product', function ($join) {
                         $join->on('shopcart.idproduct', '=', 'product.id');
@@ -34,8 +34,9 @@ class ShopCartController extends Controller {
         return view('pages.shopcart', ['products' => $products, 'shop_cart_totalPrice' => $shop_cart_totalPrice]);
     }
 
-    public function addShopCartProduct(Request $request)
-    {   
+    public function addShopCartProduct(Request $request) {   
+        $this->authorize('edit', Auth::user());
+
         $product = Product::findOrFail($request->id);
         if ($product != NULL) {
 
@@ -53,8 +54,9 @@ class ShopCartController extends Controller {
         }
     }
 
-    public function removeShopCartProduct(Request $request)
-    {
+    public function removeShopCartProduct(Request $request) {
+        $this->authorize('edit', Auth::user());
+
         if (Auth::check()) {
             $user = Auth::user();
             $product = $user->shopcart()->where('idproduct', $request->id)->first();
@@ -67,10 +69,10 @@ class ShopCartController extends Controller {
     }
 
     public function showCheckout(Request $request) {
+        $this->authorize('show', Auth::user());
 
         if (Auth::check()) {
             $user = Auth::user();
-            //$this->authorize('edit', $user);
             $products = $user->shopcart()->get();
 
             $user_shopcart = $user->shopcart()->get();
@@ -84,9 +86,9 @@ class ShopCartController extends Controller {
     }
 
     public function updateProductShopCart(Request $request) {
+        $this->authorize('edit', Auth::user());
         try {
             $user = Auth::user();
-            // $this->authorize('edit', $user);
 
             $product = $user->shopcart()->where('idproduct', $request->id)->first();
         } catch (\Exception $e) {
